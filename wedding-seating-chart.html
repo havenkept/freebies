@@ -121,9 +121,13 @@ body{margin:0;background:var(--cream);color:var(--charcoal);font-family:var(--fo
 #toast.show{opacity:1;transform:translateX(-50%) translateY(0);}
 
 /* FOOTER / ETSY BANNER */
-.hk-footer-banner{position:fixed;left:0;right:0;bottom:0;background:var(--warm-white);border-top:1px solid var(--border);padding:12px 18px;display:flex;align-items:center;justify-content:center;gap:14px;flex-wrap:wrap;text-align:center;z-index:200;}
-.hk-footer-banner span{font-size:12.5px;color:var(--muted);}
-.hk-footer-banner a.cta{background:var(--sage);color:#fff;text-decoration:none;padding:8px 16px;border-radius:8px;font-size:12px;letter-spacing:0.5px;font-family:var(--font-sans);}
+.hk-footer-banner{position:fixed;left:0;right:0;bottom:0;background:var(--warm-white);border-top:1px solid var(--border);padding:12px 18px;display:flex;align-items:center;justify-content:center;gap:14px;flex-wrap:wrap;text-align:center;z-index:200;transition:background 0.4s,border-color 0.4s,box-shadow 0.4s;}
+.hk-footer-banner span{font-size:12.5px;color:var(--muted);transition:color 0.4s;}
+.hk-footer-banner a.cta{background:var(--sage);color:#fff;text-decoration:none;padding:8px 16px;border-radius:8px;font-size:12px;letter-spacing:0.5px;font-family:var(--font-sans);transition:transform 0.25s,box-shadow 0.25s;}
+.hk-footer-banner.nudge{background:var(--blush-light);border-top-color:var(--blush-mid);box-shadow:0 -4px 18px rgba(0,0,0,0.08);}
+.hk-footer-banner.nudge span{color:#8a5a4a;font-weight:400;}
+.hk-footer-banner.nudge a.cta{animation:nudgeBounce 1.4s ease 3;box-shadow:0 0 0 4px rgba(125,155,118,0.25);}
+@keyframes nudgeBounce{0%,100%{transform:translateY(0);}30%{transform:translateY(-4px);}50%{transform:translateY(0);}65%{transform:translateY(-2px);}}
 
 /* EMAIL BANNER */
 #email-banner-overlay{display:none;position:fixed;inset:0;background:rgba(30,26,22,0.5);z-index:900;align-items:center;justify-content:center;padding:20px;}
@@ -206,8 +210,8 @@ body{margin:0;background:var(--cream);color:var(--charcoal);font-family:var(--fo
 <div id="toast"></div>
 
 <!-- ETSY FOOTER BANNER -->
-<div class="hk-footer-banner">
-  <span>Part of the full HavenKept Wedding Planner &mdash; budget, guest list, vendors, timeline &amp; more.</span>
+<div class="hk-footer-banner" id="hk-footer-banner">
+  <span id="hk-footer-message">Part of the full HavenKept Wedding Planner &mdash; budget, guest list, vendors, timeline &amp; more.</span>
   <a class="cta" href="https://openup.to/dskuqvaz" target="_blank" rel="noopener">See the Full Planner &rarr;</a>
 </div>
 
@@ -682,7 +686,16 @@ function maybeShowEtsyNudge(){
     state.thirdTableNudgeShown=true;
     saveState();
     setTimeout(function(){
-      toast('Like this? The full Wedding Planner adds budget, vendors & more \u2014 see footer below');
+      var banner=document.getElementById('hk-footer-banner');
+      var msg=document.getElementById('hk-footer-message');
+      var originalMsg=msg.innerHTML;
+      msg.innerHTML='Loving this? The full Wedding Planner adds budget, guest list, vendors &amp; more \u2014';
+      banner.classList.add('nudge');
+      banner.scrollIntoView({behavior:'smooth',block:'end'});
+      setTimeout(function(){
+        banner.classList.remove('nudge');
+        msg.innerHTML=originalMsg;
+      },6000);
     },400);
   }
 }
