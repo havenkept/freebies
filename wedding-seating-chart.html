@@ -63,6 +63,8 @@ body{margin:0;background:var(--cream);color:var(--charcoal);font-family:var(--fo
 .stat-num{font-family:var(--font-serif);font-size:34px;line-height:1.1;}
 .stat-label{font-size:9.5px;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted);margin-top:4px;}
 @media(max-width:680px){.stats-row{grid-template-columns:repeat(2,1fr);}}
+.instructions-card{background:var(--warm-white);border:1px solid var(--border);border-radius:12px;padding:12px 16px;font-size:12.5px;line-height:1.55;color:#5A5550;flex:1 1 320px;}
+.instructions-card b{color:var(--sage-dark);font-weight:500;}
 
 /* SEATING LAYOUT */
 .seating-layout{display:grid;grid-template-columns:200px 1fr;gap:16px;align-items:start;}
@@ -162,6 +164,7 @@ body{margin:0;background:var(--cream);color:var(--charcoal);font-family:var(--fo
   </div>
 
   <div class="page-header">
+    <div class="instructions-card"><b>Instructions:</b> Add your guests. Drag &amp; drop guests onto a seat (or tap a guest, then tap a seat on mobile). Arrange your table layouts, rename tables and adjust the shape &amp; seats available.</div>
     <div style="margin-left:auto;display:flex;gap:10px;flex-wrap:wrap;">
       <button class="btn-ghost" onclick="openKeepApartModal()">Keep Apart Rules</button>
       <button class="btn-add" id="add-table-btn" onclick="addTable()">+ Add Table</button>
