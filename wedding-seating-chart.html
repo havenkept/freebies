@@ -1,0 +1,727 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Free Wedding Seating Chart Planner | HavenKept</title>
+<meta name="description" content="Plan your wedding reception seating chart free, right in your browser. Drag and drop guests, avoid awkward pairings, and see your floor plan come together.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --blush:#F2D5C8;--blush-light:#FAF0EC;--blush-mid:#E8B9A8;
+  --sage:#7D9B76;--sage-light:#C5D5C2;--sage-dark:#4A6645;
+  --cream:#FBF7F2;--cream-dark:#F0E8DE;--warm-white:#FEFCFA;
+  --charcoal:#2C2C2C;--muted:#8A8480;--muted-light:#B8B4B0;
+  --border:#E8DDD5;--border-light:#F0E8E0;
+  --gold:#C4A882;--gold-light:#EAD9C0;
+  --font-serif:'Cormorant Garamond',Georgia,serif;--font-script:var(--font-serif);
+  --font-sans:'Jost',system-ui,sans-serif;
+}
+*{box-sizing:border-box;}
+body{margin:0;background:var(--cream);color:var(--charcoal);font-family:var(--font-sans);font-weight:300;-webkit-font-smoothing:antialiased;}
+.wrap{max-width:1100px;margin:0 auto;padding:28px 22px 120px;}
+
+/* HEADER */
+.hk-header{text-align:center;padding:10px 0 26px;border-bottom:1px solid var(--border);margin-bottom:26px;}
+.hk-wordmark{font-family:var(--font-script);font-size:20px;color:var(--sage-dark);letter-spacing:0.5px;}
+.hk-title{font-family:var(--font-script);font-size:38px;font-weight:300;margin:6px 0 4px;}
+.hk-sub{font-size:13px;color:var(--muted);letter-spacing:0.5px;max-width:520px;margin:0 auto;line-height:1.5;}
+
+/* GUEST FORM */
+.add-guest-row{display:flex;gap:8px;flex-wrap:wrap;background:var(--warm-white);border:1px solid var(--border);border-radius:12px;padding:14px;margin-bottom:18px;align-items:center;}
+.add-guest-row input[type=text]{flex:1 1 200px;min-width:140px;padding:10px 12px;border:1px solid var(--border);border-radius:8px;background:var(--cream);font-family:var(--font-sans);font-size:14px;color:var(--charcoal);outline:none;}
+.add-guest-row input[type=text]:focus{border-color:var(--sage);background:#fff;}
+.add-guest-row select{padding:10px 12px;border:1px solid var(--border);border-radius:8px;background:var(--cream);font-family:var(--font-sans);font-size:13px;color:var(--charcoal);outline:none;}
+.cap-note{font-size:11px;color:var(--muted);width:100%;margin-top:4px;}
+
+/* PAGE HEADER ROW */
+.page-header{display:flex;align-items:center;gap:16px;margin-bottom:18px;flex-wrap:wrap;}
+.page-title{font-family:var(--font-script);font-size:30px;font-weight:300;color:var(--charcoal);}
+.page-sub{font-size:11px;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted);}
+
+/* BUTTONS */
+.btn-add{background:var(--sage);color:white;border:none;border-radius:8px;padding:9px 16px;font-size:12px;letter-spacing:1px;text-transform:uppercase;cursor:pointer;font-family:var(--font-sans);font-weight:500;transition:0.2s;white-space:nowrap;}
+.btn-add:hover{background:var(--sage-dark);}
+.btn-add:disabled{background:var(--muted-light);cursor:not-allowed;}
+.btn-ghost{background:var(--warm-white);color:var(--sage-dark);border:1px solid var(--sage-light);border-radius:8px;padding:8px 14px;font-size:12px;letter-spacing:1px;text-transform:uppercase;cursor:pointer;font-family:var(--font-sans);transition:0.2s;white-space:nowrap;}
+.btn-ghost:hover{background:var(--sage-light);}
+
+/* LEGEND */
+.cal-legend{display:flex;gap:14px;flex-wrap:wrap;margin-bottom:14px;padding:10px 14px;background:var(--warm-white);border:1px solid var(--border);border-radius:8px;align-items:center;}
+.cal-legend-item{display:flex;align-items:center;gap:6px;font-size:11px;color:var(--muted);}
+.cal-legend-dot{width:10px;height:10px;border-radius:3px;flex-shrink:0;}
+
+/* STATS */
+.stats-row{display:flex;gap:22px;margin-bottom:16px;flex-wrap:wrap;}
+.stat-item{text-align:center;}
+.stat-num{font-family:var(--font-serif);font-size:24px;}
+.stat-label{font-size:9px;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted);}
+
+/* SEATING LAYOUT */
+.seating-layout{display:grid;grid-template-columns:200px 1fr;gap:16px;align-items:start;}
+.unseated-pool{background:var(--warm-white);border:1px solid var(--border);border-radius:12px;padding:14px;align-self:start;position:sticky;top:16px;max-height:calc(100vh - 200px);overflow-y:auto;}
+.unseated-title{font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--muted);margin-bottom:10px;}
+.unseated-list{display:flex;flex-direction:column;gap:5px;min-height:40px;}
+.unseated-guest{background:var(--blush-light);border:1px solid var(--border);border-radius:8px;padding:8px 10px;font-size:12.5px;cursor:grab;display:flex;align-items:center;gap:8px;transition:0.15s;}
+.unseated-guest.selected{background:var(--sage-light);border-color:var(--sage);box-shadow:0 0 0 2px var(--sage);}
+.unseated-guest:active{cursor:grabbing;}
+.unseated-guest .drag-icon{color:var(--muted);font-size:11px;}
+.unseated-empty{color:var(--muted);font-style:italic;font-size:12px;text-align:center;padding:16px 0;}
+
+/* FLOOR PLAN */
+.floor-plan-wrap{background:var(--warm-white);border:1px solid var(--border);border-radius:12px;padding:4px;overflow:auto;min-height:420px;}
+.floor-plan-canvas{position:relative;min-width:700px;min-height:420px;background-image:radial-gradient(circle,var(--border-light) 1.5px,transparent 1.5px);background-size:26px 26px;border-radius:8px;}
+.fp-table{position:absolute;}
+.fp-table-body{position:absolute;background:var(--warm-white);border:2px solid var(--border);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:1px;box-shadow:0 2px 8px rgba(44,44,44,0.08);cursor:grab;touch-action:none;}
+.fp-table-body.fp-table-round{border-radius:50%;}
+.fp-table-body.fp-table-rect{border-radius:10px;}
+.fp-table-body.full{border-color:var(--gold);}
+.fp-table.dragging .fp-table-body{cursor:grabbing;box-shadow:0 6px 16px rgba(44,44,44,0.18);}
+.fp-table-name{border:none;background:transparent;text-align:center;font-family:var(--font-sans);font-size:11.5px;font-weight:500;color:var(--charcoal);width:82%;outline:none;cursor:text;}
+.fp-table-count{font-size:9.5px;color:var(--muted);}
+.fp-table-controls{position:absolute;left:-32px;top:50%;transform:translateY(-50%);display:flex;flex-direction:column;gap:4px;z-index:5;}
+.fp-icon-btn{width:19px;height:19px;border-radius:50%;background:white;border:1px solid var(--border);display:flex;align-items:center;justify-content:center;font-size:11px;line-height:1;cursor:pointer;color:var(--muted);padding:0;}
+.fp-icon-btn:hover{color:var(--sage-dark);border-color:var(--sage);}
+.fp-icon-btn.danger:hover{color:#b05a5a;border-color:#e8c8c8;}
+.fp-seat{position:absolute;width:28px;height:28px;border-radius:50%;background:white;border:1.5px solid var(--border);display:flex;align-items:center;justify-content:center;font-size:9px;font-weight:600;color:var(--muted-light);cursor:pointer;transition:0.15s;user-select:none;}
+.fp-seat.empty:hover{border-color:var(--sage);color:var(--sage-dark);}
+.fp-seat.filled{color:var(--charcoal);border-color:var(--border);background:var(--cream-dark);}
+.fp-seat.tap-target{border-color:var(--sage);box-shadow:0 0 0 3px var(--sage-light);}
+.fp-seat.drag-over{border-color:var(--sage);box-shadow:0 0 0 3px var(--sage-light);}
+.fp-seat.side-bride{background:var(--sage-light);border-color:var(--sage);color:var(--sage-dark);}
+.fp-seat.side-groom{background:var(--gold-light);border-color:var(--gold);color:#7A5A2A;}
+.fp-seat.side-both{background:var(--blush-light);border-color:var(--blush-mid);color:#9A5A4A;}
+.fp-table.drag-over .fp-table-body{border-color:var(--sage);box-shadow:0 0 0 3px var(--sage-light);}
+.fp-conflict-badge{position:absolute;top:-9px;left:calc(50% - 9px);width:18px;height:18px;border-radius:50%;background:#F5E0E0;border:1.5px solid #b05a5a;color:#b05a5a;display:flex;align-items:center;justify-content:center;font-size:10px;z-index:6;}
+
+@media(max-width:680px){
+  .seating-layout{grid-template-columns:1fr;}
+  .unseated-pool{position:static;}
+  .unseated-list{flex-direction:row;flex-wrap:wrap;}
+  .unseated-guest{flex:none;}
+  .fp-table-controls{left:auto;right:-32px;}
+}
+
+/* MODAL */
+.modal-overlay{display:none;position:fixed;inset:0;background:rgba(44,44,44,0.45);z-index:700;align-items:center;justify-content:center;padding:20px;}
+.modal-overlay.open{display:flex;}
+.modal-box{background:var(--warm-white);border:1px solid var(--border);border-radius:16px;padding:28px;max-width:480px;width:100%;max-height:85vh;display:flex;flex-direction:column;position:relative;overflow-y:auto;}
+.modal-title{font-family:var(--font-script);font-size:24px;font-weight:300;margin-bottom:4px;color:var(--charcoal);}
+.modal-sub{font-size:12px;color:var(--muted);margin-bottom:18px;}
+.modal-footer{display:flex;gap:10px;justify-content:flex-end;margin-top:18px;flex-shrink:0;}
+.modal-close{background:none;border:none;cursor:pointer;font-size:20px;color:var(--muted);position:absolute;top:14px;right:16px;line-height:1;}
+.ka-row{display:flex;gap:8px;margin-bottom:14px;flex-wrap:wrap;}
+.ka-row select{flex:1 1 140px;padding:9px 10px;border:1px solid var(--border);border-radius:8px;background:var(--cream);font-family:var(--font-sans);font-size:13px;outline:none;}
+.ka-list{display:flex;flex-direction:column;gap:6px;}
+
+/* TOAST */
+#toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%) translateY(20px);background:var(--charcoal);color:#fff;padding:10px 20px;border-radius:8px;font-size:13px;font-family:var(--font-sans);opacity:0;pointer-events:none;transition:0.25s;z-index:1000;}
+#toast.show{opacity:1;transform:translateX(-50%) translateY(0);}
+
+/* FOOTER / ETSY BANNER */
+.hk-footer-banner{position:fixed;left:0;right:0;bottom:0;background:var(--warm-white);border-top:1px solid var(--border);padding:12px 18px;display:flex;align-items:center;justify-content:center;gap:14px;flex-wrap:wrap;text-align:center;z-index:200;}
+.hk-footer-banner span{font-size:12.5px;color:var(--muted);}
+.hk-footer-banner a.cta{background:var(--sage);color:#fff;text-decoration:none;padding:8px 16px;border-radius:8px;font-size:12px;letter-spacing:0.5px;font-family:var(--font-sans);}
+
+/* EMAIL BANNER */
+#email-banner-overlay{display:none;position:fixed;inset:0;background:rgba(30,26,22,0.5);z-index:900;align-items:center;justify-content:center;padding:20px;}
+.email-banner-box{background:#fff;border-radius:16px;padding:30px 26px;max-width:420px;width:100%;text-align:center;position:relative;}
+.email-banner-box .close-x{position:absolute;top:12px;right:14px;background:none;border:none;font-size:18px;color:var(--muted);cursor:pointer;}
+</style>
+</head>
+<body>
+
+<div class="wrap">
+  <div class="hk-header">
+    <div class="hk-wordmark">HavenKept</div>
+    <div class="hk-title">Free Wedding Seating Chart</div>
+    <div class="hk-sub">Drag and drop your guests into a real floor plan, right in your browser. Nothing to download, nothing to sign up for.</div>
+  </div>
+
+  <div class="add-guest-row">
+    <input type="text" id="new-guest-name" placeholder="Guest name" maxlength="60" onkeydown="if(event.key==='Enter')addGuestFromForm()"/>
+    <select id="new-guest-party">
+      <option value="Bride Side">Bride Side</option>
+      <option value="Groom Side">Groom Side</option>
+      <option value="Both">Both</option>
+      <option value="Other">Family / Friends / Other</option>
+    </select>
+    <button class="btn-add" id="add-guest-btn" onclick="addGuestFromForm()">+ Add Guest</button>
+    <div class="cap-note" id="guest-cap-note"></div>
+  </div>
+
+  <div class="page-header">
+    <div>
+      <div class="page-title">Seating Chart</div>
+      <div class="page-sub" id="seating-sub">Tap a guest, then tap a seat — or drag &amp; drop</div>
+    </div>
+    <div style="margin-left:auto;display:flex;gap:10px;flex-wrap:wrap;">
+      <button class="btn-ghost" onclick="openKeepApartModal()">Keep Apart Rules</button>
+      <button class="btn-add" id="add-table-btn" onclick="addTable()">+ Add Table</button>
+    </div>
+  </div>
+
+  <div class="stats-row" id="seating-stats-bar"></div>
+
+  <div class="cal-legend" id="seating-legend">
+    <div class="cal-legend-item"><div class="cal-legend-dot" style="background:var(--sage-light);border:1px solid var(--sage);"></div>Bride Side</div>
+    <div class="cal-legend-item"><div class="cal-legend-dot" style="background:var(--gold-light);border:1px solid var(--gold);"></div>Groom Side</div>
+    <div class="cal-legend-item"><div class="cal-legend-dot" style="background:var(--blush-light);border:1px solid var(--blush-mid);"></div>Both</div>
+    <div class="cal-legend-item"><div class="cal-legend-dot" style="background:white;border:1px solid var(--border);"></div>Family / Friends / Other</div>
+  </div>
+
+  <div class="seating-layout">
+    <div class="unseated-pool" id="unseated-pool-wrap" ondragover="event.preventDefault();this.classList.add('drag-over')" ondragleave="this.classList.remove('drag-over')" ondrop="dropToUnseated(event)">
+      <div class="unseated-title">Unseated Guests</div>
+      <div class="unseated-list" id="unseated-list"></div>
+    </div>
+    <div style="min-width:0;">
+      <div class="floor-plan-wrap" id="floor-plan-wrap">
+        <div class="floor-plan-canvas" id="floor-plan-canvas"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- KEEP APART MODAL -->
+<div class="modal-overlay" id="keep-apart-modal">
+  <div class="modal-box">
+    <button class="modal-close" onclick="document.getElementById('keep-apart-modal').classList.remove('open')">&times;</button>
+    <div class="modal-title">Keep Apart Rules</div>
+    <div class="modal-sub">Get a warning if two guests end up at the same table.</div>
+    <div class="ka-row">
+      <select id="ka-guest-a"><option value="">Select guest…</option></select>
+      <select id="ka-guest-b"><option value="">Select guest…</option></select>
+      <button class="btn-add" onclick="addKeepApartRule()">Add</button>
+    </div>
+    <div class="ka-list" id="keep-apart-list"></div>
+    <div class="modal-footer">
+      <button class="btn-ghost" onclick="document.getElementById('keep-apart-modal').classList.remove('open')">Close</button>
+    </div>
+  </div>
+</div>
+
+<div id="toast"></div>
+
+<!-- ETSY FOOTER BANNER -->
+<div class="hk-footer-banner">
+  <span>Part of the full HavenKept Wedding Planner &mdash; budget, guest list, vendors, timeline &amp; more.</span>
+  <a class="cta" href="https://www.etsy.com/shop/HavenKept" target="_blank" rel="noopener">See the Full Planner &rarr;</a>
+</div>
+
+<!-- EMAIL CAPTURE BANNER -->
+<div id="email-banner-overlay">
+  <div class="email-banner-box">
+    <button class="close-x" onclick="dismissEmailBanner()">&times;</button>
+    <div id="email-banner-offer">
+      <div style="font-family:var(--font-script);font-weight:300;font-size:24px;color:var(--charcoal);margin-bottom:8px;">Enjoying this?</div>
+      <p style="font-size:13.5px;line-height:1.55;color:#5A5550;margin:0 0 16px;">Enter your email for 25% off the full HavenKept Wedding Planner. This offer is only shown once.</p>
+      <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:10px;">
+        <input type="email" id="email-banner-input" placeholder="you@email.com" style="flex:1;min-width:180px;border:1px solid var(--border);border-radius:8px;padding:10px 12px;font-family:var(--font-sans);font-size:13.5px;background:var(--cream);color:var(--charcoal);"/>
+        <button onclick="claimEmailOffer()" style="background:var(--sage);color:#fff;border:none;border-radius:8px;padding:10px 18px;font-family:var(--font-sans);font-size:13.5px;font-weight:500;cursor:pointer;white-space:nowrap;">Claim my code</button>
+      </div>
+      <button onclick="dismissEmailBanner()" style="background:none;border:none;color:#8A8480;font-size:12px;text-decoration:underline;cursor:pointer;padding:0;">No thanks</button>
+    </div>
+    <div id="email-banner-success" style="display:none;text-align:center;">
+      <div style="font-family:var(--font-script);font-weight:300;font-size:22px;color:var(--charcoal);margin-bottom:12px;">Here's your code!</div>
+      <div style="background:var(--blush-light);color:#9A5A4A;font-family:var(--font-sans);font-weight:500;font-size:18px;letter-spacing:2px;padding:12px;border-radius:8px;margin-bottom:12px;">WELCOME25</div>
+      <p style="font-size:12.5px;line-height:1.5;color:#5A5550;margin:0 0 16px;">We also sent this to your email for safekeeping.</p>
+      <button onclick="dismissEmailBanner()" style="background:var(--sage);color:#fff;border:none;border-radius:8px;padding:10px 20px;font-family:var(--font-sans);font-size:13.5px;font-weight:500;cursor:pointer;">Done</button>
+    </div>
+  </div>
+</div>
+
+<script>
+// ===== CONFIG =====
+var MAX_TABLES=6, MAX_GUESTS=60;
+var STORAGE_KEY='hkFreebieSeatingChart';
+
+// ===== STATE =====
+var state={guests:[],tables:[],seatingConflicts:[],emailBannerShown:false,thirdTableNudgeShown:false};
+(function load(){
+  try{
+    var raw=localStorage.getItem(STORAGE_KEY);
+    if(raw)state=JSON.parse(raw);
+  }catch(e){}
+  if(!state.tables||!state.tables.length){
+    state.tables=[
+      {name:'Head Table',seats:['','','','',''],shape:'round'},
+      {name:'Table 1',seats:['','','','',''],shape:'round'},
+      {name:'Table 2',seats:['','','','',''],shape:'round'}
+    ];
+  }
+  state.guests=state.guests||[];
+  state.seatingConflicts=state.seatingConflicts||[];
+})();
+
+function saveState(){
+  try{localStorage.setItem(STORAGE_KEY,JSON.stringify(state));}catch(e){}
+}
+
+function toast(msg){
+  var t=document.getElementById('toast');
+  t.textContent=msg;t.classList.add('show');
+  clearTimeout(window._toastTimer);
+  window._toastTimer=setTimeout(function(){t.classList.remove('show');},2500);
+}
+
+// ===== GUESTS =====
+function addGuestFromForm(){
+  var nameEl=document.getElementById('new-guest-name');
+  var partyEl=document.getElementById('new-guest-party');
+  var name=nameEl.value.trim();
+  if(!name){toast('Enter a guest name');return;}
+  if(state.guests.length>=MAX_GUESTS){toast('This free tool tops out at '+MAX_GUESTS+' guests — the full planner has no limit');return;}
+  state.guests.push({name:name,party:partyEl.value});
+  nameEl.value='';
+  saveState();
+  renderSeating();
+  updateGuestCapNote();
+}
+function updateGuestCapNote(){
+  var note=document.getElementById('guest-cap-note');
+  var btn=document.getElementById('add-guest-btn');
+  var n=state.guests.length;
+  if(n>=MAX_GUESTS){
+    note.textContent='You\u2019ve reached the '+MAX_GUESTS+'-guest limit on this free tool. The full Wedding Planner has no limit.';
+    btn.disabled=true;
+  }else{
+    note.textContent=n+' / '+MAX_GUESTS+' guests added';
+    btn.disabled=false;
+  }
+}
+
+var dragSrc=null,tappedGuestKey=null,tappedGuestName=null;
+
+function renderUnseatedPool(){
+  var wrap=document.getElementById('unseated-list');if(!wrap)return;
+  var seatCounts={};
+  (state.tables||[]).forEach(function(t){t.seats.forEach(function(seat){if(seat)seatCounts[seat]=(seatCounts[seat]||0)+1;});});
+  var claimed={};
+  var people=[];
+  (state.guests||[]).forEach(function(g,gi){
+    var gClaimed=claimed[g.name]||0;
+    if(gClaimed<(seatCounts[g.name]||0)){claimed[g.name]=gClaimed+1;}
+    else{people.push({name:g.name,key:'g'+gi});}
+  });
+  if(!people.length){
+    wrap.innerHTML='<div class="unseated-empty">'+(state.guests.length?'Everyone is seated \u2665':'Add a guest above to get started.')+'</div>';
+    return;
+  }
+  wrap.innerHTML=people.map(function(p){
+    var safeName=p.name.replace(/'/g,"\\'");
+    var sel=tappedGuestKey===p.key?' selected':'';
+    return '<div class="unseated-guest'+sel+'" draggable="true" ondragstart="dragGuestFromPool(event,\''+safeName+'\')" ondragend="dragEndGuest(event)" onclick="tapGuestFromPool(\''+p.key+'\',\''+safeName+'\')" data-name="'+p.name+'"><span class="drag-icon">\u283F</span>'+p.name+'</div>';
+  }).join('');
+}
+
+function renderSeating(){
+  renderUnseatedPool();
+  updateSeatingStats();
+  renderSeatingFloorPlan();
+}
+
+function updateSeatingStats(){
+  var bar=document.getElementById('seating-stats-bar');if(!bar)return;
+  var seatCounts={};
+  (state.tables||[]).forEach(function(t){t.seats.forEach(function(seat){if(seat)seatCounts[seat]=(seatCounts[seat]||0)+1;});});
+  var claimed={};
+  var totalToSeat=0,seatedCount=0;
+  (state.guests||[]).forEach(function(g){
+    totalToSeat++;
+    var gClaimed=claimed[g.name]||0;
+    if(gClaimed<(seatCounts[g.name]||0)){claimed[g.name]=gClaimed+1;seatedCount++;}
+  });
+  var unseatedCount=totalToSeat-seatedCount;
+  var tablesCount=(state.tables||[]).length;
+  var totalSeats=(state.tables||[]).reduce(function(a,t){return a+t.seats.length;},0);
+  bar.innerHTML=
+    '<div class="stat-item"><div class="stat-num">'+totalToSeat+'</div><div class="stat-label">Guests</div></div>'+
+    '<div class="stat-item"><div class="stat-num" style="color:var(--sage-dark);">'+seatedCount+'</div><div class="stat-label">Seated</div></div>'+
+    '<div class="stat-item"><div class="stat-num" style="color:'+(unseatedCount>0?'#b05a5a':'var(--muted)')+';">'+unseatedCount+'</div><div class="stat-label">Unseated</div></div>'+
+    '<div class="stat-item"><div class="stat-num">'+tablesCount+' / '+MAX_TABLES+'</div><div class="stat-label">Tables</div></div>'+
+    '<div class="stat-item"><div class="stat-num">'+totalSeats+'</div><div class="stat-label">Total Seats</div></div>';
+}
+
+// ===== FLOOR PLAN =====
+function ensureTableLayout(){
+  (state.tables||[]).forEach(function(t,i){
+    if(t.shape!=='round'&&t.shape!=='rect')t.shape='round';
+    if(typeof t.x!=='number'||typeof t.y!=='number'){
+      var pos=tablePositionForIndex(i);
+      t.x=pos.x;t.y=pos.y;
+    }
+  });
+}
+function tablePositionForIndex(i){
+  var col=i%3,row=Math.floor(i/3);
+  return {x:48+col*250,y:36+row*220};
+}
+function getSeatPartyInfo(name){
+  var map={'Bride Side':'bride','Groom Side':'groom','Both':'both'};
+  var g=(state.guests||[]).find(function(x){return x.name===name;});
+  var party=g?g.party:null;
+  return {slug:map[party]||null};
+}
+function fpTableGeometry(t){
+  var n=Math.max(t.seats.length,1);
+  var seatSize=28;
+  if(t.shape==='rect'){
+    var w=Math.max(120,Math.min(260,50+n*16));
+    var h=60;
+    var gap=24;
+    var sideBySide=t.layout==='sweetheart'&&n<=2;
+    var topCount=sideBySide?n:Math.ceil(n/2),botCount=sideBySide?0:n-topCount;
+    if(!t.rotated){
+      var containerW=w+seatSize+16;
+      var containerH=h+2*(gap+seatSize/2)+8;
+      var tableLeft=(containerW-w)/2,tableTop=(containerH-h)/2;
+      var seats=[];
+      for(var i=0;i<topCount;i++){
+        var sx=tableLeft+(w/(topCount+1))*(i+1);
+        seats.push({left:sx-seatSize/2,top:tableTop-gap-seatSize/2});
+      }
+      for(var i2=0;i2<botCount;i2++){
+        var sx2=tableLeft+(w/(botCount+1))*(i2+1);
+        seats.push({left:sx2-seatSize/2,top:tableTop+h+gap-seatSize/2});
+      }
+      return {containerW:containerW,containerH:containerH,tableLeft:tableLeft,tableTop:tableTop,tableW:w,tableH:h,seats:seats};
+    }else{
+      var containerH2=w+seatSize+16;
+      var containerW2=h+2*(gap+seatSize/2)+8;
+      var tableLeft2=(containerW2-h)/2,tableTop2=(containerH2-w)/2;
+      var seats2=[];
+      for(var i3=0;i3<topCount;i3++){
+        var sy=tableTop2+(w/(topCount+1))*(i3+1);
+        seats2.push({left:tableLeft2-gap-seatSize/2,top:sy-seatSize/2});
+      }
+      for(var i4=0;i4<botCount;i4++){
+        var sy2=tableTop2+(w/(botCount+1))*(i4+1);
+        seats2.push({left:tableLeft2+h+gap-seatSize/2,top:sy2-seatSize/2});
+      }
+      return {containerW:containerW2,containerH:containerH2,tableLeft:tableLeft2,tableTop:tableTop2,tableW:h,tableH:w,seats:seats2};
+    }
+  }else{
+    var d=Math.max(74,Math.min(190,26+n*12));
+    var ringR=d/2+26;
+    var containerSize=2*ringR+seatSize+4;
+    var cx=containerSize/2,cy=containerSize/2;
+    var seats3=[];
+    for(var k=0;k<n;k++){
+      var angle=(2*Math.PI*k/n)-Math.PI/2;
+      seats3.push({left:cx+ringR*Math.cos(angle)-seatSize/2,top:cy+ringR*Math.sin(angle)-seatSize/2});
+    }
+    return {containerW:containerSize,containerH:containerSize,tableLeft:cx-d/2,tableTop:cy-d/2,tableW:d,tableH:d,seats:seats3};
+  }
+}
+function renderSeatingFloorPlan(){
+  ensureTableLayout();
+  var canvas=document.getElementById('floor-plan-canvas');if(!canvas)return;
+  var tables=state.tables||[];
+  if(!tables.length){
+    canvas.innerHTML='<div class="unseated-empty" style="padding:60px 0;">No tables yet \u2014 click "+ Add Table" to start your floor plan.</div>';
+    canvas.style.minWidth='';canvas.style.minHeight='';
+    return;
+  }
+  var maxX=300,maxY=300;
+  var html=tables.map(function(t,ti){
+    var geo=fpTableGeometry(t);
+    var x=t.x||0,y=t.y||0;
+    maxX=Math.max(maxX,x+geo.containerW+40);
+    maxY=Math.max(maxY,y+geo.containerH+40);
+    var seatedCount=t.seats.filter(function(s){return s;}).length;
+    var isFull=seatedCount===t.seats.length&&t.seats.length>0;
+    var hasConflict=tableHasConflict(t);
+    var seatsHtml=t.seats.map(function(s,si){
+      var pos=geo.seats[si]||{left:0,top:0};
+      var info=s?getSeatPartyInfo(s):null;
+      var sideClass=info&&info.slug?(' side-'+info.slug):'';
+      var initials=s?s.trim().split(/\s+/).map(function(w){return w[0];}).slice(0,2).join('').toUpperCase():'';
+      var isTapTarget=tappedGuestKey&&!s;
+      var safeTitle=(s?s:'Empty seat '+(si+1)).replace(/"/g,'&quot;');
+      return '<div class="fp-seat'+(s?' filled'+sideClass:' empty')+(isTapTarget?' tap-target':'')+'" '+
+        'style="left:'+pos.left+'px;top:'+pos.top+'px;" title="'+safeTitle+'" '+
+        (s?('draggable="true" ondragstart="dragGuest(event,'+ti+','+si+')" ondragend="dragEndGuest(event)" '):'')+
+        'onclick="tapFpSeat('+ti+','+si+')" '+
+        'ondragover="event.preventDefault();event.stopPropagation();this.classList.add(\'drag-over\')" '+
+        'ondragleave="this.classList.remove(\'drag-over\')" '+
+        'ondrop="event.stopPropagation();dropGuestToSeat(event,'+ti+','+si+')">'+
+        (s?initials:(si+1))+
+      '</div>';
+    }).join('');
+    var safeName=t.name.replace(/"/g,'&quot;');
+    return '<div class="fp-table" data-table="'+ti+'" style="left:'+x+'px;top:'+y+'px;width:'+geo.containerW+'px;height:'+geo.containerH+'px;">'+
+      '<div class="fp-table-body'+(t.shape==='rect'?' fp-table-rect':' fp-table-round')+(isFull?' full':'')+'" '+
+        'style="left:'+geo.tableLeft+'px;top:'+geo.tableTop+'px;width:'+geo.tableW+'px;height:'+geo.tableH+'px;" '+
+        'onpointerdown="fpTablePointerDown(event,'+ti+')" '+
+        'ondragover="event.preventDefault();this.parentElement.classList.add(\'drag-over\')" ondragleave="this.parentElement.classList.remove(\'drag-over\')" ondrop="dropGuest(event,'+ti+')">'+
+        '<input class="fp-table-name" value="'+safeName+'" onchange="updateTableName('+ti+',this.value)" onpointerdown="event.stopPropagation()" onclick="event.stopPropagation()"/>'+
+        '<div class="fp-table-count">'+seatedCount+'/'+t.seats.length+'</div>'+
+      '</div>'+
+      (hasConflict?'<div class="fp-conflict-badge" title="Keep Apart rule violated at this table">\u26A0</div>':'')+
+      '<div class="fp-table-controls">'+
+        '<button class="fp-icon-btn" title="Switch table shape" onclick="event.stopPropagation();toggleTableShape('+ti+')">\u21FE</button>'+
+        (t.shape==='rect'?('<button class="fp-icon-btn" title="Rotate table" onclick="event.stopPropagation();rotateTable('+ti+')">\u21BB</button>'):'')+
+        (t.shape==='rect'&&t.seats.length<=2?('<button class="fp-icon-btn" title="Toggle head-table layout" onclick="event.stopPropagation();toggleTableLayout('+ti+')">'+(t.layout==='sweetheart'?'\u21D5':'\u21D4')+'</button>'):'')+
+        '<button class="fp-icon-btn" title="Add seat" onclick="event.stopPropagation();addSeat('+ti+')">+</button>'+
+        '<button class="fp-icon-btn" title="Remove empty seat" onclick="event.stopPropagation();removeSeat('+ti+')">\u2212</button>'+
+        '<button class="fp-icon-btn danger" title="Remove table" onclick="event.stopPropagation();removeTable('+ti+')">\u00D7</button>'+
+      '</div>'+
+      seatsHtml+
+    '</div>';
+  }).join('');
+  canvas.innerHTML=html;
+  canvas.style.minWidth=maxX+'px';
+  canvas.style.minHeight=Math.max(maxY,420)+'px';
+}
+function fpTablePointerDown(e,ti){
+  if(e.target.tagName==='INPUT')return;
+  e.preventDefault();
+  var tableEl=e.currentTarget.closest('.fp-table');
+  var startLeft=parseFloat(tableEl.style.left)||0;
+  var startTop=parseFloat(tableEl.style.top)||0;
+  var startX=e.clientX,startY=e.clientY;
+  var moved=false;
+  tableEl.classList.add('dragging');
+  function onMove(ev){
+    var dx=ev.clientX-startX,dy=ev.clientY-startY;
+    if(Math.abs(dx)>3||Math.abs(dy)>3)moved=true;
+    tableEl.style.left=Math.max(40,startLeft+dx)+'px';
+    tableEl.style.top=Math.max(0,startTop+dy)+'px';
+  }
+  function onUp(){
+    window.removeEventListener('pointermove',onMove);
+    window.removeEventListener('pointerup',onUp);
+    tableEl.classList.remove('dragging');
+    if(moved){
+      state.tables[ti].x=parseFloat(tableEl.style.left);
+      state.tables[ti].y=parseFloat(tableEl.style.top);
+      saveState();
+      var canvas=document.getElementById('floor-plan-canvas');
+      var geo=fpTableGeometry(state.tables[ti]);
+      var needW=state.tables[ti].x+geo.containerW+40;
+      var needH=state.tables[ti].y+geo.containerH+40;
+      if(needW>parseFloat(canvas.style.minWidth||0))canvas.style.minWidth=needW+'px';
+      if(needH>parseFloat(canvas.style.minHeight||0))canvas.style.minHeight=needH+'px';
+    }
+  }
+  window.addEventListener('pointermove',onMove);
+  window.addEventListener('pointerup',onUp);
+}
+function toggleTableShape(ti){
+  state.tables[ti].shape=(state.tables[ti].shape==='rect')?'round':'rect';
+  saveState();renderSeating();
+}
+function rotateTable(ti){
+  state.tables[ti].rotated=!state.tables[ti].rotated;
+  saveState();renderSeating();
+}
+function toggleTableLayout(ti){
+  state.tables[ti].layout=(state.tables[ti].layout==='sweetheart')?'':'sweetheart';
+  saveState();renderSeating();
+}
+function removeSeat(ti){
+  var t=state.tables[ti];
+  if(t.seats.length<=1){toast('Table needs at least 1 seat');return;}
+  var idx=-1;
+  for(var i=t.seats.length-1;i>=0;i--){if(!t.seats[i]){idx=i;break;}}
+  if(idx===-1){toast('All seats are filled \u2014 remove a guest first');return;}
+  t.seats.splice(idx,1);
+  saveState();renderSeating();
+}
+function dropGuestToSeat(e,ti,si){
+  e.preventDefault();e.currentTarget.classList.remove('drag-over');
+  if(!dragSrc)return;
+  if(!dragSrc.fromPool&&dragSrc.ti===ti&&dragSrc.si===si){dragSrc=null;return;}
+  if(state.tables[ti].seats[si]){toast('That seat is taken');dragSrc=null;return;}
+  state.tables[ti].seats[si]=dragSrc.name;
+  if(!dragSrc.fromPool)state.tables[dragSrc.ti].seats[dragSrc.si]='';
+  dragSrc=null;saveState();renderSeating();
+  checkSeatingConflicts(ti);
+}
+function tapFpSeat(ti,si){
+  var current=state.tables[ti].seats[si];
+  if(tappedGuestName){
+    if(current){toast('That seat is taken');return;}
+    state.tables[ti].seats[si]=tappedGuestName;
+    tappedGuestKey=null;tappedGuestName=null;
+    saveState();renderSeating();
+    checkSeatingConflicts(ti);
+    return;
+  }
+  if(current){
+    state.tables[ti].seats[si]='';
+    saveState();renderSeating();
+  }
+}
+
+// DRAG
+function dragGuest(e,ti,si){
+  dragSrc={fromPool:false,ti:ti,si:si,name:state.tables[ti].seats[si]};if(e.dataTransfer)e.dataTransfer.effectAllowed='move';
+}
+function dragGuestFromPool(e,name){dragSrc={fromPool:true,name:name};if(e.dataTransfer)e.dataTransfer.effectAllowed='move';}
+function dragEndGuest(e){
+  document.querySelectorAll('.fp-seat.dragging,.fp-seat.drag-over,.fp-table.drag-over,.unseated-pool.drag-over').forEach(function(el){el.classList.remove('dragging','drag-over');});
+}
+function dropGuest(e,targetTi){
+  e.preventDefault();e.currentTarget.classList.remove('drag-over');
+  if(!dragSrc)return;
+  if(!dragSrc.fromPool&&dragSrc.ti===targetTi){dragSrc=null;return;}
+  var targetSi=state.tables[targetTi].seats.findIndex(function(s){return !s;});
+  if(targetSi===-1){state.tables[targetTi].seats.push('');targetSi=state.tables[targetTi].seats.length-1;}
+  state.tables[targetTi].seats[targetSi]=dragSrc.name;
+  if(!dragSrc.fromPool)state.tables[dragSrc.ti].seats[dragSrc.si]='';
+  dragSrc=null;saveState();renderSeating();
+  checkSeatingConflicts(targetTi);
+}
+function dropToUnseated(e){
+  e.preventDefault();e.currentTarget.classList.remove('drag-over');
+  if(!dragSrc||dragSrc.fromPool)return;
+  state.tables[dragSrc.ti].seats[dragSrc.si]='';
+  dragSrc=null;saveState();renderSeating();
+}
+
+// TAP
+function tapGuestFromPool(key,name){
+  if(tappedGuestKey===key){tappedGuestKey=null;tappedGuestName=null;}
+  else{tappedGuestKey=key;tappedGuestName=name;}
+  renderSeating();
+}
+
+function updateTableName(ti,val){
+  state.tables[ti].name=val;
+  saveState();
+}
+function addSeat(ti){state.tables[ti].seats.push('');saveState();renderSeating();}
+function addTable(){
+  if(state.tables.length>=MAX_TABLES){
+    toast('This free tool tops out at '+MAX_TABLES+' tables \u2014 the full planner has no limit');
+    return;
+  }
+  var pos=tablePositionForIndex((state.tables||[]).length);
+  state.tables.push({name:'Table '+(state.tables.length+1),seats:['','','','',''],shape:'round',x:pos.x,y:pos.y});
+  saveState();renderSeating();
+  updateAddTableBtn();
+  maybeShowEtsyNudge();
+}
+function removeTable(ti){
+  state.tables.splice(ti,1);
+  saveState();renderSeating();
+  updateAddTableBtn();
+}
+function updateAddTableBtn(){
+  var btn=document.getElementById('add-table-btn');
+  btn.disabled=state.tables.length>=MAX_TABLES;
+}
+
+// ===== KEEP APART RULES =====
+function openKeepApartModal(){
+  var guests=(state.guests||[]);
+  var opts=guests.map(function(g){return '<option value="'+g.name.replace(/"/g,'&quot;')+'">'+g.name+'</option>';}).join('');
+  document.getElementById('ka-guest-a').innerHTML='<option value="">Select guest\u2026</option>'+opts;
+  document.getElementById('ka-guest-b').innerHTML='<option value="">Select guest\u2026</option>'+opts;
+  renderKeepApartList();
+  document.getElementById('keep-apart-modal').classList.add('open');
+}
+function renderKeepApartList(){
+  var list=document.getElementById('keep-apart-list');if(!list)return;
+  var pairs=state.seatingConflicts||[];
+  if(!pairs.length){list.innerHTML='<div style="color:var(--muted);font-style:italic;font-size:12px;text-align:center;padding:12px 0;">No rules yet.</div>';return;}
+  list.innerHTML=pairs.map(function(p,i){
+    return '<div style="display:flex;justify-content:space-between;align-items:center;padding:8px 10px;background:var(--cream);border-radius:8px;font-size:12.5px;">'+
+      '<span>'+p[0]+' <span style="color:var(--muted);">\u2194</span> '+p[1]+'</span>'+
+      '<button onclick="removeKeepApartRule('+i+')" style="background:none;border:none;cursor:pointer;color:var(--muted);font-size:14px;">\u00D7</button>'+
+    '</div>';
+  }).join('');
+}
+function addKeepApartRule(){
+  var a=document.getElementById('ka-guest-a').value;
+  var b=document.getElementById('ka-guest-b').value;
+  if(!a||!b){toast('Pick two guests');return;}
+  if(a===b){toast('Pick two different guests');return;}
+  var exists=(state.seatingConflicts||[]).some(function(p){return (p[0]===a&&p[1]===b)||(p[0]===b&&p[1]===a);});
+  if(exists){toast('That rule already exists');return;}
+  state.seatingConflicts=state.seatingConflicts||[];
+  state.seatingConflicts.push([a,b]);
+  saveState();
+  renderKeepApartList();
+  document.getElementById('ka-guest-a').value='';
+  document.getElementById('ka-guest-b').value='';
+  toast('Rule added \u2713');
+}
+function removeKeepApartRule(i){
+  state.seatingConflicts.splice(i,1);
+  saveState();
+  renderKeepApartList();
+  renderSeating();
+}
+function checkSeatingConflicts(tableIdx){
+  var t=state.tables[tableIdx];if(!t)return;
+  var seated=t.seats.filter(function(s){return s;});
+  var pairs=state.seatingConflicts||[];
+  for(var i=0;i<pairs.length;i++){
+    var p=pairs[i];
+    if(seated.indexOf(p[0])>-1&&seated.indexOf(p[1])>-1){
+      toast('Keep Apart: '+p[0]+' & '+p[1]+' are now at the same table ('+t.name+')');
+      renderSeating();
+      return;
+    }
+  }
+}
+function tableHasConflict(t){
+  var seated=t.seats.filter(function(s){return s;});
+  return (state.seatingConflicts||[]).some(function(p){return seated.indexOf(p[0])>-1&&seated.indexOf(p[1])>-1;});
+}
+
+// ===== ETSY NUDGE =====
+function maybeShowEtsyNudge(){
+  if(state.thirdTableNudgeShown)return;
+  if(state.tables.length>=3){
+    state.thirdTableNudgeShown=true;
+    saveState();
+    setTimeout(function(){
+      toast('Like this? The full Wedding Planner adds budget, vendors & more \u2014 see footer below');
+    },400);
+  }
+}
+
+// ===== EMAIL CAPTURE BANNER =====
+function scheduleEmailBanner(){
+  if(state.emailBannerShown)return;
+  setTimeout(function(){
+    if(state.emailBannerShown)return;
+    document.getElementById('email-banner-overlay').style.display='flex';
+  },60000);
+}
+function dismissEmailBanner(){
+  document.getElementById('email-banner-overlay').style.display='none';
+  state.emailBannerShown=true;
+  saveState();
+}
+function claimEmailOffer(){
+  var emailInput=document.getElementById('email-banner-input');
+  var email=emailInput.value.trim();
+  if(!email||email.indexOf('@')===-1){toast('Please enter a valid email');return;}
+  fetch('https://assets.mailerlite.com/jsonp/2493956/forms/192534978803795690/subscribe',{
+    method:'POST',
+    headers:{'Content-Type':'application/x-www-form-urlencoded'},
+    body:'fields[email]='+encodeURIComponent(email)
+  }).catch(function(){});
+  document.getElementById('email-banner-offer').style.display='none';
+  document.getElementById('email-banner-success').style.display='block';
+  state.emailBannerShown=true;
+  saveState();
+}
+
+// ===== INIT =====
+document.addEventListener('DOMContentLoaded',function(){
+  renderSeating();
+  updateGuestCapNote();
+  updateAddTableBtn();
+  scheduleEmailBanner();
+});
+</script>
+</body>
+</html>
