@@ -58,10 +58,11 @@ body{margin:0;background:var(--cream);color:var(--charcoal);font-family:var(--fo
 .cal-legend-dot{width:10px;height:10px;border-radius:3px;flex-shrink:0;}
 
 /* STATS */
-.stats-row{display:flex;gap:22px;margin-bottom:16px;flex-wrap:wrap;}
-.stat-item{text-align:center;}
-.stat-num{font-family:var(--font-serif);font-size:24px;}
-.stat-label{font-size:9px;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted);}
+.stats-row{display:grid;grid-template-columns:repeat(5,1fr);gap:14px;margin-bottom:18px;}
+.stat-item{text-align:center;background:var(--warm-white);border:1px solid var(--border);border-radius:12px;padding:16px 8px;}
+.stat-num{font-family:var(--font-serif);font-size:34px;line-height:1.1;}
+.stat-label{font-size:9.5px;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted);margin-top:4px;}
+@media(max-width:680px){.stats-row{grid-template-columns:repeat(2,1fr);}}
 
 /* SEATING LAYOUT */
 .seating-layout{display:grid;grid-template-columns:200px 1fr;gap:16px;align-items:start;}
@@ -161,6 +162,10 @@ body{margin:0;background:var(--cream);color:var(--charcoal);font-family:var(--fo
   </div>
 
   <div class="page-header">
+    <div>
+      <div class="page-title">Seating Chart</div>
+      <div class="page-sub" id="seating-sub">Tap a guest, then tap a seat — or drag &amp; drop</div>
+    </div>
     <div style="margin-left:auto;display:flex;gap:10px;flex-wrap:wrap;">
       <button class="btn-ghost" onclick="openKeepApartModal()">Keep Apart Rules</button>
       <button class="btn-add" id="add-table-btn" onclick="addTable()">+ Add Table</button>
