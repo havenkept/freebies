@@ -54,6 +54,8 @@ body{margin:0;background:var(--cream);color:var(--charcoal);font-family:var(--fo
 
 /* LEGEND */
 .cal-legend{display:flex;gap:14px;flex-wrap:wrap;padding:10px 14px;background:var(--warm-white);border:1px solid var(--border);border-radius:8px;align-items:center;flex:1 1 auto;}
+.legend-row{display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin-bottom:14px;}
+.legend-buttons{margin-left:auto;display:flex;gap:10px;flex-wrap:wrap;}
 .cal-legend-item{display:flex;align-items:center;gap:6px;font-size:11px;color:var(--muted);}
 .cal-legend-dot{width:10px;height:10px;border-radius:3px;flex-shrink:0;}
 
@@ -110,9 +112,18 @@ body{margin:0;background:var(--cream);color:var(--charcoal);font-family:var(--fo
 @media(max-width:680px){
   .seating-layout{grid-template-columns:1fr;}
   .unseated-pool{position:static;}
-  .unseated-list{flex-direction:row;flex-wrap:wrap;}
+  .unseated-list{flex-direction:row;flex-wrap:wrap;justify-content:center;}
   .unseated-guest{flex:none;}
   .fp-table-controls{left:auto;right:-32px;}
+  .add-guest-row{justify-content:center;text-align:center;}
+  .add-guest-row input[type=text],.add-guest-row select{flex:1 1 100%;}
+  .add-guest-row .btn-add{flex:1 1 100%;}
+  .cap-note{text-align:center;}
+  .legend-row{justify-content:center;}
+  .cal-legend{justify-content:center;flex:1 1 100%;}
+  .legend-buttons{margin-left:0;width:100%;justify-content:center;}
+  .stat-item{text-align:center;}
+  .hk-footer-banner{justify-content:center;text-align:center;}
 }
 
 /* MODAL */
@@ -169,14 +180,14 @@ body{margin:0;background:var(--cream);color:var(--charcoal);font-family:var(--fo
 
   <div class="stats-row" id="seating-stats-bar"></div>
 
-  <div style="display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin-bottom:14px;">
+  <div class="legend-row">
     <div class="cal-legend" id="seating-legend">
       <div class="cal-legend-item"><div class="cal-legend-dot" style="background:var(--sage);"></div>Bride</div>
       <div class="cal-legend-item"><div class="cal-legend-dot" style="background:var(--gold);"></div>Groom</div>
       <div class="cal-legend-item"><div class="cal-legend-dot" style="background:var(--blush-mid);"></div>Both</div>
       <div class="cal-legend-item"><div class="cal-legend-dot" style="background:white;border:1px solid var(--border);"></div>Other</div>
     </div>
-    <div style="margin-left:auto;display:flex;gap:10px;flex-wrap:wrap;">
+    <div class="legend-buttons">
       <button class="btn-ghost" onclick="openKeepApartModal()">Keep Apart Rules</button>
       <button class="btn-add" id="add-table-btn" onclick="addTable()">+ Add Table</button>
     </div>
