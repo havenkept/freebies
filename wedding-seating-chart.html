@@ -42,7 +42,6 @@ body{margin:0;background:var(--cream);color:var(--charcoal);font-family:var(--fo
 .cap-note{font-size:11px;color:var(--muted);width:100%;margin-top:4px;}
 
 /* PAGE HEADER ROW */
-.page-header{display:flex;align-items:center;gap:16px;margin-bottom:18px;flex-wrap:wrap;}
 .page-title{font-family:var(--font-script);font-size:30px;font-weight:300;color:var(--charcoal);}
 .page-sub{font-size:11px;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted);}
 
@@ -165,20 +164,17 @@ body{margin:0;background:var(--cream);color:var(--charcoal);font-family:var(--fo
     <div class="cap-note" id="guest-cap-note"></div>
   </div>
 
-  <div class="page-header">
+  <div class="stats-row" id="seating-stats-bar"></div>
+
+  <div class="cal-legend" id="seating-legend">
+    <div class="cal-legend-item"><div class="cal-legend-dot" style="background:var(--sage);"></div>Bride</div>
+    <div class="cal-legend-item"><div class="cal-legend-dot" style="background:var(--gold);"></div>Groom</div>
+    <div class="cal-legend-item"><div class="cal-legend-dot" style="background:var(--blush-mid);"></div>Both</div>
+    <div class="cal-legend-item"><div class="cal-legend-dot" style="background:white;border:1px solid var(--border);"></div>Other</div>
     <div style="margin-left:auto;display:flex;gap:10px;flex-wrap:wrap;">
       <button class="btn-ghost" onclick="openKeepApartModal()">Keep Apart Rules</button>
       <button class="btn-add" id="add-table-btn" onclick="addTable()">+ Add Table</button>
     </div>
-  </div>
-
-  <div class="stats-row" id="seating-stats-bar"></div>
-
-  <div class="cal-legend" id="seating-legend">
-    <div class="cal-legend-item"><div class="cal-legend-dot" style="background:var(--sage-light);border:1px solid var(--sage);"></div>Bride Side</div>
-    <div class="cal-legend-item"><div class="cal-legend-dot" style="background:var(--gold-light);border:1px solid var(--gold);"></div>Groom Side</div>
-    <div class="cal-legend-item"><div class="cal-legend-dot" style="background:var(--blush-light);border:1px solid var(--blush-mid);"></div>Both</div>
-    <div class="cal-legend-item"><div class="cal-legend-dot" style="background:white;border:1px solid var(--border);"></div>Family / Friends / Other</div>
   </div>
 
   <div class="seating-layout">
