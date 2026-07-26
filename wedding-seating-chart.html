@@ -79,7 +79,10 @@ body{margin:0;background:var(--cream);color:var(--charcoal);font-family:var(--fo
 .unseated-empty{color:var(--muted);font-style:italic;font-size:12px;text-align:center;padding:16px 0;}
 
 /* FLOOR PLAN */
-.floor-plan-wrap{background:var(--warm-white);border:1px solid var(--border);border-radius:12px;padding:4px;overflow:auto;min-height:420px;}
+.floor-plan-wrap{background:var(--warm-white);border:1px solid var(--border);border-radius:12px;padding:4px;overflow:auto;min-height:420px;position:relative;}
+.scroll-hint{display:none;position:absolute;left:50%;bottom:6px;transform:translateX(-50%);width:fit-content;background:var(--charcoal);color:#fff;font-size:10.5px;letter-spacing:0.5px;padding:5px 12px;border-radius:20px;pointer-events:none;opacity:0.85;transition:opacity 0.4s;white-space:nowrap;z-index:10;}
+.scroll-hint.hide{opacity:0;}
+@media(max-width:680px){.scroll-hint{display:block;}}
 .floor-plan-canvas{position:relative;min-width:700px;min-height:420px;background-image:radial-gradient(circle,var(--border-light) 1.5px,transparent 1.5px);background-size:26px 26px;border-radius:8px;}
 .fp-table{position:absolute;}
 .fp-table-body{position:absolute;background:var(--warm-white);border:2px solid var(--border);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:1px;box-shadow:0 2px 8px rgba(44,44,44,0.08);cursor:grab;touch-action:none;}
@@ -185,6 +188,7 @@ body{margin:0;background:var(--cream);color:var(--charcoal);font-family:var(--fo
     <div style="min-width:0;">
       <div class="floor-plan-wrap" id="floor-plan-wrap">
         <div class="floor-plan-canvas" id="floor-plan-canvas"></div>
+        <div class="scroll-hint" id="scroll-hint">Scroll to see more &rarr;</div>
       </div>
     </div>
   </div>
@@ -735,6 +739,13 @@ document.addEventListener('DOMContentLoaded',function(){
   updateGuestCapNote();
   updateAddTableBtn();
   scheduleEmailBanner();
+  var fpWrap=document.getElementById('floor-plan-wrap');
+  var hint=document.getElementById('scroll-hint');
+  if(fpWrap&&hint){
+    fpWrap.addEventListener('scroll',function(){
+      hint.classList.add('hide');
+    },{once:true,passive:true});
+  }
 });
 </script>
 </body>
