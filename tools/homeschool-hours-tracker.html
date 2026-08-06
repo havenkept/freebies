@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en"><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Homeschool Hours & Attendance Tracker — Free Log for Your Records | HavenKept</title>
+<title>Homeschool Hours & Attendance Tracker, Free Log for Your Records | HavenKept</title>
 <meta name="description" content="Free homeschool hours and attendance tracker. Log instructional days and hours per child, see totals against your state requirement, and print the record.">
 <link rel="canonical" href="https://havenkept.github.io/freebies/tools/homeschool-hours-tracker.html">
 <meta property="og:type" content="website">
@@ -76,7 +76,7 @@ footer a{color:var(--accent)}
 <main class="wrap">
   <div class="card noprint">
     <h2 class="serif">Your requirement</h2>
-    <p class="hint">Requirements vary by state — check yours and enter the numbers you need to hit.</p>
+    <p class="hint">Requirements vary by state, check yours and enter the numbers you need to hit.</p>
     <div class="grid2">
       <div><label for="reqDays">Required days</label><input id="reqDays" type="number" value="180" min="0"></div>
       <div><label for="reqHours">Required hours</label><input id="reqHours" type="number" value="900" min="0"></div>
@@ -90,7 +90,7 @@ footer a{color:var(--accent)}
       <div><label for="ldate">Date</label><input id="ldate" type="date"></div>
       <div><label for="lhours">Hours</label><input id="lhours" type="number" step="0.25" value="4" min="0" max="24"></div>
     </div>
-    <div><label for="lnote">Subjects covered (optional)</label><input id="lnote" placeholder="Maths, reading, nature walk"></div>
+    <div><label for="lnote">Subjects covered (optional)</label><input id="lnote" placeholder="Math, reading, nature walk"></div>
     <div class="btnrow"><button class="btn" onclick="addLog()">Log it</button></div>
   </div>
 
@@ -134,7 +134,7 @@ footer a{color:var(--accent)}
 
   <div class="card">
     <h2 class="serif">Common questions</h2>
-    <details><summary>How many hours does homeschool need per year?</summary><p>It depends entirely on your state — commonly somewhere between 600 and 1,000 instructional hours, or 160 to 180 days, and some states set no requirement at all. Check your own state's rules; this tracker just counts what you tell it to.</p></details>
+    <details><summary>How many hours does homeschool need per year?</summary><p>It depends entirely on your state, commonly somewhere between 600 and 1,000 instructional hours, or 160 to 180 days, and some states set no requirement at all. Check your own state's rules; this tracker just counts what you tell it to.</p></details>
     <details><summary>What counts as an instructional hour?</summary><p>Again, state-dependent, but most families count read-alouds, field trips, documentaries, nature study, music practice and life-skills work alongside formal lessons. If it was intentional and educational, it usually counts.</p></details>
     <details><summary>Do I have to log hours daily?</summary><p>No, but it is far easier than reconstructing a year in April. Two minutes at the end of each day beats a weekend of guessing, and a contemporaneous record is more credible if anyone reviews it.</p></details>
     <details><summary>What should I keep besides hours?</summary><p>Samples of work, a reading list, test or assessment results if your state requires them, and a short summary per subject. The portfolio checklist above covers it.</p></details>
@@ -149,7 +149,7 @@ footer a{color:var(--accent)}
 {"@context":"https://schema.org","@graph":[
 {"@type":"WebApplication","name":"Homeschool Hours &amp; Attendance Tracker","applicationCategory":"UtilitiesApplication","operatingSystem":"Any",
 "offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},"description":"Log days and hours per child, track progress toward your requirement, print the record."},
-{"@type":"FAQPage","mainEntity":[{"@type":"Question","name":"How many hours does homeschool need per year?","acceptedAnswer":{"@type":"Answer","text":"It depends entirely on your state — commonly somewhere between 600 and 1,000 instructional hours, or 160 to 180 days, and some states set no requirement at all. Check your own state's rules; this tracker just counts what you tell it to."}},{"@type":"Question","name":"What counts as an instructional hour?","acceptedAnswer":{"@type":"Answer","text":"Again, state-dependent, but most families count read-alouds, field trips, documentaries, nature study, music practice and life-skills work alongside formal lessons. If it was intentional and educational, it usually counts."}},{"@type":"Question","name":"Do I have to log hours daily?","acceptedAnswer":{"@type":"Answer","text":"No, but it is far easier than reconstructing a year in April. Two minutes at the end of each day beats a weekend of guessing, and a contemporaneous record is more credible if anyone reviews it."}},{"@type":"Question","name":"What should I keep besides hours?","acceptedAnswer":{"@type":"Answer","text":"Samples of work, a reading list, test or assessment results if your state requires them, and a short summary per subject. The portfolio checklist above covers it."}},{"@type":"Question","name":"Where is my data stored?","acceptedAnswer":{"@type":"Answer","text":"Only in your own browser. Nothing is uploaded, and nobody else can see it. Download the CSV if you want a copy you keep."}}]}]}
+{"@type":"FAQPage","mainEntity":[{"@type":"Question","name":"How many hours does homeschool need per year?","acceptedAnswer":{"@type":"Answer","text":"It depends entirely on your state, commonly somewhere between 600 and 1,000 instructional hours, or 160 to 180 days, and some states set no requirement at all. Check your own state's rules; this tracker just counts what you tell it to."}},{"@type":"Question","name":"What counts as an instructional hour?","acceptedAnswer":{"@type":"Answer","text":"Again, state-dependent, but most families count read-alouds, field trips, documentaries, nature study, music practice and life-skills work alongside formal lessons. If it was intentional and educational, it usually counts."}},{"@type":"Question","name":"Do I have to log hours daily?","acceptedAnswer":{"@type":"Answer","text":"No, but it is far easier than reconstructing a year in April. Two minutes at the end of each day beats a weekend of guessing, and a contemporaneous record is more credible if anyone reviews it."}},{"@type":"Question","name":"What should I keep besides hours?","acceptedAnswer":{"@type":"Answer","text":"Samples of work, a reading list, test or assessment results if your state requires them, and a short summary per subject. The portfolio checklist above covers it."}},{"@type":"Question","name":"Where is my data stored?","acceptedAnswer":{"@type":"Answer","text":"Only in your own browser. Nothing is uploaded, and nobody else can see it. Download the CSV if you want a copy you keep."}}]}]}
 </script>
 
 <script>
@@ -179,8 +179,8 @@ function render(){
       <div class="stats">
         <div class="stat"><b>${d}</b><span>Days logged</span></div>
         <div class="stat"><b>${h.toFixed(1)}</b><span>Hours logged</span></div>
-        <div class="stat"><b>${rd?Math.max(0,rd-d):'—'}</b><span>Days to go</span></div>
-        <div class="stat"><b>${rh?Math.max(0,(rh-h)).toFixed(1):'—'}</b><span>Hours to go</span></div>
+        <div class="stat"><b>${rd?Math.max(0,rd-d):', '}</b><span>Days to go</span></div>
+        <div class="stat"><b>${rh?Math.max(0,(rh-h)).toFixed(1):', '}</b><span>Hours to go</span></div>
       </div>
       <div class="row"><span>Days</span><span class="pill ${pd>=100?'ok':pd>=60?'soon':'warn'}">${pd}%</span></div>
       <div class="row"><span>Hours</span><span class="pill ${ph>=100?'ok':ph>=60?'soon':'warn'}">${ph}%</span></div>
@@ -212,7 +212,7 @@ document.getElementById('capture').addEventListener('submit', async e => {
     const r=await fetch('https://ktekniuqywcvmpdmufhr.supabase.co/rest/v1/tool_leads',{method:'POST',
       headers:{apikey:'sb_publishable_50Jzec1Izh9BfE275wVTPA_JlAeKKEy','Content-Type':'application/json',Prefer:'return=minimal'},
       body:JSON.stringify({email,source:'homeschool-hours-tracker',magnet:'homeschool-portfolio-checklist.pdf'})});
-    msg.textContent = r.ok ? "You're on the list — thank you." : "That didn't save. Mind trying once more?";
+    msg.textContent = r.ok ? "You're on the list. Thank you." : "That didn't save. Mind trying once more?";
     if(r.ok) document.getElementById('email').value='';
   }catch(err){ msg.textContent="Couldn't reach the server. Try again in a moment."; }
   btn.disabled=false;

@@ -1,0 +1,31 @@
+WIP tracker embed — prototype
+=============================
+
+TWO FILES, both go in freebies/tools/ :
+
+  crochet-wip-tracker.html   the public page (SEO, upsell, email capture, modal)
+  wip-tracker-embed.html     the capped tracker itself, loaded in an iframe
+
+To try it locally, open crochet-wip-tracker.html — they must sit in the
+same folder or the iframe won't find it.
+
+HOW IT WORKS
+------------
+- Cap is 3 projects. Change CAP at the top of wip-tracker-embed.html.
+- Data saves to localStorage key 'hk-wip-demo' — deliberately NOT 'sk4_db',
+  so it can never overwrite a real StashKeeper owner's data.
+- At the cap the Add button stays live and becomes "See the full planner",
+  which posts a message to the parent page and opens the upsell modal.
+  (A modal inside the iframe would be trapped in the iframe's box.)
+- The iframe reports its height to the parent, so the page has no scrollbar
+  inside a scrollbar.
+- "Save my work" downloads JSON in StashKeeper's exact import format:
+      {exported, version:"1.2", data:{projects,yarns,tools,gifts,ideas}}
+  so Import in the paid planner accepts it untouched.
+
+STILL TO DO BEFORE IT SHIPS
+---------------------------
+- Add an OG image at og/crochet-wip-tracker.png
+- Add the page to sitemap.xml and to the index.html tool list
+- Verify Import actually accepts the file — I matched the format from your
+  code but haven't run it through StashKeeper itself.
