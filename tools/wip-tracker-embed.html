@@ -3,13 +3,13 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>WIP Tracker — free demo</title>
+<title>WIP Tracker, free demo</title>
 <meta name="robots" content="noindex">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Jost:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
-/* HavenKept house palette — lifted from StashKeeper so the demo and the
+/* HavenKept house palette, lifted from StashKeeper so the demo and the
    paid planner are visually identical. */
 :root{
   --paper:#FEF7EB; --surface:#FFFCF8; --paper-2:#F9E9D1; --sage-light:#F7EBD8;
@@ -94,10 +94,10 @@ input:focus,select:focus{outline:none;border-color:var(--a-mid);background:var(-
 <div class="row" id="footrow" style="margin-top:4px">
   <button class="btn ghost" id="save">Save my work</button>
 </div>
-<div class="saveline">Everything stays in your own browser — nothing is uploaded.</div>
+<div class="saveline">Everything stays in your own browser. Nothing is uploaded.</div>
 
 <script>
-const KEY = 'hk-wip-demo';      // deliberately NOT sk4_db — never touches a real planner's data
+const KEY = 'hk-wip-demo';      // deliberately NOT sk4_db, so it never touches a real planner's data
 const CAP = 3;
 const $ = id => document.getElementById(id);
 const uid = () => 'd' + Math.random().toString(36).slice(2,10);
@@ -152,13 +152,14 @@ function render(){
   const full = P.length >= CAP;
 
   $('capbar').innerHTML = full
-    ? `<div class="capbar"><b>That's the free limit — 3 projects.</b>
-       The full StashKeeper holds as many as you like, plus your yarn stash, tools and gift planning.</div>`
+    ? `<div class="capbar"><b>Three on the go. Nice.</b>
+       That's the free tracker full. StashKeeper holds as many as you like, plus your yarn stash,
+       your hooks, and the gifts you're quietly planning.</div>`
     : '';
-  // At the cap the button stays live — clicking it is the moment of highest intent,
-  // so it opens the upsell instead of doing nothing.
+  // At the cap the button stays live, because clicking it is the moment of highest
+  // intent. It opens the upsell instead of doing nothing.
   $('addcard').style.opacity = full ? '.6' : '1';
-  $('add').textContent = full ? 'See the full planner →' : 'Add project';
+  $('add').textContent = full ? 'Room for a fourth?' : 'Add project';
 
   $('list').innerHTML = P.length ? P.map((p,i) => {
     const pct = p.rowTarget ? Math.min(100, Math.round(p.counters.row / p.rowTarget * 100)) : 0;
@@ -187,7 +188,7 @@ function render(){
   save(); resize();
 }
 
-// Save file — exactly StashKeeper's import format, so the paid planner accepts it as-is.
+// Save file in exactly StashKeeper's import format, so the paid planner accepts it as-is.
 $('save').addEventListener('click', () => {
   if (!P.length) { alert('Add a project first.'); return; }
   const payload = {
