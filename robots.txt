@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://havenkept.github.io/tools/sitemap.xml
+Sitemap: https://havenkept.github.io/freebies/tools/sitemap.xml
