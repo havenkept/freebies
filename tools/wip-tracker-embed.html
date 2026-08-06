@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>WIP Tracker — free demo</title>
+<meta name="robots" content="noindex">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Jost:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+/* HavenKept house palette — lifted from StashKeeper so the demo and the
+   paid planner are visually identical. */
+:root{
+  --paper:#FEF7EB; --surface:#FFFCF8; --paper-2:#F9E9D1; --sage-light:#F7EBD8;
+  --ink:#3B2A1D; --ink-2:#5C463A; --muted:#97806F;
+  --hairline:#F1DDBE; --border-soft:#F7EBD8;
+  --field:#3B2021; --on-field:#FEF7EB; --on-field-muted:#B79B93;
+  --a:#AD7173; --a-light:#FCE7E7; --a-mid:#D8989A; --a-dark:#723E41;
+  --peach:#ECAF89;
+  --font-display:'Cormorant Garamond',Georgia,serif;
+  --font-sans:'Jost',system-ui,sans-serif;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:var(--paper);color:var(--ink);font:400 16px/1.55 var(--font-sans);padding:20px}
+.head{display:flex;justify-content:space-between;align-items:baseline;gap:12px;margin-bottom:14px;flex-wrap:wrap}
+h1{font-family:var(--font-display);font-size:30px;font-weight:600;letter-spacing:.01em}
+.count{font-size:13px;color:var(--muted);letter-spacing:.08em;text-transform:uppercase;font-weight:500}
+.card{background:var(--surface);border:1px solid var(--hairline);border-radius:14px;padding:16px;margin-bottom:14px}
+label{display:block;font-size:11.5px;letter-spacing:.13em;text-transform:uppercase;color:var(--muted);font-weight:600;margin-bottom:6px}
+input,select{width:100%;padding:11px 12px;border:1.5px solid var(--hairline);border-radius:10px;
+  font:inherit;background:var(--paper);color:var(--ink)}
+input:focus,select:focus{outline:none;border-color:var(--a-mid);background:var(--surface)}
+.g2{display:grid;grid-template-columns:1fr 1fr;gap:11px;margin-bottom:11px}
+.g3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:11px;margin-bottom:11px}
+@media(max-width:540px){.g2,.g3{grid-template-columns:1fr}}
+.btn{background:var(--a);color:#fff;border:none;border-radius:999px;padding:12px 24px;
+  font:inherit;font-weight:600;cursor:pointer;letter-spacing:.01em}
+.btn:hover{background:var(--a-dark)}
+.btn.ghost{background:transparent;color:var(--a-dark);border:1.5px solid var(--hairline)}
+.btn.sm{padding:7px 14px;font-size:14px}
+.btn:disabled{opacity:.5;cursor:not-allowed}
+.row{display:flex;gap:10px;flex-wrap:wrap;margin-top:12px}
+.proj{background:var(--surface);border:1px solid var(--hairline);border-radius:14px;padding:16px;margin-bottom:12px}
+.proj h3{font-family:var(--font-display);font-size:22px;font-weight:600;line-height:1.2}
+.meta{font-size:13.5px;color:var(--muted);margin-top:3px}
+.badge{display:inline-block;font-size:11.5px;letter-spacing:.1em;text-transform:uppercase;font-weight:600;
+  padding:4px 11px;border-radius:999px;background:var(--sage-light);color:var(--ink-2)}
+.badge.active{background:var(--a-light);color:var(--a-dark)}
+.badge.done{background:#E6EFE3;color:#4B6642}
+.bar{height:8px;background:var(--border-soft);border-radius:5px;overflow:hidden;margin-top:12px}
+.bar i{display:block;height:100%;background:linear-gradient(90deg,var(--a-mid),var(--a));border-radius:5px}
+.counter{display:flex;align-items:center;gap:12px;margin-top:14px;flex-wrap:wrap}
+.cbtn{width:46px;height:46px;border-radius:50%;border:1.5px solid var(--hairline);background:var(--paper);
+  font-size:22px;line-height:1;cursor:pointer;color:var(--ink);font-family:var(--font-sans)}
+.cbtn:hover{border-color:var(--a-mid);background:var(--a-light)}
+.cnum{font-family:var(--font-display);font-size:34px;font-weight:600;min-width:70px;text-align:center}
+.clab{font-size:11.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);font-weight:600}
+.x{background:none;border:none;color:var(--muted);font-size:19px;cursor:pointer;line-height:1;padding:2px 6px}
+.x:hover{color:var(--a-dark)}
+.empty{color:var(--muted);font-style:italic;text-align:center;padding:26px 0}
+.capbar{background:var(--a-light);border:1px solid var(--a-mid);border-radius:12px;
+  padding:12px 15px;font-size:14.5px;color:var(--a-dark);margin-bottom:14px}
+.capbar b{font-weight:600}
+.saveline{font-size:13.5px;color:var(--muted);margin-top:10px}
+</style>
+</head>
+<body>
+
+<div class="head">
+  <h1>Your projects</h1>
+  <div class="count" id="count">0 of 3</div>
+</div>
+
+<div id="capbar"></div>
+
+<div class="card" id="addcard">
+  <div class="g2">
+    <div><label for="p-name">Project</label><input id="p-name" placeholder="Granny square blanket"></div>
+    <div><label for="p-craft">Craft</label><select id="p-craft"><option>Crochet</option><option>Knitting</option></select></div>
+  </div>
+  <div class="g3">
+    <div><label for="p-hook">Hook / needle</label><input id="p-hook" placeholder="5.0mm"></div>
+    <div><label for="p-rows">Row target</label><input id="p-rows" type="number" min="0" placeholder="120"></div>
+    <div><label for="p-status">Status</label><select id="p-status">
+      <option>Planning</option><option selected>In progress</option><option>Finished</option></select></div>
+  </div>
+  <div><label for="p-pattern">Pattern</label><input id="p-pattern" placeholder="Name or link"></div>
+  <div class="row"><button class="btn" id="add">Add project</button></div>
+</div>
+
+<div id="list"></div>
+
+<div class="row" id="footrow" style="margin-top:4px">
+  <button class="btn ghost" id="save">Save my work</button>
+</div>
+<div class="saveline">Everything stays in your own browser — nothing is uploaded.</div>
+
+<script>
+const KEY = 'hk-wip-demo';      // deliberately NOT sk4_db — never touches a real planner's data
+const CAP = 3;
+const $ = id => document.getElementById(id);
+const uid = () => 'd' + Math.random().toString(36).slice(2,10);
+const esc = s => String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/"/g,'&quot;');
+
+let P = [];
+try { P = JSON.parse(localStorage.getItem(KEY)) || []; } catch(e) {}
+const save = () => { try { localStorage.setItem(KEY, JSON.stringify(P)); } catch(e){} };
+
+// tell the parent page to show the upsell modal
+const hitCap = reason => {
+  try { parent.postMessage({ type:'hk-demo-cap', reason, projects:P.length }, '*'); } catch(e) {}
+};
+const resize = () => {
+  try { parent.postMessage({ type:'hk-demo-height', height: document.body.scrollHeight + 40 }, '*'); } catch(e) {}
+};
+
+function add(){
+  const name = $('p-name').value.trim();
+  if (P.length >= CAP) { hitCap('projects'); return; }
+  if (!name) { $('p-name').focus(); return; }
+  P.push({
+    id: uid(), name,
+    craft: $('p-craft').value,
+    status: $('p-status').value,
+    pattern: $('p-pattern').value.trim(),
+    patternUrl: '',
+    hook: $('p-hook').value.trim(),
+    rowTarget: parseInt($('p-rows').value) || 0,
+    roundTarget: 0,
+    counters: { row:0, round:0 },
+    notes: '', yarnIds: [], toolIds: [],
+    dateStarted: new Date().toISOString().slice(0,10), dateFinished: '', photo: ''
+  });
+  ['p-name','p-hook','p-rows','p-pattern'].forEach(i => $(i).value = '');
+  render();
+}
+
+function bump(i, d){
+  const p = P[i];
+  p.counters.row = Math.max(0, p.counters.row + d);
+  if (p.rowTarget && p.counters.row >= p.rowTarget && p.status !== 'Finished') {
+    p.status = 'Finished';
+    p.dateFinished = new Date().toISOString().slice(0,10);
+  }
+  render();
+}
+function del(i){ P.splice(i,1); render(); }
+
+function render(){
+  $('count').textContent = `${P.length} of ${CAP}`;
+  const full = P.length >= CAP;
+
+  $('capbar').innerHTML = full
+    ? `<div class="capbar"><b>That's the free limit — 3 projects.</b>
+       The full StashKeeper holds as many as you like, plus your yarn stash, tools and gift planning.</div>`
+    : '';
+  // At the cap the button stays live — clicking it is the moment of highest intent,
+  // so it opens the upsell instead of doing nothing.
+  $('addcard').style.opacity = full ? '.6' : '1';
+  $('add').textContent = full ? 'See the full planner →' : 'Add project';
+
+  $('list').innerHTML = P.length ? P.map((p,i) => {
+    const pct = p.rowTarget ? Math.min(100, Math.round(p.counters.row / p.rowTarget * 100)) : 0;
+    const cls = p.status === 'Finished' ? 'done' : p.status === 'In progress' ? 'active' : '';
+    return `<div class="proj">
+      <div style="display:flex;justify-content:space-between;gap:10px;align-items:flex-start">
+        <div>
+          <h3>${esc(p.name)}</h3>
+          <div class="meta">${esc(p.craft)}${p.hook?' · '+esc(p.hook):''}${p.pattern?' · '+esc(p.pattern):''}</div>
+        </div>
+        <div style="display:flex;gap:8px;align-items:center">
+          <span class="badge ${cls}">${esc(p.status)}</span>
+          <button class="x" onclick="del(${i})" title="Remove">×</button>
+        </div>
+      </div>
+      ${p.rowTarget ? `<div class="bar"><i style="width:${pct}%"></i></div>
+        <div class="meta" style="margin-top:6px">${p.counters.row} of ${p.rowTarget} rows · ${pct}%</div>` : ''}
+      <div class="counter">
+        <button class="cbtn" onclick="bump(${i},-1)">−</button>
+        <div><div class="cnum">${p.counters.row}</div><div class="clab" style="text-align:center">rows</div></div>
+        <button class="cbtn" onclick="bump(${i},1)">+</button>
+      </div>
+    </div>`;
+  }).join('') : '<div class="empty">Add your first project above.</div>';
+
+  save(); resize();
+}
+
+// Save file — exactly StashKeeper's import format, so the paid planner accepts it as-is.
+$('save').addEventListener('click', () => {
+  if (!P.length) { alert('Add a project first.'); return; }
+  const payload = {
+    exported: new Date().toISOString(),
+    version: '1.2',
+    data: { projects: P, yarns: [], tools: [], gifts: [], ideas: [] }
+  };
+  const blob = new Blob([JSON.stringify(payload, null, 2)], { type:'application/json' });
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = 'stashkeeper-my-projects.json';
+  a.click();
+  setTimeout(() => URL.revokeObjectURL(a.href), 1000);
+  hitCap('saved');
+});
+
+$('add').addEventListener('click', add);
+$('p-name').addEventListener('keydown', e => { if (e.key === 'Enter') add(); });
+window.addEventListener('load', resize);
+render();
+</script>
+</body>
+</html>
