@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Party Drink Calculator — How Much Alcohol &amp; Food for Your Guest Count | HavenKept</title>
+<meta name="description" content="Free party drink calculator. Enter guests and hours to see how much wine, beer, spirits, mixers, ice and food to buy — a printable shopping list for birthdays and parties.">
+<link rel="canonical" href="https://havenkept.github.io/tools/party-drink-calculator.html">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Party Drink Calculator — How Much Alcohol Do I Need?">
+<meta property="og:description" content="Guests and hours in, a printable shopping list out: wine, beer, spirits, mixers, ice and food.">
+<meta property="og:url" content="https://havenkept.github.io/tools/party-drink-calculator.html">
+<style>
+:root{--paper:#FAF8F3;--ink:#2A241D;--plum:#3D2A4A;--emerald:#2F5D50;--rose:#C08497;
+  --gold:#D9BF8C;--burg:#6B2737;--line:#E5DED2;--muted:#7A7168}
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:var(--paper);color:var(--ink);
+  font:400 17px/1.6 ui-sans-serif,system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;-webkit-text-size-adjust:100%}
+.serif{font-family:ui-serif,Georgia,"Times New Roman",serif}
+.wrap{max-width:760px;margin:0 auto;padding:0 20px}
+header{background:var(--emerald);color:var(--paper);padding:46px 0 40px;text-align:center}
+header .kicker{font-size:13px;letter-spacing:.24em;text-transform:uppercase;opacity:.78;font-weight:700}
+header h1{font-size:clamp(28px,6vw,44px);line-height:1.12;margin:14px 0 12px;font-weight:700}
+header p{opacity:.88;max-width:30em;margin:0 auto}
+main{padding:30px 0 10px}
+.card{background:#fff;border:1px solid var(--line);border-radius:16px;padding:22px;margin-bottom:20px}
+h2{font-size:23px;margin-bottom:6px;font-weight:700}
+h3{font-size:13px;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);
+  font-weight:700;margin:22px 0 8px;padding-top:16px;border-top:1px solid var(--line)}
+h3:first-of-type{border-top:none;padding-top:0;margin-top:4px}
+.hint{color:var(--muted);font-size:15px;margin-bottom:16px}
+label{display:block;font-size:13px;letter-spacing:.1em;text-transform:uppercase;font-weight:700;color:var(--muted);margin:0 0 7px}
+input,select{width:100%;padding:14px 15px;border:1.5px solid var(--line);border-radius:11px;
+  font:inherit;background:var(--paper);color:var(--ink)}
+input:focus,select:focus{outline:none;border-color:var(--emerald);background:#fff}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:14px}
+@media(max-width:520px){.grid2{grid-template-columns:1fr}}
+.row{display:flex;justify-content:space-between;align-items:baseline;
+  padding:11px 0;border-bottom:1px solid var(--line);gap:14px}
+.row:last-child{border-bottom:none}
+.row .q{font-weight:700;font-variant-numeric:tabular-nums;white-space:nowrap;font-size:19px}
+.row .sub{display:block;font-size:14px;color:var(--muted);font-weight:400}
+.hero{background:var(--plum);color:var(--paper);border-radius:16px;padding:24px;text-align:center;margin-bottom:20px}
+.hero b{display:block;font-size:clamp(34px,9vw,54px);font-weight:700;line-height:1.05}
+.hero span{font-size:13px;letter-spacing:.18em;text-transform:uppercase;opacity:.75;font-weight:700}
+.btn{display:inline-block;background:var(--emerald);color:#fff;border:none;border-radius:999px;
+  padding:15px 30px;font:inherit;font-weight:700;cursor:pointer;text-decoration:none;text-align:center}
+.btn:hover{filter:brightness(.94)}
+.btnrow{display:flex;gap:11px;flex-wrap:wrap;margin-top:18px}
+.upsell{background:var(--burg);color:#fff;border-radius:16px;padding:26px;margin:26px 0}
+.upsell ul{list-style:none;margin:14px 0 20px}
+.upsell li{padding:7px 0 7px 28px;position:relative;opacity:.95}
+.upsell li:before{content:"✓";position:absolute;left:0;color:var(--gold);font-weight:700}
+.upsell .btn{background:var(--gold);color:var(--burg)}
+details{border-bottom:1px solid var(--line);padding:15px 0}
+summary{cursor:pointer;font-weight:700;list-style:none}
+summary::-webkit-details-marker{display:none}
+summary:after{content:"+";float:right;color:var(--emerald);font-size:22px;line-height:1}
+details[open] summary:after{content:"–"}
+details p{margin-top:10px;color:var(--muted)}
+footer{text-align:center;padding:34px 20px 46px;color:var(--muted);font-size:14px}
+footer a{color:var(--emerald)}
+.note{font-size:14px;color:var(--muted);margin-top:12px}
+@media print{header,.upsell,.btnrow,.capture,details,footer{display:none}}
+</style>
+<meta property="og:image" content="https://havenkept.github.io/tools/og/party-drink-calculator.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://havenkept.github.io/tools/og/party-drink-calculator.png">
+</head>
+<body>
+
+<header>
+  <div class="wrap">
+    <div class="kicker">Free · Printable shopping list</div>
+    <h1 class="serif">Party Drink Calculator</h1>
+    <p>How much alcohol, ice and food do you actually need? Enter your guest count and how long the party runs.</p>
+  </div>
+</header>
+
+<main class="wrap">
+
+  <div class="card">
+    <div class="grid2">
+      <div><label for="guests">Guests</label><input type="number" id="guests" value="50" min="1" inputmode="numeric"></div>
+      <div><label for="hours">Hours</label><input type="number" id="hours" value="4" min="1" max="14" inputmode="numeric"></div>
+    </div>
+    <div class="grid2">
+      <div>
+        <label for="drinkers">Who's drinking?</label>
+        <select id="drinkers">
+          <option value="0.55">About half the room</option>
+          <option value="0.75" selected>Most adults</option>
+          <option value="0.9">Nearly everyone</option>
+          <option value="0.3">A minority</option>
+          <option value="0">Alcohol-free party</option>
+        </select>
+      </div>
+      <div>
+        <label for="style">Party style</label>
+        <select id="style">
+          <option value="cocktail" selected>Cocktail / drinks &amp; canapés</option>
+          <option value="dinner">Sit-down dinner</option>
+          <option value="bbq">BBQ / buffet</option>
+          <option value="afternoon">Afternoon / daytime</option>
+        </select>
+      </div>
+    </div>
+    <div class="grid2" style="margin-bottom:0">
+      <div>
+        <label for="mix">Drink preference</label>
+        <select id="mix">
+          <option value="40,40,20" selected>Mixed crowd (wine, beer, spirits)</option>
+          <option value="60,20,20">Mostly wine</option>
+          <option value="20,60,20">Mostly beer</option>
+          <option value="30,25,45">Cocktail heavy</option>
+        </select>
+      </div>
+      <div>
+        <label for="weather">Weather</label>
+        <select id="weather">
+          <option value="1" selected>Mild / indoors</option>
+          <option value="1.4">Hot day / outdoors</option>
+        </select>
+      </div>
+    </div>
+  </div>
+
+  <div class="hero">
+    <b id="h-drinks">175</b>
+    <span>total drinks to cover</span>
+  </div>
+
+  <div class="card" id="list">
+    <h2 class="serif">Your shopping list</h2>
+    <p class="hint">Rounded up to whole bottles, cases and bags — because shops don't sell halves.</p>
+    <div id="out"></div>
+    <div class="btnrow">
+      <button class="btn" onclick="window.print()">Print the list</button>
+      <button class="btn" style="background:transparent;color:var(--plum);border:1.5px solid var(--line)" onclick="copyList()">Copy as text</button>
+    </div>
+  </div>
+
+  <div class="upsell">
+    <h2 class="serif">Planning a milestone birthday?</h2>
+    <p style="opacity:.95;margin-top:8px">The drinks are one line of a much longer list. The full planner holds the rest.</p>
+    <ul>
+      <li>Budget with running totals, and a Payments tracker</li>
+      <li>Guest List with RSVPs — plus a Seating Chart</li>
+      <li>Vendors, Theme &amp; Decor, Menu &amp; Catering</li>
+      <li>Activities and a Playlist</li>
+      <li>Day-Of Schedule and a Gift Tracker</li>
+    </ul>
+    <a class="btn" href="https://www.etsy.com/listing/4542877482/interactive-50-birthday-planner-budget" target="_blank" rel="noopener">See the birthday planner on Etsy →</a>
+  </div>
+
+  <div class="card capture">
+    <h2 class="serif">Party timeline template</h2>
+    <p class="hint">Free, printable, and yours whether or not you leave an email.</p>
+    <div class="btnrow" style="margin-top:0">
+      <a class="btn" href="downloads/party-timeline-template.pdf" download>Download the PDF</a>
+    </div>
+    <form id="capture" style="margin-top:22px;border-top:1px solid var(--line);padding-top:20px">
+      <label for="email">Want the next one too?</label>
+      <input type="email" id="email" name="email" placeholder="you@email.com" required>
+      <div class="btnrow"><button class="btn" id="cap-btn" type="submit">Keep me posted</button></div>
+      <p class="note" id="cap-msg">No spam, no more than once a month. Unsubscribe any time.</p>
+    </form>
+  </div>
+
+  <div class="card">
+    <h2 class="serif">More free tools</h2>
+    <p class="hint">All free, all work offline once loaded, none need an account.</p>
+    <p style="padding:9px 0"><a href="wedding-budget-calculator.html" style="color:#2F5D50;font-weight:700">Wedding Budget Calculator</a>
+       <span style="color:var(--muted)"> — Split a total budget across every category and see your real cost per guest.</span></p><p style="padding:9px 0"><a href="yarn-calculator.html" style="color:#2F5D50;font-weight:700">Yarn Calculator</a>
+       <span style="color:var(--muted)"> — How many yards and skeins your project needs — crochet or knitting.</span></p><p style="padding:9px 0"><a href="wedding-seating-chart-maker.html" style="color:#2F5D50;font-weight:700">Wedding Seating Chart Maker</a>
+       <span style="color:var(--muted)"> — Add guests, make tables, drag people into seats and print the chart.</span></p>
+  </div>
+
+  <div class="card">
+    <h2 class="serif">Common questions</h2>
+    <details><summary>How much alcohol do I need for 50 guests?</summary>
+      <p>For a four-hour party where most adults drink, plan on roughly 150-180 drinks total. That's about 14 bottles of wine, 60 beers and 2-3 bottles of spirits with mixers. Always round up — leftover bottles keep, and running dry at 9pm doesn't.</p></details>
+    <details><summary>What's the standard rule for drinks per person?</summary>
+      <p>Two drinks in the first hour, then one per hour after that, per drinking guest. It sounds high, but it accounts for half-finished glasses, refills and the people who drink more than average.</p></details>
+    <details><summary>How many glasses in a bottle of wine?</summary>
+      <p>Five standard 5oz pours per 750ml bottle. A 750ml bottle of spirits gives about 16 servings at 1.5oz each, which is why spirits go further than people expect.</p></details>
+    <details><summary>How much ice do I need?</summary>
+      <p>Around 1.5 lb per guest for a mild day, and 2 lb or more if it's hot or outdoors. Ice is the thing people most reliably underbuy — it goes into drinks, coolers and the bar tub at the same time.</p></details>
+    <details><summary>Do I need non-alcoholic options?</summary>
+      <p>Yes, and more than you'd think. Plan two soft drinks or waters per non-drinking guest, plus one per drinking guest — people alternate. This calculator includes both.</p></details>
+  </div>
+
+</main>
+
+<footer>
+  Built by <strong>HavenKept</strong> · interactive planners that work in your browser<br>
+  <a href="https://www.etsy.com/listing/4542877482/interactive-50-birthday-planner-budget" target="_blank" rel="noopener">Milestone Birthday Planner on Etsy</a>
+</footer>
+
+<script type="application/ld+json">
+{"@context":"https://schema.org","@graph":[
+{"@type":"WebApplication","name":"Party Drink Calculator","applicationCategory":"UtilitiesApplication","operatingSystem":"Any",
+"offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},
+"description":"Free party drink calculator for wine, beer, spirits, mixers, ice and food quantities by guest count."},
+{"@type":"FAQPage","mainEntity":[
+{"@type":"Question","name":"How much alcohol do I need for 50 guests?","acceptedAnswer":{"@type":"Answer","text":"For a four-hour party where most adults drink, plan roughly 150 to 180 drinks: about 14 bottles of wine, 60 beers and 2 to 3 bottles of spirits."}},
+{"@type":"Question","name":"What is the standard rule for drinks per person?","acceptedAnswer":{"@type":"Answer","text":"Two drinks in the first hour, then one per hour after, per drinking guest."}},
+{"@type":"Question","name":"How many glasses in a bottle of wine?","acceptedAnswer":{"@type":"Answer","text":"Five standard 5oz pours per 750ml bottle. A 750ml bottle of spirits gives about 16 servings at 1.5oz."}}]}]}
+</script>
+
+<script>
+const $ = id => document.getElementById(id);
+const up = n => Math.ceil(n - 1e-9);
+
+function calc(){
+  const guests   = Math.max(1, +$('guests').value || 1);
+  const hours    = Math.min(14, Math.max(1, +$('hours').value || 1));
+  const dRate    = parseFloat($('drinkers').value);
+  const style    = $('style').value;
+  const weather  = parseFloat($('weather').value);
+  const [wPct,bPct,sPct] = $('mix').value.split(',').map(Number);
+
+  const drinkers = Math.round(guests * dRate);
+  const nonDrink = guests - drinkers;
+
+  // 2 drinks first hour, 1/hour after, nudged by weather
+  const drinks = Math.round(drinkers * (2 + Math.max(0, hours - 1)) * weather);
+
+  const wineDrinks = drinks * wPct/100;
+  const beerDrinks = drinks * bPct/100;
+  const spiritDr   = drinks * sPct/100;
+
+  const bottles = up(wineDrinks / 5);          // 5 pours per 750ml
+  const beers   = up(beerDrinks);              // 1 bottle = 1 drink
+  const spirits = up(spiritDr / 16);           // 16 x 1.5oz per 750ml
+  const mixers  = up(spiritDr / 6);            // ~6 servings per 1L mixer
+
+  const softs   = up(nonDrink * 2 + guests * 1);
+  const water   = up(guests * (weather > 1 ? 2.5 : 1.5));
+  const ice     = up(guests * (weather > 1 ? 2.2 : 1.5) / 5) * 5;  // in lb, 5lb bags
+  const cups    = up(guests * 2.2);
+  const napkins = up(guests * 3);
+
+  const appsPer = style === 'cocktail' ? 12 : style === 'afternoon' ? 8 : 6;
+  const apps    = guests * appsPer;
+  const mains   = style === 'dinner' || style === 'bbq' ? guests : 0;
+  const cake    = guests;
+
+  const F = {
+    'Drinks': [
+      ['Wine',            `${bottles} bottles`,  '750ml · 5 glasses each'],
+      ['Beer',            `${beers} bottles`,    beers >= 24 ? `about ${up(beers/24)} cases` : 'or cans'],
+      ['Spirits',         `${spirits} bottles`,  '750ml · ~16 servings each'],
+      ['Mixers',          `${mixers} litres`,    'tonic, soda, juice'],
+    ],
+    'Non-alcoholic': [
+      ['Soft drinks',     `${softs} servings`,   `${nonDrink} non-drinking guests`],
+      ['Water',           `${water} bottles`,    'people alternate — always short'],
+    ],
+    'Bar supplies': [
+      ['Ice',             `${ice} lb`,           `${up(ice/5)} × 5lb bags`],
+      ['Cups / glasses',  `${cups}`,             'people lose theirs'],
+      ['Napkins',         `${napkins}`,          ''],
+    ],
+    'Food': [
+      ['Appetiser pieces',`${apps}`,             `${appsPer} per guest`],
+      ...(mains ? [['Main servings', `${mains}`, 'one per guest, plus 5% spare']] : []),
+      ['Cake servings',   `${cake}`,             'order for your full head count'],
+    ],
+  };
+  if (dRate === 0) { delete F['Drinks']; delete F['Bar supplies']; }
+  return {drinks: dRate === 0 ? 0 : drinks, F};
+}
+
+function render(){
+  const {drinks, F} = calc();
+  $('h-drinks').textContent = drinks.toLocaleString('en-US');
+  $('out').innerHTML = Object.entries(F).map(([sec, rows]) =>
+    `<h3>${sec}</h3>` + rows.map(([n,q,s]) =>
+      `<div class="row"><div>${n}${s?`<span class="sub">${s}</span>`:''}</div><div class="q">${q}</div></div>`
+    ).join('')
+  ).join('');
+  try{ localStorage.setItem('hk-party', JSON.stringify(
+    ['guests','hours','drinkers','style','mix','weather'].reduce((a,k)=>(a[k]=$(k).value,a),{}))); }catch(e){}
+}
+
+function copyList(){
+  const {F} = calc();
+  const t = Object.entries(F).map(([sec,rows]) =>
+    sec.toUpperCase()+'\n'+rows.map(([n,q])=>`  ${n}: ${q}`).join('\n')).join('\n\n')
+    + '\n\nvia havenkept.github.io';
+  navigator.clipboard?.writeText(t).then(()=>alert('Shopping list copied.'), ()=>alert(t));
+}
+
+['guests','hours','drinkers','style','mix','weather'].forEach(id => {
+  $(id).addEventListener('input', render); $(id).addEventListener('change', render);
+});
+try{
+  const s = JSON.parse(localStorage.getItem('hk-party'));
+  if (s) Object.entries(s).forEach(([k,v]) => { if ($(k)) $(k).value = v; });
+}catch(e){}
+
+document.getElementById('capture').addEventListener('submit', async e => {
+  e.preventDefault();
+  const btn = document.getElementById('cap-btn');
+  const msg = document.getElementById('cap-msg');
+  const email = document.getElementById('email').value.trim();
+  btn.disabled = true; msg.textContent = 'Saving…';
+  try {
+    const r = await fetch('https://ktekniuqywcvmpdmufhr.supabase.co/rest/v1/tool_leads', {
+      method:'POST',
+      headers:{ apikey:'sb_publishable_50Jzec1Izh9BfE275wVTPA_JlAeKKEy', 'Content-Type':'application/json', Prefer:'return=minimal' },
+      body: JSON.stringify({ email, source:'party-drink-calculator', magnet:'party-timeline-template.pdf' })
+    });
+    msg.textContent = r.ok
+      ? "You're on the list — thank you."
+      : "That didn't save. Mind trying once more?";
+    if (r.ok) document.getElementById('email').value = '';
+  } catch (err) {
+    msg.textContent = "Couldn't reach the server. Try again in a moment.";
+  }
+  btn.disabled = false;
+});
+render();
+</script>
+</body>
+</html>

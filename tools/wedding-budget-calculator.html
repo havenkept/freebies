@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Wedding Budget Calculator — Free Breakdown by Category | HavenKept</title>
+<meta name="description" content="Free wedding budget calculator. Enter your total budget and guest count to see exactly what to spend on venue, catering, photography, flowers and more — plus your real cost per guest.">
+<link rel="canonical" href="https://havenkept.github.io/tools/wedding-budget-calculator.html">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Free Wedding Budget Calculator — See Your Breakdown by Category">
+<meta property="og:description" content="Enter your budget and guest count. Get an instant category-by-category breakdown and your true cost per guest.">
+<meta property="og:url" content="https://havenkept.github.io/tools/wedding-budget-calculator.html">
+
+<style>
+:root{
+  --paper:#FAF8F3; --ink:#2A241D; --plum:#3D2A4A; --sage:#7D9B76;
+  --blush:#F2D5C8; --gold:#C4A882; --rose:#C97B7B; --line:#E5DED2; --muted:#7A7168;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:var(--paper);color:var(--ink);
+  font:400 17px/1.6 ui-sans-serif,system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+  -webkit-text-size-adjust:100%}
+.serif{font-family:ui-serif,Georgia,"Times New Roman",serif}
+.wrap{max-width:760px;margin:0 auto;padding:0 20px}
+header{background:var(--plum);color:var(--paper);padding:46px 0 40px;text-align:center}
+header .kicker{font-size:13px;letter-spacing:.24em;text-transform:uppercase;opacity:.75;font-weight:700}
+header h1{font-size:clamp(30px,6.4vw,46px);line-height:1.12;margin:14px 0 12px;font-weight:700}
+header p{opacity:.86;font-size:17px;max-width:30em;margin:0 auto}
+main{padding:30px 0 10px}
+.card{background:#fff;border:1px solid var(--line);border-radius:16px;padding:22px;margin-bottom:20px}
+h2{font-size:23px;margin-bottom:6px;font-weight:700}
+.hint{color:var(--muted);font-size:15px;margin-bottom:16px}
+label{display:block;font-size:13px;letter-spacing:.1em;text-transform:uppercase;
+  font-weight:700;color:var(--muted);margin-bottom:7px}
+input[type=number],input[type=email],input[type=text]{
+  width:100%;padding:14px 15px;border:1.5px solid var(--line);border-radius:11px;
+  font:inherit;background:var(--paper);color:var(--ink)}
+input:focus{outline:none;border-color:var(--sage);background:#fff}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+@media(max-width:520px){.grid2{grid-template-columns:1fr}}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:18px}
+@media(max-width:560px){.stats{grid-template-columns:1fr}}
+.stat{background:var(--paper);border:1px solid var(--line);border-radius:13px;padding:15px;text-align:center}
+.stat b{display:block;font-size:26px;font-weight:700;letter-spacing:-.01em}
+.stat span{font-size:12px;letter-spacing:.11em;text-transform:uppercase;color:var(--muted);font-weight:700}
+table{width:100%;border-collapse:collapse;margin-top:6px}
+th{text-align:left;font-size:12px;letter-spacing:.11em;text-transform:uppercase;
+  color:var(--muted);padding:10px 6px;border-bottom:1.5px solid var(--line);font-weight:700}
+th:last-child,td:last-child{text-align:right}
+td{padding:12px 6px;border-bottom:1px solid var(--line);vertical-align:middle}
+.dot{display:inline-block;width:11px;height:11px;border-radius:50%;margin-right:9px;vertical-align:-1px}
+.pct{width:74px;padding:8px 9px;border:1.5px solid var(--line);border-radius:8px;
+  font:inherit;font-size:15px;text-align:right;background:var(--paper)}
+.amt{font-weight:700;font-variant-numeric:tabular-nums;white-space:nowrap}
+.bar{height:7px;background:var(--line);border-radius:4px;overflow:hidden;margin-top:7px}
+.bar i{display:block;height:100%;border-radius:4px}
+.totalrow td{border-bottom:none;padding-top:16px;font-weight:700;font-size:18px}
+.warn{background:#FBEDE9;border:1px solid #E9C6BB;color:#8A4030;
+  border-radius:11px;padding:12px 14px;margin-top:14px;font-size:15px;display:none}
+.warn.show{display:block}
+.btn{display:inline-block;background:var(--sage);color:#fff;border:none;border-radius:999px;
+  padding:15px 30px;font:inherit;font-weight:700;cursor:pointer;text-decoration:none;text-align:center}
+.btn:hover{filter:brightness(.94)}
+.btn.ghost{background:transparent;color:var(--plum);border:1.5px solid var(--line)}
+.btnrow{display:flex;gap:11px;flex-wrap:wrap;margin-top:18px}
+.upsell{background:var(--plum);color:var(--paper);border-radius:16px;padding:26px;margin:26px 0}
+.upsell h2{color:var(--paper)}
+.upsell ul{list-style:none;margin:14px 0 20px}
+.upsell li{padding:7px 0 7px 28px;position:relative;opacity:.93}
+.upsell li:before{content:"✓";position:absolute;left:0;color:var(--gold);font-weight:700}
+.upsell .btn{background:var(--gold);color:var(--plum)}
+details{border-bottom:1px solid var(--line);padding:15px 0}
+summary{cursor:pointer;font-weight:700;font-size:17px;list-style:none}
+summary::-webkit-details-marker{display:none}
+summary:after{content:"+";float:right;color:var(--sage);font-size:22px;line-height:1}
+details[open] summary:after{content:"–"}
+details p{margin-top:10px;color:var(--muted)}
+footer{text-align:center;padding:34px 20px 46px;color:var(--muted);font-size:14px}
+footer a{color:var(--sage)}
+.note{font-size:14px;color:var(--muted);margin-top:12px}
+@media print{header,.upsell,.btnrow,.capture,details,footer{display:none}}
+</style>
+<meta property="og:image" content="https://havenkept.github.io/tools/og/wedding-budget-calculator.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://havenkept.github.io/tools/og/wedding-budget-calculator.png">
+</head>
+<body>
+
+<header>
+  <div class="wrap">
+    <div class="kicker">Free · No signup</div>
+    <h1 class="serif">Wedding Budget Calculator</h1>
+    <p>Enter your total budget and guest count. See exactly what to spend on each part of the day — and what each guest really costs you.</p>
+  </div>
+</header>
+
+<main class="wrap">
+
+  <div class="card">
+    <div class="grid2">
+      <div>
+        <label for="total">Total budget</label>
+        <input type="number" id="total" value="30000" min="0" step="500" inputmode="numeric">
+      </div>
+      <div>
+        <label for="guests">Guest count</label>
+        <input type="number" id="guests" value="100" min="1" step="1" inputmode="numeric">
+      </div>
+    </div>
+    <div class="stats">
+      <div class="stat"><b id="s-total">$30,000</b><span>Total budget</span></div>
+      <div class="stat"><b id="s-guest">$300</b><span>Per guest</span></div>
+      <div class="stat"><b id="s-left">$0</b><span>Unallocated</span></div>
+    </div>
+    <div class="warn" id="warn"></div>
+    <p class="note">Percentages below are typical US wedding averages. Change any of them — the amounts update instantly.</p>
+  </div>
+
+  <div class="card">
+    <h2 class="serif">Your breakdown</h2>
+    <p class="hint">Edit any percentage to match your priorities.</p>
+    <table>
+      <thead><tr><th>Category</th><th style="width:96px">Share</th><th style="width:118px">Amount</th></tr></thead>
+      <tbody id="rows"></tbody>
+      <tfoot><tr class="totalrow"><td>Total</td><td id="t-pct">100%</td><td class="amt" id="t-amt">$30,000</td></tr></tfoot>
+    </table>
+    <div class="btnrow">
+      <button class="btn" onclick="window.print()">Print / save as PDF</button>
+      <button class="btn ghost" onclick="resetAll()">Reset to averages</button>
+    </div>
+  </div>
+
+  <div class="upsell">
+    <h2 class="serif">Want this to keep working after today?</h2>
+    <p style="opacity:.9;margin-top:8px">This calculator gives you a starting plan. The full planner tracks it as you actually spend.</p>
+    <ul>
+      <li>Budget that updates as deposits get paid</li>
+      <li>Guest list with RSVPs, meals and plus-ones</li>
+      <li>Drag-and-drop seating chart</li>
+      <li>Vendor contacts and payment due dates</li>
+      <li>Works offline · no app · no subscription</li>
+    </ul>
+    <a class="btn" href="https://www.etsy.com/listing/4531080082/interactive-wedding-planner-no-app" target="_blank" rel="noopener">See the full planner on Etsy →</a>
+  </div>
+
+  <div class="card capture">
+    <h2 class="serif">The costs couples forget</h2>
+    <p class="hint">Free, printable, and yours whether or not you leave an email.</p>
+    <div class="btnrow" style="margin-top:0">
+      <a class="btn" href="downloads/wedding-budget-checklist.pdf" download>Download the PDF</a>
+    </div>
+    <form id="capture" style="margin-top:22px;border-top:1px solid var(--line);padding-top:20px">
+      <label for="email">Want the next one too?</label>
+      <input type="email" id="email" name="email" placeholder="you@email.com" required>
+      <div class="btnrow"><button class="btn" id="cap-btn" type="submit">Keep me posted</button></div>
+      <p class="note" id="cap-msg">No spam, no more than once a month. Unsubscribe any time.</p>
+    </form>
+  </div>
+
+  <div class="card">
+    <h2 class="serif">More free tools</h2>
+    <p class="hint">All free, all work offline once loaded, none need an account.</p>
+    <p style="padding:9px 0"><a href="yarn-calculator.html" style="color:#7D9B76;font-weight:700">Yarn Calculator</a>
+       <span style="color:var(--muted)"> — How many yards and skeins your project needs — crochet or knitting.</span></p><p style="padding:9px 0"><a href="party-drink-calculator.html" style="color:#7D9B76;font-weight:700">Party Drink Calculator</a>
+       <span style="color:var(--muted)"> — How much wine, beer, spirits, ice and food to buy for your guest count.</span></p><p style="padding:9px 0"><a href="wedding-seating-chart-maker.html" style="color:#7D9B76;font-weight:700">Wedding Seating Chart Maker</a>
+       <span style="color:var(--muted)"> — Add guests, make tables, drag people into seats and print the chart.</span></p>
+  </div>
+
+  <div class="card">
+    <h2 class="serif">Questions couples ask</h2>
+    <details><summary>How much should a wedding actually cost?</summary>
+      <p>There's no correct number — it depends entirely on guest count and location. The more useful figure is cost per guest: most couples land somewhere between $150 and $400 per person once catering, bar, rentals and stationery are counted. Cutting the guest list is the single biggest lever you have.</p></details>
+    <details><summary>What percentage of a wedding budget goes to the venue?</summary>
+      <p>Venue and catering together usually take 45-55% of the total. Venue alone is commonly 30%, though that varies enormously depending on whether catering is included or brought in separately.</p></details>
+    <details><summary>What do people forget to budget for?</summary>
+      <p>Tips and service charges, delivery and setup fees, alterations, marriage licence, postage for invitations, day-of transport, and vendor meals. Together these routinely add 8-12% on top of what couples first plan.</p></details>
+    <details><summary>Should I keep a contingency?</summary>
+      <p>Yes — 5-10% held back is standard. This calculator includes a contingency row by default. If you never touch it, it becomes honeymoon money.</p></details>
+    <details><summary>Is this calculator free?</summary>
+      <p>Completely. No signup, nothing stored on a server — your numbers stay in your browser. Print or save the breakdown whenever you like.</p></details>
+  </div>
+
+</main>
+
+<footer>
+  Built by <strong>HavenKept</strong> · interactive planners that work in your browser<br>
+  <a href="https://www.etsy.com/listing/4531080082/interactive-wedding-planner-no-app" target="_blank" rel="noopener">Wedding Planner on Etsy</a>
+</footer>
+
+<script type="application/ld+json">
+{"@context":"https://schema.org","@graph":[
+{"@type":"WebApplication","name":"Wedding Budget Calculator","applicationCategory":"FinanceApplication",
+"operatingSystem":"Any","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},
+"description":"Free wedding budget calculator that breaks a total budget into categories and shows cost per guest."},
+{"@type":"FAQPage","mainEntity":[
+{"@type":"Question","name":"How much should a wedding actually cost?","acceptedAnswer":{"@type":"Answer","text":"It depends on guest count and location. Most couples land between $150 and $400 per guest once catering, bar, rentals and stationery are counted."}},
+{"@type":"Question","name":"What percentage of a wedding budget goes to the venue?","acceptedAnswer":{"@type":"Answer","text":"Venue and catering together usually take 45-55% of the total, with venue alone commonly around 30%."}},
+{"@type":"Question","name":"What do people forget to budget for?","acceptedAnswer":{"@type":"Answer","text":"Tips and service charges, delivery and setup fees, alterations, marriage licence, invitation postage, day-of transport and vendor meals — typically 8-12% extra."}}]}]}
+</script>
+
+<script>
+const DEFAULTS = [
+  {name:'Venue',                pct:22, color:'#7D9B76'},
+  {name:'Catering & bar',       pct:24, color:'#C4A882'},
+  {name:'Photography & video',  pct:12, color:'#C97B7B'},
+  {name:'Flowers & decor',      pct:8,  color:'#F2D5C8'},
+  {name:'Attire & beauty',      pct:7,  color:'#B98D7A'},
+  {name:'Music & entertainment',pct:7,  color:'#9BB79B'},
+  {name:'Cake & desserts',      pct:2,  color:'#D9BF8C'},
+  {name:'Stationery & signage', pct:2,  color:'#A895B0'},
+  {name:'Rings',                pct:3,  color:'#6B8F71'},
+  {name:'Transport',            pct:2,  color:'#BC6B4A'},
+  {name:'Officiant & licence',  pct:1,  color:'#8FA9C4'},
+  {name:'Tips & fees',          pct:5,  color:'#C08497'},
+  {name:'Contingency',          pct:5,  color:'#3D2A4A'},
+];
+const KEY = 'hk-wedding-budget';
+let cats = load();
+
+function load(){
+  try{
+    const s = JSON.parse(localStorage.getItem(KEY));
+    if (s && Array.isArray(s.cats) && s.cats.length === DEFAULTS.length) {
+      document.getElementById('total').value  = s.total  ?? 30000;
+      document.getElementById('guests').value = s.guests ?? 100;
+      return DEFAULTS.map((d,i)=>({...d, pct: s.cats[i]}));
+    }
+  }catch(e){}
+  return DEFAULTS.map(d=>({...d}));
+}
+function save(){
+  try{ localStorage.setItem(KEY, JSON.stringify({
+    total: num('total'), guests: num('guests'), cats: cats.map(c=>c.pct)
+  })); }catch(e){}
+}
+const num = id => Math.max(0, parseFloat(document.getElementById(id).value) || 0);
+const money = n => '$' + Math.round(n).toLocaleString('en-US');
+
+function render(){
+  const total = num('total'), guests = Math.max(1, num('guests'));
+  const sum = cats.reduce((a,c)=>a + c.pct, 0);
+
+  document.getElementById('rows').innerHTML = cats.map((c,i)=>`
+    <tr>
+      <td>
+        <span class="dot" style="background:${c.color}"></span>${c.name}
+        <div class="bar"><i style="width:${Math.min(100, c.pct*4)}%;background:${c.color}"></i></div>
+      </td>
+      <td><input class="pct" type="number" min="0" max="100" step="0.5" value="${c.pct}"
+           aria-label="${c.name} percentage" oninput="setPct(${i}, this.value)"></td>
+      <td class="amt">${money(total * c.pct / 100)}</td>
+    </tr>`).join('');
+
+  document.getElementById('s-total').textContent = money(total);
+  document.getElementById('s-guest').textContent = money(total / guests);
+  document.getElementById('s-left').textContent  = money(total * (100 - sum) / 100);
+  document.getElementById('t-pct').textContent   = (Math.round(sum*10)/10) + '%';
+  document.getElementById('t-amt').textContent   = money(total * sum / 100);
+
+  const warn = document.getElementById('warn');
+  const diff = Math.round((sum - 100) * 10) / 10;
+  if (Math.abs(diff) < 0.05) { warn.classList.remove('show'); }
+  else {
+    warn.classList.add('show');
+    warn.textContent = diff > 0
+      ? `Your categories add up to ${sum.toFixed(1)}% — that's ${money(total*diff/100)} more than your budget.`
+      : `You have ${money(total*(-diff)/100)} unallocated (${(-diff).toFixed(1)}% of your budget).`;
+  }
+  save();
+}
+function setPct(i, v){ cats[i].pct = Math.max(0, parseFloat(v) || 0); render(); }
+function resetAll(){ cats = DEFAULTS.map(d=>({...d})); render(); }
+
+document.getElementById('total').addEventListener('input', render);
+document.getElementById('guests').addEventListener('input', render);
+document.getElementById('capture').addEventListener('submit', async e => {
+  e.preventDefault();
+  const btn = document.getElementById('cap-btn');
+  const msg = document.getElementById('cap-msg');
+  const email = document.getElementById('email').value.trim();
+  btn.disabled = true; msg.textContent = 'Saving…';
+  try {
+    const r = await fetch('https://ktekniuqywcvmpdmufhr.supabase.co/rest/v1/tool_leads', {
+      method:'POST',
+      headers:{ apikey:'sb_publishable_50Jzec1Izh9BfE275wVTPA_JlAeKKEy', 'Content-Type':'application/json', Prefer:'return=minimal' },
+      body: JSON.stringify({ email, source:'wedding-budget-calculator', magnet:'wedding-budget-checklist.pdf' })
+    });
+    msg.textContent = r.ok
+      ? "You're on the list — thank you."
+      : "That didn't save. Mind trying once more?";
+    if (r.ok) document.getElementById('email').value = '';
+  } catch (err) {
+    msg.textContent = "Couldn't reach the server. Try again in a moment.";
+  }
+  btn.disabled = false;
+});
+render();
+</script>
+</body>
+</html>

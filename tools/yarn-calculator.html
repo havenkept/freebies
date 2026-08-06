@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>How Much Yarn Do I Need? Free Yarn Calculator for Crochet & Knitting | HavenKept</title>
+<meta name="description" content="Free yarn calculator. Pick your project and yarn weight to see how many yards and skeins you need for a blanket, scarf, sweater or hat — for crochet or knitting.">
+<link rel="canonical" href="https://havenkept.github.io/tools/yarn-calculator.html">
+<meta property="og:type" content="website">
+<meta property="og:title" content="How Much Yarn Do I Need? Free Yarn Calculator">
+<meta property="og:description" content="Pick your project and yarn weight — get yards and skeins instantly, for crochet or knitting.">
+<meta property="og:url" content="https://havenkept.github.io/tools/yarn-calculator.html">
+<style>
+:root{--paper:#FAF8F3;--ink:#2A241D;--plum:#3D2A4A;--sage:#6B8F71;--terra:#BC6B4A;
+  --gold:#C9A227;--line:#E5DED2;--muted:#7A7168}
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:var(--paper);color:var(--ink);
+  font:400 17px/1.6 ui-sans-serif,system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;-webkit-text-size-adjust:100%}
+.serif{font-family:ui-serif,Georgia,"Times New Roman",serif}
+.wrap{max-width:760px;margin:0 auto;padding:0 20px}
+header{background:var(--plum);color:var(--paper);padding:46px 0 40px;text-align:center}
+header .kicker{font-size:13px;letter-spacing:.24em;text-transform:uppercase;opacity:.75;font-weight:700}
+header h1{font-size:clamp(28px,6vw,44px);line-height:1.12;margin:14px 0 12px;font-weight:700}
+header p{opacity:.86;max-width:30em;margin:0 auto}
+main{padding:30px 0 10px}
+.card{background:#fff;border:1px solid var(--line);border-radius:16px;padding:22px;margin-bottom:20px}
+h2{font-size:23px;margin-bottom:6px;font-weight:700}
+.hint{color:var(--muted);font-size:15px;margin-bottom:16px}
+label{display:block;font-size:13px;letter-spacing:.1em;text-transform:uppercase;font-weight:700;color:var(--muted);margin:0 0 7px}
+input,select{width:100%;padding:14px 15px;border:1.5px solid var(--line);border-radius:11px;
+  font:inherit;background:var(--paper);color:var(--ink)}
+input:focus,select:focus{outline:none;border-color:var(--sage);background:#fff}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:14px}
+@media(max-width:520px){.grid2{grid-template-columns:1fr}}
+.result{background:var(--plum);color:var(--paper);border-radius:16px;padding:26px;text-align:center;margin-bottom:20px}
+.result .big{font-size:clamp(40px,10vw,62px);font-weight:700;line-height:1.05;letter-spacing:-.02em}
+.result .lbl{font-size:13px;letter-spacing:.18em;text-transform:uppercase;opacity:.75;font-weight:700;margin-top:6px}
+.result .split{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:22px;border-top:1px solid rgba(250,248,243,.2);padding-top:20px}
+.result .split b{display:block;font-size:30px;font-weight:700}
+.result .split span{font-size:12px;letter-spacing:.12em;text-transform:uppercase;opacity:.72;font-weight:700}
+.meta{font-size:15px;color:var(--muted);margin-top:14px;text-align:center}
+.btn{display:inline-block;background:var(--sage);color:#fff;border:none;border-radius:999px;
+  padding:15px 30px;font:inherit;font-weight:700;cursor:pointer;text-decoration:none;text-align:center}
+.btn:hover{filter:brightness(.94)}
+.btnrow{display:flex;gap:11px;flex-wrap:wrap;margin-top:18px}
+.upsell{background:var(--sage);color:#fff;border-radius:16px;padding:26px;margin:26px 0}
+.upsell ul{list-style:none;margin:14px 0 20px}
+.upsell li{padding:7px 0 7px 28px;position:relative;opacity:.95}
+.upsell li:before{content:"✓";position:absolute;left:0;color:#fff;font-weight:700}
+.upsell .btn{background:#fff;color:var(--sage)}
+details{border-bottom:1px solid var(--line);padding:15px 0}
+summary{cursor:pointer;font-weight:700;list-style:none}
+summary::-webkit-details-marker{display:none}
+summary:after{content:"+";float:right;color:var(--sage);font-size:22px;line-height:1}
+details[open] summary:after{content:"–"}
+details p{margin-top:10px;color:var(--muted)}
+footer{text-align:center;padding:34px 20px 46px;color:var(--muted);font-size:14px}
+footer a{color:var(--sage)}
+.note{font-size:14px;color:var(--muted);margin-top:12px}
+@media print{header,.upsell,.btnrow,.capture,details,footer{display:none}}
+</style>
+<meta property="og:image" content="https://havenkept.github.io/tools/og/yarn-calculator.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://havenkept.github.io/tools/og/yarn-calculator.png">
+</head>
+<body>
+
+<header>
+  <div class="wrap">
+    <div class="kicker">Free · Crochet &amp; knitting</div>
+    <h1 class="serif">How much yarn do I need?</h1>
+    <p>Pick your project and yarn weight. Get the yardage and the number of skeins — before you get to the checkout and guess.</p>
+  </div>
+</header>
+
+<main class="wrap">
+
+  <div class="card">
+    <label for="project">Project</label>
+    <select id="project"></select>
+
+    <div id="dims" class="grid2" style="margin-top:14px">
+      <div><label for="w">Width (inches)</label><input type="number" id="w" value="50" min="1" inputmode="numeric"></div>
+      <div><label for="h">Length (inches)</label><input type="number" id="h" value="60" min="1" inputmode="numeric"></div>
+    </div>
+
+    <div class="grid2" style="margin-top:14px">
+      <div>
+        <label for="weight">Yarn weight</label>
+        <select id="weight">
+          <option value="2.00">0 — Lace</option>
+          <option value="1.45">1 — Super fine / fingering</option>
+          <option value="1.15">2 — Fine / sport</option>
+          <option value="0.95">3 — Light / DK</option>
+          <option value="0.75" selected>4 — Medium / worsted / aran</option>
+          <option value="0.55">5 — Bulky / chunky</option>
+          <option value="0.36">6 — Super bulky</option>
+          <option value="0.22">7 — Jumbo</option>
+        </select>
+      </div>
+      <div>
+        <label for="stitch">Stitch / technique</label>
+        <select id="stitch">
+          <option value="1.00" selected>Single crochet</option>
+          <option value="0.82">Double / treble crochet</option>
+          <option value="0.66">Granny or open lace</option>
+          <option value="0.88">Knit stockinette</option>
+          <option value="1.05">Knit garter</option>
+          <option value="1.30">Cables / colourwork</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="grid2" style="margin-top:14px">
+      <div><label for="skein">Yards per skein</label><input type="number" id="skein" value="220" min="1" inputmode="numeric"></div>
+      <div><label for="buffer">Safety margin</label>
+        <select id="buffer">
+          <option value="1.05">5% — I measure carefully</option>
+          <option value="1.12" selected>12% — recommended</option>
+          <option value="1.25">25% — I'd rather have leftovers</option>
+        </select>
+      </div>
+    </div>
+  </div>
+
+  <div class="result">
+    <div class="big" id="r-yards">2,520</div>
+    <div class="lbl">yards needed</div>
+    <div class="split">
+      <div><b id="r-skeins">12</b><span>skeins to buy</span></div>
+      <div><b id="r-metres">2,304</b><span>metres</span></div>
+    </div>
+  </div>
+  <p class="meta" id="r-note"></p>
+
+  <div class="card">
+    <div class="btnrow">
+      <button class="btn" onclick="window.print()">Print / save this</button>
+      <button class="btn" style="background:transparent;color:var(--plum);border:1.5px solid var(--line)" onclick="copyResult()">Copy result</button>
+    </div>
+    <p class="note">Buy all your skeins in the same dye lot — colours shift noticeably between lots, and mid-project is a bad time to find out.</p>
+  </div>
+
+  <div class="upsell">
+    <h2 class="serif">Know what's already in your stash</h2>
+    <p style="opacity:.95;margin-top:8px">Most of us buy yarn we already own. StashKeeper is an interactive planner that keeps track.</p>
+    <ul>
+      <li>Yarn Stash — brand, colourway, fibre, weight, dye lot, yards bought and left</li>
+      <li>Row Counter — a live counter for every project on the go</li>
+      <li>Tools — the hooks and needles you already own</li>
+      <li>Projects — pattern URL, yards needed and your own notes</li>
+      <li>Gift Planner and Ideas for what's next</li>
+      <li>Works offline · no app · no subscription</li>
+    </ul>
+    <a class="btn" href="https://www.etsy.com/listing/4547194505/digital-crochet-knitting-planner-wip" target="_blank" rel="noopener">See StashKeeper on Etsy →</a>
+  </div>
+
+  <div class="card capture">
+    <h2 class="serif">Yarn substitution cheat sheet</h2>
+    <p class="hint">Free, printable, and yours whether or not you leave an email.</p>
+    <div class="btnrow" style="margin-top:0">
+      <a class="btn" href="downloads/yarn-substitution-cheat-sheet.pdf" download>Download the PDF</a>
+    </div>
+    <form id="capture" style="margin-top:22px;border-top:1px solid var(--line);padding-top:20px">
+      <label for="email">Want the next one too?</label>
+      <input type="email" id="email" name="email" placeholder="you@email.com" required>
+      <div class="btnrow"><button class="btn" id="cap-btn" type="submit">Keep me posted</button></div>
+      <p class="note" id="cap-msg">No spam, no more than once a month. Unsubscribe any time.</p>
+    </form>
+  </div>
+
+  <div class="card">
+    <h2 class="serif">More free tools</h2>
+    <p class="hint">All free, all work offline once loaded, none need an account.</p>
+    <p style="padding:9px 0"><a href="wedding-budget-calculator.html" style="color:#6B8F71;font-weight:700">Wedding Budget Calculator</a>
+       <span style="color:var(--muted)"> — Split a total budget across every category and see your real cost per guest.</span></p><p style="padding:9px 0"><a href="party-drink-calculator.html" style="color:#6B8F71;font-weight:700">Party Drink Calculator</a>
+       <span style="color:var(--muted)"> — How much wine, beer, spirits, ice and food to buy for your guest count.</span></p><p style="padding:9px 0"><a href="wedding-seating-chart-maker.html" style="color:#6B8F71;font-weight:700">Wedding Seating Chart Maker</a>
+       <span style="color:var(--muted)"> — Add guests, make tables, drag people into seats and print the chart.</span></p>
+  </div>
+
+  <div class="card">
+    <h2 class="serif">Common questions</h2>
+    <details><summary>How much yarn for a baby blanket?</summary>
+      <p>A 30 × 40 inch baby blanket in worsted weight single crochet needs roughly 900-1,000 yards — about 4-5 standard skeins. Open stitches like granny squares use noticeably less; dense stitches use more.</p></details>
+    <details><summary>How much yarn for a throw blanket?</summary>
+      <p>A 50 × 60 inch throw in worsted weight comes in around 2,200-2,500 yards, or 10-12 skeins. In chunky yarn the yardage drops but the skeins are usually shorter, so the count stays similar.</p></details>
+    <details><summary>Does crochet use more yarn than knitting?</summary>
+      <p>Generally yes — crochet stitches wrap more yarn per stitch. As a rule of thumb crochet uses 20-30% more yarn than knitting for the same size piece, which this calculator accounts for in the stitch selector.</p></details>
+    <details><summary>Why does the calculator add a margin?</summary>
+      <p>Because gauge is personal. Tension, hook size and how you hold the yarn all shift the total, and running short at the last row is the worst outcome. The recommended 12% covers most of that variation.</p></details>
+    <details><summary>Is this exact?</summary>
+      <p>No calculator can be — it's a solid estimate based on project area, yarn weight and stitch type. Always make a gauge swatch if the project matters, and buy a spare skein in the same dye lot.</p></details>
+  </div>
+
+</main>
+
+<footer>
+  Built by <strong>HavenKept</strong> · interactive planners that work in your browser<br>
+  <a href="https://www.etsy.com/listing/4547194505/digital-crochet-knitting-planner-wip" target="_blank" rel="noopener">StashKeeper on Etsy</a>
+</footer>
+
+<script type="application/ld+json">
+{"@context":"https://schema.org","@graph":[
+{"@type":"WebApplication","name":"Yarn Calculator","applicationCategory":"UtilitiesApplication","operatingSystem":"Any",
+"offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},
+"description":"Free yarn calculator estimating yards and skeins needed for crochet and knitting projects."},
+{"@type":"FAQPage","mainEntity":[
+{"@type":"Question","name":"How much yarn for a baby blanket?","acceptedAnswer":{"@type":"Answer","text":"A 30 by 40 inch baby blanket in worsted weight single crochet needs roughly 900 to 1,000 yards, about 4 to 5 standard skeins."}},
+{"@type":"Question","name":"How much yarn for a throw blanket?","acceptedAnswer":{"@type":"Answer","text":"A 50 by 60 inch throw in worsted weight needs around 2,200 to 2,500 yards, or 10 to 12 skeins."}},
+{"@type":"Question","name":"Does crochet use more yarn than knitting?","acceptedAnswer":{"@type":"Answer","text":"Yes. Crochet typically uses 20 to 30 percent more yarn than knitting for the same size piece."}}]}]}
+</script>
+
+<script>
+// area presets in square inches; fixedYards = worsted-equivalent baseline for shaped items
+const PROJECTS = [
+  {n:'Blanket / flat piece — custom size', dims:true,  w:50, h:60},
+  {n:'Baby blanket (30 × 40")',            dims:true,  w:30, h:40},
+  {n:'Throw blanket (50 × 60")',           dims:true,  w:50, h:60},
+  {n:'Twin blanket (66 × 90")',            dims:true,  w:66, h:90},
+  {n:'Queen blanket (90 × 90")',           dims:true,  w:90, h:90},
+  {n:'Scarf (8 × 60")',                    dims:true,  w:8,  h:60},
+  {n:'Dishcloth (9 × 9")',                 dims:true,  w:9,  h:9},
+  {n:'Shawl / wrap (24 × 70")',            dims:true,  w:24, h:70},
+  {n:'Beanie — adult',                     dims:false, area:280},
+  {n:'Beanie — child',                     dims:false, area:200},
+  {n:'Mittens / gloves — pair',            dims:false, area:260},
+  {n:'Socks — pair, adult',                dims:false, area:330},
+  {n:'Sweater — adult, size M',            dims:false, area:1750},
+  {n:'Cardigan — adult, size M',           dims:false, area:1950},
+];
+
+const $ = id => document.getElementById(id);
+const sel = $('project');
+PROJECTS.forEach((p,i)=> sel.add(new Option(p.n, i)));
+sel.value = 2; // throw
+
+function activeArea(){
+  const p = PROJECTS[+sel.value];
+  if (p.dims) return Math.max(1, (+$('w').value||0)) * Math.max(1, (+$('h').value||0));
+  return p.area;
+}
+
+function render(){
+  const p = PROJECTS[+sel.value];
+  $('dims').style.display = p.dims ? 'grid' : 'none';
+
+  const area   = activeArea();
+  const ypsi   = parseFloat($('weight').value);
+  const stitch = parseFloat($('stitch').value);
+  const buffer = parseFloat($('buffer').value);
+  const perSkein = Math.max(1, +$('skein').value || 1);
+
+  const yards  = area * ypsi * stitch * buffer;
+  const skeins = Math.ceil(yards / perSkein);
+
+  $('r-yards').textContent  = Math.round(yards).toLocaleString('en-US');
+  $('r-skeins').textContent = skeins;
+  $('r-metres').textContent = Math.round(yards * 0.9144).toLocaleString('en-US');
+  $('r-note').textContent   = p.dims
+    ? `${area.toLocaleString('en-US')} sq in · includes a ${Math.round((buffer-1)*100)}% margin`
+    : `Estimated from a typical ${p.n.toLowerCase()} · includes a ${Math.round((buffer-1)*100)}% margin`;
+
+  try{ localStorage.setItem('hk-yarn', JSON.stringify({
+    p:sel.value, w:$('w').value, h:$('h').value, wt:$('weight').value,
+    st:$('stitch').value, sk:$('skein').value, bf:$('buffer').value })); }catch(e){}
+}
+
+function copyResult(){
+  const t = `${$('r-yards').textContent} yards (${$('r-skeins').textContent} skeins) — ${PROJECTS[+sel.value].n} · havenkept.github.io`;
+  navigator.clipboard?.writeText(t).then(
+    ()=>alert('Copied:\n\n'+t),
+    ()=>alert(t));
+}
+
+sel.addEventListener('change', ()=>{
+  const p = PROJECTS[+sel.value];
+  if (p.dims && p.w) { $('w').value = p.w; $('h').value = p.h; }
+  render();
+});
+['w','h','weight','stitch','skein','buffer'].forEach(id => $(id).addEventListener('input', render));
+
+try{
+  const s = JSON.parse(localStorage.getItem('hk-yarn'));
+  if (s){ sel.value=s.p; $('w').value=s.w; $('h').value=s.h; $('weight').value=s.wt;
+          $('stitch').value=s.st; $('skein').value=s.sk; $('buffer').value=s.bf; }
+}catch(e){}
+
+document.getElementById('capture').addEventListener('submit', async e => {
+  e.preventDefault();
+  const btn = document.getElementById('cap-btn');
+  const msg = document.getElementById('cap-msg');
+  const email = document.getElementById('email').value.trim();
+  btn.disabled = true; msg.textContent = 'Saving…';
+  try {
+    const r = await fetch('https://ktekniuqywcvmpdmufhr.supabase.co/rest/v1/tool_leads', {
+      method:'POST',
+      headers:{ apikey:'sb_publishable_50Jzec1Izh9BfE275wVTPA_JlAeKKEy', 'Content-Type':'application/json', Prefer:'return=minimal' },
+      body: JSON.stringify({ email, source:'yarn-calculator', magnet:'yarn-substitution-cheat-sheet.pdf' })
+    });
+    msg.textContent = r.ok
+      ? "You're on the list — thank you."
+      : "That didn't save. Mind trying once more?";
+    if (r.ok) document.getElementById('email').value = '';
+  } catch (err) {
+    msg.textContent = "Couldn't reach the server. Try again in a moment.";
+  }
+  btn.disabled = false;
+});
+render();
+</script>
+</body>
+</html>

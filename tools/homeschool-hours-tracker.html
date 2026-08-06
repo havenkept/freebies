@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Homeschool Hours & Attendance Tracker — Free Log for Your Records | HavenKept</title>
+<meta name="description" content="Free homeschool hours and attendance tracker. Log instructional days and hours per child, see totals against your state requirement, and print the record.">
+<link rel="canonical" href="https://havenkept.github.io/tools/homeschool-hours-tracker.html">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Free Homeschool Hours & Attendance Tracker">
+<meta property="og:description" content="Log days and hours per child, track progress toward your requirement, print the record.">
+<meta property="og:url" content="https://havenkept.github.io/tools/homeschool-hours-tracker.html">
+<meta property="og:image" content="https://havenkept.github.io/tools/og/homeschool-hours-tracker.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://havenkept.github.io/tools/og/homeschool-hours-tracker.png">
+<style>
+:root{--paper:#FAF8F3;--ink:#2A241D;--plum:#3D2A4A;--accent:#C1682F;--line:#E5DED2;--muted:#7A7168}
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:var(--paper);color:var(--ink);font:400 17px/1.6 ui-sans-serif,system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;-webkit-text-size-adjust:100%}
+.serif{font-family:ui-serif,Georgia,"Times New Roman",serif}
+.wrap{max-width:820px;margin:0 auto;padding:0 20px}
+header{background:var(--plum);color:var(--paper);padding:46px 0 40px;text-align:center}
+header .kicker{font-size:13px;letter-spacing:.24em;text-transform:uppercase;opacity:.78;font-weight:700}
+header h1{font-size:clamp(28px,6vw,44px);line-height:1.12;margin:14px 0 12px;font-weight:700}
+header p{opacity:.88;max-width:30em;margin:0 auto}
+main{padding:30px 0 10px}
+.card{background:#fff;border:1px solid var(--line);border-radius:16px;padding:22px;margin-bottom:20px}
+h2{font-size:23px;margin-bottom:6px;font-weight:700}
+h3{font-size:13px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);font-weight:700;margin:20px 0 8px}
+.hint{color:var(--muted);font-size:15px;margin-bottom:16px}
+label{display:block;font-size:13px;letter-spacing:.1em;text-transform:uppercase;font-weight:700;color:var(--muted);margin:0 0 7px}
+input,select,textarea{width:100%;padding:13px 14px;border:1.5px solid var(--line);border-radius:11px;font:inherit;background:var(--paper);color:var(--ink)}
+input:focus,select:focus,textarea:focus{outline:none;border-color:var(--accent);background:#fff}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:13px;margin-bottom:13px}
+.grid3{display:grid;grid-template-columns:2fr 1fr 1fr;gap:13px;margin-bottom:13px}
+@media(max-width:560px){.grid2,.grid3{grid-template-columns:1fr}}
+.btn{display:inline-block;background:var(--accent);color:#fff;border:none;border-radius:999px;padding:14px 28px;font:inherit;font-weight:700;cursor:pointer;text-decoration:none;text-align:center}
+.btn:hover{filter:brightness(.94)}
+.btn.ghost{background:transparent;color:var(--plum);border:1.5px solid var(--line)}
+.btn.sm{padding:9px 16px;font-size:15px}
+.btnrow{display:flex;gap:10px;flex-wrap:wrap;margin-top:16px}
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:12px;margin:16px 0}
+.stat{background:var(--paper);border:1px solid var(--line);border-radius:13px;padding:14px;text-align:center}
+.stat b{display:block;font-size:27px;font-weight:700}
+.stat span{font-size:11.5px;letter-spacing:.11em;text-transform:uppercase;color:var(--muted);font-weight:700}
+table{width:100%;border-collapse:collapse}
+th{text-align:left;font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);padding:9px 6px;border-bottom:1.5px solid var(--line);font-weight:700}
+td{padding:10px 6px;border-bottom:1px solid var(--line);vertical-align:middle}
+.row{display:flex;justify-content:space-between;align-items:center;padding:11px 0;border-bottom:1px solid var(--line);gap:12px}
+.row:last-child{border-bottom:none}
+.pill{display:inline-block;padding:4px 11px;border-radius:999px;font-size:13px;font-weight:700}
+.ok{background:#E7EFE5;color:#3E5C39}.warn{background:#FBEDE9;color:#8A4030}.soon{background:#FAF2E2;color:#7A5E1E}
+.x{background:none;border:none;color:var(--muted);font-size:20px;cursor:pointer;padding:0 6px;line-height:1}
+.upsell{background:var(--plum);color:#fff;border-radius:16px;padding:26px;margin:26px 0}
+.upsell h2{color:#fff}.upsell ul{list-style:none;margin:14px 0 20px}
+.upsell li{padding:6px 0 6px 26px;position:relative;opacity:.94}
+.upsell li:before{content:"✓";position:absolute;left:0;color:var(--accent);font-weight:700}
+.upsell .btn{background:var(--accent);color:#fff}
+details{border-bottom:1px solid var(--line);padding:14px 0}
+summary{cursor:pointer;font-weight:700;list-style:none}
+summary::-webkit-details-marker{display:none}
+summary:after{content:"+";float:right;color:var(--accent);font-size:22px;line-height:1}
+details[open] summary:after{content:"–"}
+details p{margin-top:9px;color:var(--muted)}
+footer{text-align:center;padding:34px 20px 46px;color:var(--muted);font-size:14px}
+footer a{color:var(--accent)}
+.note{font-size:14px;color:var(--muted);margin-top:12px}
+.empty{color:var(--muted);font-style:italic;padding:16px 0}
+@media print{header,.upsell,.btnrow,.capture,details,footer,.noprint{display:none}}
+</style></head><body>
+
+<header><div class="wrap">
+  <div class="kicker">Free · Printable record</div>
+  <h1 class="serif">Homeschool Hours &amp; Attendance Tracker</h1>
+  <p>Log your instructional days and hours as you go, watch the totals climb toward your requirement, and print a clean record when someone asks for one.</p>
+</div></header>
+
+<main class="wrap">
+  <div class="card noprint">
+    <h2 class="serif">Your requirement</h2>
+    <p class="hint">Requirements vary by state — check yours and enter the numbers you need to hit.</p>
+    <div class="grid2">
+      <div><label for="reqDays">Required days</label><input id="reqDays" type="number" value="180" min="0"></div>
+      <div><label for="reqHours">Required hours</label><input id="reqHours" type="number" value="900" min="0"></div>
+    </div>
+  </div>
+
+  <div class="card noprint">
+    <h2 class="serif">Log a day</h2>
+    <div class="grid3">
+      <div><label for="lchild">Child</label><input id="lchild" placeholder="Iris"></div>
+      <div><label for="ldate">Date</label><input id="ldate" type="date"></div>
+      <div><label for="lhours">Hours</label><input id="lhours" type="number" step="0.25" value="4" min="0" max="24"></div>
+    </div>
+    <div><label for="lnote">Subjects covered (optional)</label><input id="lnote" placeholder="Maths, reading, nature walk"></div>
+    <div class="btnrow"><button class="btn" onclick="addLog()">Log it</button></div>
+  </div>
+
+  <div id="summary"></div>
+
+  <div class="card">
+    <h2 class="serif">The record</h2>
+    <div id="log"></div>
+    <div class="btnrow noprint">
+      <button class="btn" onclick="window.print()">Print the record</button>
+      <button class="btn ghost" onclick="exportCsv()">Download CSV</button>
+    </div>
+  </div>
+
+  <div class="upsell">
+    <h2 class="serif">Keeping records for the whole year?</h2>
+    <p style="opacity:.92;margin-top:8px">This tracker covers hours. The HavenKept Homeschool Planner covers the rest of the paperwork.</p>
+    <ul><li>Attendance &amp; Hours, plus Record Keeping and Portfolio sections</li><li>Subjects &amp; Grades, Lessons and Progress &amp; Reports</li><li>Students, Activities, Supplies, Budget and Documents</li><li>Exports to PDF and your calendar, and prints properly</li><li>Works offline · no app · no subscription</li></ul>
+    <a class="btn" href="https://www.etsy.com/listing/4533050119/homeschool-planner-interactive-web-based" target="_blank" rel="noopener">See it on Etsy →</a>
+  </div>
+
+  <div class="card capture">
+    <h2 class="serif">The homeschool portfolio checklist</h2>
+    <p class="hint">Free, printable, and yours whether or not you leave an email.</p>
+    <div class="btnrow" style="margin-top:0">
+      <a class="btn" href="downloads/homeschool-portfolio-checklist.pdf" download>Download the PDF</a>
+    </div>
+    <form id="capture" style="margin-top:22px;border-top:1px solid var(--line);padding-top:20px">
+      <label for="email">Want the next one too?</label>
+      <input type="email" id="email" placeholder="you@email.com" required>
+      <div class="btnrow"><button class="btn" id="cap-btn" type="submit">Keep me posted</button></div>
+      <p class="note" id="cap-msg">No spam, no more than once a month. Unsubscribe any time.</p>
+    </form>
+  </div>
+
+  <div class="card">
+    <h2 class="serif">More free tools</h2>
+    <p class="hint">All free, all work offline once loaded, none need an account.</p>
+    <p style="padding:8px 0"><a href="index.html" style="color:#C1682F;font-weight:700">See all HavenKept tools →</a></p>
+  </div>
+
+  <div class="card">
+    <h2 class="serif">Common questions</h2>
+    <details><summary>How many hours does homeschool need per year?</summary><p>It depends entirely on your state — commonly somewhere between 600 and 1,000 instructional hours, or 160 to 180 days, and some states set no requirement at all. Check your own state's rules; this tracker just counts what you tell it to.</p></details>
+    <details><summary>What counts as an instructional hour?</summary><p>Again, state-dependent, but most families count read-alouds, field trips, documentaries, nature study, music practice and life-skills work alongside formal lessons. If it was intentional and educational, it usually counts.</p></details>
+    <details><summary>Do I have to log hours daily?</summary><p>No, but it is far easier than reconstructing a year in April. Two minutes at the end of each day beats a weekend of guessing, and a contemporaneous record is more credible if anyone reviews it.</p></details>
+    <details><summary>What should I keep besides hours?</summary><p>Samples of work, a reading list, test or assessment results if your state requires them, and a short summary per subject. The portfolio checklist above covers it.</p></details>
+    <details><summary>Where is my data stored?</summary><p>Only in your own browser. Nothing is uploaded, and nobody else can see it. Download the CSV if you want a copy you keep.</p></details>
+  </div>
+</main>
+
+<footer>Built by <strong>HavenKept</strong> · interactive planners that work in your browser<br>
+<a href="https://www.etsy.com/listing/4533050119/homeschool-planner-interactive-web-based" target="_blank" rel="noopener">Homeschool Planner on Etsy</a></footer>
+
+<script type="application/ld+json">
+{"@context":"https://schema.org","@graph":[
+{"@type":"WebApplication","name":"Homeschool Hours &amp; Attendance Tracker","applicationCategory":"UtilitiesApplication","operatingSystem":"Any",
+"offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},"description":"Log days and hours per child, track progress toward your requirement, print the record."},
+{"@type":"FAQPage","mainEntity":[{"@type":"Question","name":"How many hours does homeschool need per year?","acceptedAnswer":{"@type":"Answer","text":"It depends entirely on your state — commonly somewhere between 600 and 1,000 instructional hours, or 160 to 180 days, and some states set no requirement at all. Check your own state's rules; this tracker just counts what you tell it to."}},{"@type":"Question","name":"What counts as an instructional hour?","acceptedAnswer":{"@type":"Answer","text":"Again, state-dependent, but most families count read-alouds, field trips, documentaries, nature study, music practice and life-skills work alongside formal lessons. If it was intentional and educational, it usually counts."}},{"@type":"Question","name":"Do I have to log hours daily?","acceptedAnswer":{"@type":"Answer","text":"No, but it is far easier than reconstructing a year in April. Two minutes at the end of each day beats a weekend of guessing, and a contemporaneous record is more credible if anyone reviews it."}},{"@type":"Question","name":"What should I keep besides hours?","acceptedAnswer":{"@type":"Answer","text":"Samples of work, a reading list, test or assessment results if your state requires them, and a short summary per subject. The portfolio checklist above covers it."}},{"@type":"Question","name":"Where is my data stored?","acceptedAnswer":{"@type":"Answer","text":"Only in your own browser. Nothing is uploaded, and nobody else can see it. Download the CSV if you want a copy you keep."}}]}]}
+</script>
+
+<script>
+const KEY='hk-hours';
+let L=[];
+const $=id=>document.getElementById(id);
+const esc=s=>String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;');
+try{const s=JSON.parse(localStorage.getItem(KEY));if(s){L=s.L||[];$('reqDays').value=s.rd??180;$('reqHours').value=s.rh??900;}}catch(e){}
+const save=()=>{try{localStorage.setItem(KEY,JSON.stringify({L,rd:+$('reqDays').value,rh:+$('reqHours').value}))}catch(e){}};
+function addLog(){
+  const child=($('lchild').value||'Unnamed').trim();
+  const date=$('ldate').value||new Date().toISOString().slice(0,10);
+  const hours=Math.max(0,+$('lhours').value||0);
+  const note=$('lnote').value.trim();
+  L.push({child,date,hours,note}); $('lnote').value=''; render();
+}
+function del(i){ L.splice(i,1); render(); }
+function render(){
+  const rd=+$('reqDays').value||0, rh=+$('reqHours').value||0;
+  const byChild={};
+  L.forEach(l=>{ (byChild[l.child] ||= {days:new Set(),hours:0}); byChild[l.child].days.add(l.date); byChild[l.child].hours+=l.hours; });
+  const kids=Object.keys(byChild).sort();
+  $('summary').innerHTML = kids.length ? kids.map(k=>{
+    const c=byChild[k], d=c.days.size, h=c.hours;
+    const pd=rd?Math.min(100,Math.round(d/rd*100)):0, ph=rh?Math.min(100,Math.round(h/rh*100)):0;
+    return `<div class="card"><h2 class="serif">${esc(k)}</h2>
+      <div class="stats">
+        <div class="stat"><b>${d}</b><span>Days logged</span></div>
+        <div class="stat"><b>${h.toFixed(1)}</b><span>Hours logged</span></div>
+        <div class="stat"><b>${rd?Math.max(0,rd-d):'—'}</b><span>Days to go</span></div>
+        <div class="stat"><b>${rh?Math.max(0,(rh-h)).toFixed(1):'—'}</b><span>Hours to go</span></div>
+      </div>
+      <div class="row"><span>Days</span><span class="pill ${pd>=100?'ok':pd>=60?'soon':'warn'}">${pd}%</span></div>
+      <div class="row"><span>Hours</span><span class="pill ${ph>=100?'ok':ph>=60?'soon':'warn'}">${ph}%</span></div>
+    </div>`;
+  }).join('') : '<div class="card"><div class="empty">Log your first day above and totals will appear here.</div></div>';
+  const rows=L.slice().sort((a,b)=>b.date.localeCompare(a.date));
+  $('log').innerHTML = rows.length ? `<table><thead><tr><th>Date</th><th>Child</th><th>Hours</th><th>Subjects</th><th class="noprint"></th></tr></thead><tbody>`+
+    rows.map(r=>`<tr><td>${r.date}</td><td>${esc(r.child)}</td><td>${r.hours}</td><td>${esc(r.note||'')}</td>
+      <td class="noprint"><button class="x" onclick="del(${L.indexOf(r)})">×</button></td></tr>`).join('')+'</tbody></table>'
+    : '<div class="empty">Nothing logged yet.</div>';
+  save();
+}
+function exportCsv(){
+  const csv='date,child,hours,subjects\n'+L.map(l=>[l.date,l.child,l.hours,'"'+(l.note||'').replace(/"/g,'""')+'"'].join(',')).join('\n');
+  const a=document.createElement('a');
+  a.href=URL.createObjectURL(new Blob([csv],{type:'text/csv'}));
+  a.download='homeschool-hours.csv'; a.click();
+}
+['reqDays','reqHours'].forEach(id=>$(id).addEventListener('input',render));
+$('ldate').value=new Date().toISOString().slice(0,10);
+render();
+
+document.getElementById('capture').addEventListener('submit', async e => {
+  e.preventDefault();
+  const btn=document.getElementById('cap-btn'), msg=document.getElementById('cap-msg');
+  const email=document.getElementById('email').value.trim();
+  btn.disabled=true; msg.textContent='Saving…';
+  try{
+    const r=await fetch('https://ktekniuqywcvmpdmufhr.supabase.co/rest/v1/tool_leads',{method:'POST',
+      headers:{apikey:'sb_publishable_50Jzec1Izh9BfE275wVTPA_JlAeKKEy','Content-Type':'application/json',Prefer:'return=minimal'},
+      body:JSON.stringify({email,source:'homeschool-hours-tracker',magnet:'homeschool-portfolio-checklist.pdf'})});
+    msg.textContent = r.ok ? "You're on the list — thank you." : "That didn't save. Mind trying once more?";
+    if(r.ok) document.getElementById('email').value='';
+  }catch(err){ msg.textContent="Couldn't reach the server. Try again in a moment."; }
+  btn.disabled=false;
+});
+</script>
+</body></html>
