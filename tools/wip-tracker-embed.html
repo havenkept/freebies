@@ -83,7 +83,10 @@ input:focus,select:focus{outline:none;border-color:var(--a-mid);background:var(-
     <div><label for="p-hook">Hook / needle</label><input id="p-hook" placeholder="5.0mm"></div>
     <div><label for="p-rows">Row target</label><input id="p-rows" type="number" min="0" placeholder="120"></div>
     <div><label for="p-status">Status</label><select id="p-status">
-      <option>Planning</option><option selected>In progress</option><option>Finished</option></select></div>
+      <option value="Planning">Planning</option>
+      <option value="WIP" selected>In progress</option>
+      <option value="On Hold">On hold</option>
+      <option value="Done">Finished</option></select></div>
   </div>
   <div><label for="p-pattern">Pattern</label><input id="p-pattern" placeholder="Name or link"></div>
   <div class="row"><button class="btn" id="add">Add project</button></div>
@@ -99,6 +102,11 @@ input:focus,select:focus{outline:none;border-color:var(--a-mid);background:var(-
 <script>
 const KEY = 'hk-wip-demo';      // deliberately NOT sk4_db, so it never touches a real planner's data
 const CAP = 3;
+
+// StashKeeper stores status as Planning / WIP / On Hold / Done and only shows
+// friendlier words on screen. The demo must write the stored values, or the
+// imported projects land outside every filter and every counter reads zero.
+const LABEL = { 'Planning':'Planning', 'WIP':'In progress', 'On Hold':'On hold', 'Done':'Finished' };
 const $ = id => document.getElementById(id);
 const uid = () => 'd' + Math.random().toString(36).slice(2,10);
 const esc = s => String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/"/g,'&quot;');
@@ -126,9 +134,11 @@ function add(){
     pattern: $('p-pattern').value.trim(),
     patternUrl: '',
     hook: $('p-hook').value.trim(),
+    hookBrand: '',
     rowTarget: parseInt($('p-rows').value) || 0,
     roundTarget: 0,
     counters: { row:0, round:0 },
+    yardageNeeded: '', notions: '',
     notes: '', yarnIds: [], toolIds: [],
     dateStarted: new Date().toISOString().slice(0,10), dateFinished: '', photo: ''
   });
@@ -139,8 +149,8 @@ function add(){
 function bump(i, d){
   const p = P[i];
   p.counters.row = Math.max(0, p.counters.row + d);
-  if (p.rowTarget && p.counters.row >= p.rowTarget && p.status !== 'Finished') {
-    p.status = 'Finished';
+  if (p.rowTarget && p.counters.row >= p.rowTarget && p.status !== 'Done') {
+    p.status = 'Done';
     p.dateFinished = new Date().toISOString().slice(0,10);
   }
   render();
@@ -163,7 +173,7 @@ function render(){
 
   $('list').innerHTML = P.length ? P.map((p,i) => {
     const pct = p.rowTarget ? Math.min(100, Math.round(p.counters.row / p.rowTarget * 100)) : 0;
-    const cls = p.status === 'Finished' ? 'done' : p.status === 'In progress' ? 'active' : '';
+    const cls = p.status === 'Done' ? 'done' : p.status === 'WIP' ? 'active' : '';
     return `<div class="proj">
       <div style="display:flex;justify-content:space-between;gap:10px;align-items:flex-start">
         <div>
@@ -171,7 +181,7 @@ function render(){
           <div class="meta">${esc(p.craft)}${p.hook?' · '+esc(p.hook):''}${p.pattern?' · '+esc(p.pattern):''}</div>
         </div>
         <div style="display:flex;gap:8px;align-items:center">
-          <span class="badge ${cls}">${esc(p.status)}</span>
+          <span class="badge ${cls}">${esc(LABEL[p.status] || p.status)}</span>
           <button class="x" onclick="del(${i})" title="Remove">×</button>
         </div>
       </div>
