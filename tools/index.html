@@ -1,97 +1,278 @@
 <!DOCTYPE html>
-<html lang="en"><head><meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Free Planning Tools, Wedding Budget, Yarn &amp; Party Calculators | HavenKept</title>
-<meta name="description" content="Free calculators from HavenKept: a wedding budget calculator, a yarn calculator for crochet and knitting, and a party drink calculator. No signup, works on any phone.">
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Free Planning Tools: Wedding, Yarn, Party &amp; Homeschool | HavenKept</title>
+<meta name="description" content="Seven free planning tools that work right in your browser. Seating charts, budgets, yarn math, homeschool hours and college deadlines. No signup, nothing uploaded.">
 <link rel="canonical" href="https://havenkept.github.io/freebies/tools/">
+<link rel="icon" type="image/png" href="../assets/havenkept-logo.png">
 <meta property="og:type" content="website">
-<meta property="og:title" content="Free Planning Tools from HavenKept">
-<meta property="og:description" content="Wedding budget, yarn yardage and party drink calculators. Free, no signup.">
+<meta property="og:title" content="Free Planning Tools by HavenKept">
+<meta property="og:description" content="Seven free tools that run in your browser. No signup, nothing uploaded.">
 <meta property="og:url" content="https://havenkept.github.io/freebies/tools/">
 <meta property="og:image" content="https://havenkept.github.io/freebies/tools/og/index.png">
 <meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://havenkept.github.io/freebies/tools/og/index.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
 <style>
-:root{--paper:#FAF8F3;--ink:#2A241D;--plum:#3D2A4A;--sage:#7D9B76;--line:#E5DED2;--muted:#7A7168}
-*{margin:0;padding:0;box-sizing:border-box}
-body{background:var(--paper);color:var(--ink);font:400 17px/1.6 ui-sans-serif,system-ui,sans-serif}
-.serif{font-family:ui-serif,Georgia,serif}
-.wrap{max-width:760px;margin:0 auto;padding:0 20px}
-header{background:var(--plum);color:var(--paper);padding:56px 0 46px;text-align:center}
-header .k{font-size:13px;letter-spacing:.24em;text-transform:uppercase;opacity:.75;font-weight:700}
-header h1{font-size:clamp(30px,6.4vw,44px);margin:14px 0 12px;font-weight:700}
-header p{opacity:.86;max-width:32em;margin:0 auto}
-main{padding:32px 0 10px}
-a.tool{display:block;background:#fff;border:1px solid var(--line);border-radius:16px;
-  padding:24px;margin-bottom:18px;text-decoration:none;color:inherit}
-a.tool:hover{border-color:var(--sage)}
-a.tool h2{font-size:24px;font-weight:700;margin-bottom:6px}
-a.tool p{color:var(--muted);font-size:16px}
-a.tool span{display:inline-block;margin-top:12px;font-weight:700;font-size:15px}
-.card{background:#fff;border:1px solid var(--line);border-radius:16px;padding:24px;margin-bottom:18px}
-.card h2{font-size:22px;margin-bottom:8px}
-.card p{color:var(--muted);font-size:16px}
-.card a{color:var(--sage);font-weight:700}
-footer{text-align:center;padding:34px 20px 50px;color:var(--muted);font-size:14px}
-footer a{color:var(--muted);text-decoration:underline;text-underline-offset:2px}
-footer a:hover{color:var(--sage)}
-footer .legal{margin-top:10px}
-</style></head><body>
-<header><div class="wrap">
-  <div class="k">Free · No signup</div>
-  <h1 class="serif">Free planning tools</h1>
-  <p>Small, fast calculators that answer one question properly. Nothing to install, nothing to sign up for, and they keep working offline once loaded.</p>
-</div></header>
+:root{
+  --blush:#F2D5C8;--blush-light:#FAF0EC;--blush-mid:#E8B9A8;
+  --sage:#7D9B76;--sage-light:#C5D5C2;--sage-dark:#4A6645;
+  --cream:#FBF7F2;--cream-dark:#F0E8DE;--warm-white:#FEFCFA;
+  --charcoal:#2C2C2C;--muted:#8A8480;--muted-light:#B8B4B0;
+  --border:#E8DDD5;--border-light:#F0E8E0;
+  --gold:#C4A882;--gold-light:#EAD9C0;
+  --font-serif:'Cormorant Garamond',Georgia,serif;
+  --font-sans:'Jost',system-ui,sans-serif;
+}
+*{box-sizing:border-box;}
+body{margin:0;background:var(--cream);color:var(--charcoal);
+  font-family:var(--font-sans);font-weight:300;font-size:16px;line-height:1.6;
+  -webkit-font-smoothing:antialiased;padding-bottom:78px;}
+.serif{font-family:var(--font-serif);}
+.wrap{max-width:1100px;margin:0 auto;padding:0 22px;}
+
+/* HEADER, matching the seating chart exactly */
+.hk-header{text-align:center;padding:14px 0 28px;border-bottom:1px solid var(--border);margin-bottom:26px;}
+.hk-logo{display:block;height:52px;width:auto;margin:0 auto 10px;}
+.hk-title{font-family:var(--font-serif);font-size:38px;font-weight:300;margin:6px 0 4px;
+  position:relative;display:inline-block;padding:0 20px;line-height:1.15;}
+.hk-title::before,.hk-title::after{content:'';position:absolute;top:50%;transform:translateY(-50%);
+  width:34px;height:1px;background:var(--gold);}
+.hk-title::before{left:-34px;}
+.hk-title::after{right:-34px;}
+.hk-sub{font-size:13px;color:var(--muted);letter-spacing:0.5px;max-width:600px;margin:0 auto;line-height:1.6;}
+.hk-sub a{color:var(--sage-dark);text-decoration:underline;}
+@media(max-width:560px){
+  .hk-title{font-size:29px;padding:0 6px;}
+  .hk-title::before,.hk-title::after{width:16px;}
+  .hk-title::before{left:-14px;}.hk-title::after{right:-14px;}
+}
+
+main{padding:0 0 10px;}
+
+/* CARDS */
+.card{background:var(--warm-white);border:1px solid var(--border);border-radius:12px;
+  padding:20px;margin-bottom:18px;}
+h2{font-family:var(--font-serif);font-size:26px;font-weight:300;margin:0 0 4px;line-height:1.2;}
+h3{font-size:10.5px;letter-spacing:2px;text-transform:uppercase;color:var(--muted);
+  font-weight:500;margin:20px 0 8px;}
+.hint{color:var(--muted);font-size:13px;margin:0 0 16px;}
+.note{font-size:12.5px;color:var(--muted);margin-top:12px;}
+.empty{color:var(--muted);font-style:italic;padding:16px 0;text-align:center;font-size:13px;}
+
+/* FIELDS */
+label{display:block;font-size:10.5px;letter-spacing:1.5px;text-transform:uppercase;
+  font-weight:500;color:var(--muted);margin:0 0 6px;}
+input,select,textarea{width:100%;padding:10px 12px;border:1px solid var(--border);
+  border-radius:8px;font-family:var(--font-sans);font-size:14px;font-weight:300;
+  background:var(--cream);color:var(--charcoal);outline:none;}
+input:focus,select:focus,textarea:focus{border-color:var(--sage);background:#fff;}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:12px;}
+.grid3{display:grid;grid-template-columns:2fr 1fr 1fr;gap:12px;margin-bottom:12px;}
+@media(max-width:600px){.grid2,.grid3{grid-template-columns:1fr;}}
+
+/* BUTTONS */
+.btn{display:inline-block;background:var(--sage);color:#fff;border:none;border-radius:8px;
+  padding:10px 18px;font-family:var(--font-sans);font-size:12px;font-weight:500;
+  letter-spacing:1px;text-transform:uppercase;cursor:pointer;text-decoration:none;
+  text-align:center;transition:0.2s;white-space:nowrap;}
+.btn:hover{background:var(--sage-dark);}
+.btn:disabled{background:var(--muted-light);cursor:not-allowed;}
+.btn.ghost{background:var(--warm-white);color:#8A6A3A;border:1px solid var(--gold-light);}
+.btn.ghost:hover{background:var(--gold-light);}
+.btn.sm{padding:7px 13px;font-size:11px;}
+.btnrow{display:flex;gap:10px;flex-wrap:wrap;margin-top:16px;}
+
+/* STATS, the five-across row from the seating chart */
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:12px;margin:16px 0;}
+.stat{text-align:center;background:var(--warm-white);border:1px solid var(--border);
+  border-left:3px solid var(--sage);border-radius:10px;padding:16px 8px;}
+.stat:nth-child(3){border-left-color:#C77B6B;}
+.stat:nth-child(4),.stat:nth-child(5){border-left-color:var(--gold);}
+.stat b{display:block;font-family:var(--font-serif);font-size:32px;font-weight:400;line-height:1.1;}
+.stat span{font-size:9.5px;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted);
+  margin-top:4px;display:block;}
+
+/* TABLES + ROWS */
+table{width:100%;border-collapse:collapse;font-size:13.5px;}
+th{text-align:left;font-size:10px;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted);
+  padding:9px 6px;border-bottom:1px solid var(--border);font-weight:500;}
+td{padding:10px 6px;border-bottom:1px solid var(--border-light);vertical-align:middle;}
+.row{display:flex;justify-content:space-between;align-items:center;padding:11px 0;
+  border-bottom:1px solid var(--border-light);gap:12px;font-size:14px;}
+.row:last-child{border-bottom:none;}
+.pill{display:inline-block;padding:4px 11px;border-radius:999px;font-size:11.5px;
+  font-weight:500;letter-spacing:0.5px;}
+.ok{background:var(--sage-light);color:var(--sage-dark);}
+.warn{background:#F5E0E0;color:#b05a5a;}
+.soon{background:var(--gold-light);color:#8A6A3A;}
+.x{background:none;border:none;color:var(--muted);font-size:18px;cursor:pointer;
+  padding:0 6px;line-height:1;}
+.x:hover{color:#b05a5a;}
+
+/* UPSELL, warm rather than the old dark slab */
+.upsell{background:var(--blush-light);border:1px solid var(--blush-mid);border-radius:12px;
+  padding:24px;margin:24px 0;}
+.upsell h2{color:var(--charcoal);}
+.upsell p{color:#5A5550;font-size:14px;margin-top:6px;}
+.upsell ul{list-style:none;margin:14px 0 20px;padding:0;}
+.upsell li{padding:5px 0 5px 24px;position:relative;font-size:14px;color:#5A5550;}
+.upsell li:before{content:"\2713";position:absolute;left:0;color:var(--sage);font-weight:500;}
+
+/* FAQ */
+details{border-bottom:1px solid var(--border-light);padding:14px 0;}
+summary{cursor:pointer;font-weight:400;list-style:none;font-size:15px;}
+summary::-webkit-details-marker{display:none;}
+summary:after{content:"+";float:right;color:var(--gold);font-size:20px;line-height:1;}
+details[open] summary:after{content:"\2013";}
+details p{margin:9px 0 0;color:var(--muted);font-size:13.5px;}
+
+/* FIXED ETSY BANNER */
+.hk-footer-banner{position:fixed;left:0;right:0;bottom:0;background:var(--warm-white);
+  border-top:1px solid var(--border);padding:12px 18px;display:flex;align-items:center;
+  justify-content:center;gap:14px;flex-wrap:wrap;text-align:center;z-index:200;
+  transition:background 0.4s,border-color 0.4s,box-shadow 0.4s;}
+.hk-footer-banner span{font-size:14px;font-weight:400;color:var(--charcoal);transition:color 0.4s;}
+.hk-footer-banner a.cta{background:var(--sage);color:#fff;text-decoration:none;padding:8px 16px;
+  border-radius:8px;font-size:12px;letter-spacing:0.5px;transition:transform 0.25s,box-shadow 0.25s;}
+.hk-footer-banner.nudge{background:var(--blush-light);border-top-color:var(--blush-mid);
+  box-shadow:0 -4px 18px rgba(0,0,0,0.08);}
+.hk-footer-banner.nudge span{color:#8a5a4a;}
+.hk-footer-banner.nudge a.cta{animation:nudgeBounce 1.4s ease 3;box-shadow:0 0 0 4px rgba(125,155,118,0.25);}
+@keyframes nudgeBounce{0%,100%{transform:translateY(0);}30%{transform:translateY(-4px);}
+  50%{transform:translateY(0);}65%{transform:translateY(-2px);}}
+
+/* PAGE FOOTER */
+.hk-foot{text-align:center;padding:30px 20px 40px;color:var(--muted);font-size:12.5px;}
+.hk-foot a{color:var(--sage-dark);}
+
+/* TOAST */
+#toast{position:fixed;bottom:86px;left:50%;transform:translateX(-50%) translateY(20px);
+  background:var(--charcoal);color:#fff;padding:10px 20px;border-radius:8px;font-size:13px;
+  opacity:0;pointer-events:none;transition:0.25s;z-index:1000;}
+#toast.show{opacity:1;transform:translateX(-50%) translateY(0);}
+
+/* EMAIL MODAL */
+#email-banner-overlay{display:none;position:fixed;inset:0;background:rgba(30,26,22,0.5);
+  z-index:900;align-items:center;justify-content:center;padding:20px;}
+.email-banner-box{background:#fff;border-radius:16px;padding:30px 26px;max-width:420px;
+  width:100%;text-align:center;position:relative;}
+.email-banner-box .close-x{position:absolute;top:12px;right:14px;background:none;border:none;
+  font-size:18px;color:var(--muted);cursor:pointer;}
+.eb-title{font-family:var(--font-serif);font-weight:300;font-size:24px;color:var(--charcoal);margin-bottom:8px;}
+.eb-body{font-size:13.5px;line-height:1.55;color:#5A5550;margin:0 0 16px;}
+.eb-code{background:var(--blush-light);color:#9A5A4A;font-weight:500;font-size:18px;
+  letter-spacing:2px;padding:12px;border-radius:8px;margin-bottom:12px;}
+.eb-plain{background:none;border:none;color:var(--muted);font-size:12px;
+  text-decoration:underline;cursor:pointer;padding:0;}
+
+/* EMBED FRAME + CAP MODAL, used by the WIP tracker */
+.toolwrap{border:1px solid var(--border);border-radius:12px;overflow:hidden;
+  background:var(--warm-white);margin-bottom:18px;}
+iframe{width:100%;border:0;display:block;min-height:640px;transition:height .2s;}
+.veil{position:fixed;inset:0;background:rgba(44,44,44,.5);display:none;
+  align-items:center;justify-content:center;padding:20px;z-index:900;}
+.veil.open{display:flex;}
+.modal{background:var(--warm-white);border:1px solid var(--border);border-radius:16px;
+  max-width:470px;width:100%;padding:30px 26px;text-align:center;max-height:85vh;overflow-y:auto;}
+.modal h3{font-family:var(--font-serif);font-size:26px;font-weight:300;line-height:1.2;margin:0 0 10px;}
+.modal p{color:#5A5550;font-size:14px;margin:0;}
+.modal ul{list-style:none;text-align:left;margin:18px 0 20px;padding:0;font-size:14px;}
+.modal li{padding:5px 0 5px 24px;position:relative;color:#5A5550;}
+.modal li:before{content:"\2713";position:absolute;left:0;color:var(--sage);font-weight:500;}
+.modal .btn{width:100%;margin-bottom:10px;}
+.modal .later{background:none;border:none;color:var(--muted);font-family:var(--font-sans);
+  font-size:12.5px;cursor:pointer;text-decoration:underline;padding:0;}
+
+@media print{
+  .hk-header,.upsell,.btnrow,.capture,details,.hk-footer-banner,.hk-foot,.noprint,#toast,.veil{display:none;}
+  body{padding-bottom:0;background:#fff;}
+}
+.tool-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:16px;margin:8px 0 28px;}
+.tool-card{display:block;background:var(--warm-white);border:1px solid var(--border);
+  border-left:3px solid var(--sage);border-radius:12px;padding:20px;text-decoration:none;
+  color:var(--charcoal);transition:0.2s;}
+.tool-card:hover{border-left-color:var(--gold);box-shadow:0 4px 14px rgba(44,44,44,0.06);}
+.tool-tag{display:block;font-size:9.5px;letter-spacing:2px;text-transform:uppercase;
+  color:var(--muted);margin-bottom:6px;}
+.tool-name{display:block;font-size:22px;font-weight:400;line-height:1.2;margin-bottom:6px;}
+.tool-blurb{display:block;font-size:13.5px;color:#5A5550;line-height:1.5;}
+</style>
+</head>
+<body>
+
+<div class="wrap">
+  <div class="hk-header">
+    <img class="hk-logo" src="../assets/havenkept-logo.png" alt="HavenKept" />
+    <div class="hk-title serif">Free Planning Tools</div>
+    <div class="hk-sub">Every one of these runs in your own browser. No signup, no app, and nothing you type is uploaded anywhere.<br>You can try free, live demos of ALL our planners on our <a href="https://havenkept.com/#planners" target="_blank" rel="noopener">website</a>.</div>
+  </div>
+</div>
+
 <main class="wrap">
-  <a class="tool" href="wedding-budget-calculator.html">
-    <h2 class="serif">Wedding Budget Calculator</h2>
-    <p>Split a total budget across every category and see your real cost per guest.</p>
-    <span style="color:#7D9B76">Open the calculator →</span>
-  </a>
-  <a class="tool" href="yarn-calculator.html">
-    <h2 class="serif">Yarn Calculator</h2>
-    <p>How many yards and skeins your project needs, crochet or knitting.</p>
-    <span style="color:#6B8F71">Open the calculator →</span>
-  </a>
-  <a class="tool" href="party-drink-calculator.html">
-    <h2 class="serif">Party Drink Calculator</h2>
-    <p>How much wine, beer, spirits, ice and food to buy for your guest count.</p>
-    <span style="color:#2F5D50">Open the calculator →</span>
-  </a>
-  <a class="tool" href="wedding-seating-chart-maker.html">
-    <h2 class="serif">Wedding Seating Chart Maker</h2>
-    <p>Add guests, make tables, drag people into seats and print the chart.</p>
-    <span style="color:#7D9B76">Open the calculator →</span>
-  </a>
-  <a class="tool" href="homeschool-hours-tracker.html">
-    <h2 class="serif">Homeschool Hours Tracker</h2>
-    <p>Log days and hours per child against your state requirement, then print the record.</p>
-    <span style="color:#C1682F">Open the calculator →</span>
-  </a>
-  <a class="tool" href="college-deadline-tracker.html">
-    <h2 class="serif">College Deadline Tracker</h2>
-    <p>Every school, every deadline, days remaining and what is still outstanding.</p>
-    <span style="color:#1B3A2B">Open the calculator →</span>
-  </a>
-  <a class="tool" href="crochet-wip-tracker.html">
-    <h2 class="serif">Crochet WIP Tracker</h2>
-    <p>Track your projects and count your rows, using the real StashKeeper tracker.</p>
-    <span style="color:#AD7173">Open the calculator →</span>
-  </a>
+  <div class="tool-grid">
+    <a class="tool-card" href="../wedding-seating-chart.html">
+      <span class="tool-tag">Wedding</span>
+      <span class="tool-name serif">Wedding Seating Chart</span>
+      <span class="tool-blurb">Drag guests onto tables, set keep-apart rules, and see the floor plan come together.</span>
+    </a>
+    <a class="tool-card" href="wedding-budget-calculator.html">
+      <span class="tool-tag">Wedding</span>
+      <span class="tool-name serif">Wedding Budget Calculator</span>
+      <span class="tool-blurb">Split a total across every category, then track what you have actually spent.</span>
+    </a>
+    <a class="tool-card" href="party-drink-calculator.html">
+      <span class="tool-tag">Parties</span>
+      <span class="tool-name serif">Party Drink Calculator</span>
+      <span class="tool-blurb">How much wine, beer and ice you need, based on your guest count and how long you are pouring.</span>
+    </a>
+    <a class="tool-card" href="crochet-wip-tracker.html">
+      <span class="tool-tag">Yarn</span>
+      <span class="tool-name serif">Crochet WIP Tracker</span>
+      <span class="tool-blurb">Row counters for the projects on your hook, with a live piece of StashKeeper built in.</span>
+    </a>
+    <a class="tool-card" href="yarn-calculator.html">
+      <span class="tool-tag">Yarn</span>
+      <span class="tool-name serif">Yarn Calculator</span>
+      <span class="tool-blurb">How many yards and skeins your project needs, and what to buy when you substitute.</span>
+    </a>
+    <a class="tool-card" href="homeschool-hours-tracker.html">
+      <span class="tool-tag">Homeschool</span>
+      <span class="tool-name serif">Homeschool Hours Tracker</span>
+      <span class="tool-blurb">Log days and hours per child, watch the totals climb, print a clean record.</span>
+    </a>
+    <a class="tool-card" href="college-deadline-tracker.html">
+      <span class="tool-tag">College</span>
+      <span class="tool-name serif">College Deadline Tracker</span>
+      <span class="tool-blurb">Every application deadline in one place, with what is still outstanding for each school.</span>
+    </a>
+  </div>
+
   <div class="card">
-    <h2 class="serif">Who makes these?</h2>
-    <p>HavenKept builds interactive planners that run in your browser, no app, no subscription,
-    yours forever. These calculators are free samples of the same idea.
-    <a href="https://www.etsy.com/shop/HavenKept" target="_blank" rel="noopener">See the planners on Etsy →</a></p>
+    <h2 class="serif">Why these are free</h2>
+    <p class="hint" style="margin-bottom:0">Each one does a single job properly. If it turns out you want the whole thing, the full planners are on Etsy, and your work from these tools carries across rather than being retyped.</p>
+  </div>
+
+  <div class="card">
+    <h2 class="serif">Common questions</h2>
+    <details><summary>Do I need an account?</summary><p>No. Nothing here asks you to sign up, and nothing you enter leaves your device.</p></details>
+    <details><summary>Will my work still be here tomorrow?</summary><p>Yes, as long as you come back in the same browser on the same device and have not cleared your browsing data. Several tools also let you download a copy.</p></details>
+    <details><summary>Do these work on a phone?</summary><p>Yes. They are built to work on a phone first, though the seating chart is easier on a bigger screen since you are dragging things around.</p></details>
+    <details><summary>Can I print them?</summary><p>The trackers print cleanly, with the buttons and banners stripped out.</p></details>
   </div>
 </main>
-<footer>© HavenKept, your life, kept beautifully
-  <div class="legal"><a href="/privacy.html">Privacy Policy</a>&nbsp;&nbsp;·&nbsp;&nbsp;<a href="/terms.html">Terms of Service</a></div>
-</footer>
+
+<div class="hk-foot">
+  Built by <strong>HavenKept</strong>, interactive planners that work in your browser<br>
+  <a href="https://havenkept.com" target="_blank" rel="noopener">havenkept.com</a>
+</div>
+
 <script type="application/ld+json">
-{"@context":"https://schema.org","@type":"CollectionPage",
-"name":"Free planning tools from HavenKept",
-"description":"Free calculators and trackers for weddings, homeschooling, parties and college applications.",
-"url":"https://havenkept.github.io/freebies/tools/",
-"hasPart":[{"@type":"WebApplication","name":"Wedding Budget Calculator","url":"https://havenkept.github.io/freebies/tools/wedding-budget-calculator.html","applicationCategory":"UtilitiesApplication","operatingSystem":"Any","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},"description":"Split a total budget across every category and see your real cost per guest."},{"@type":"WebApplication","name":"Yarn Calculator","url":"https://havenkept.github.io/freebies/tools/yarn-calculator.html","applicationCategory":"UtilitiesApplication","operatingSystem":"Any","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},"description":"How many yards and skeins your project needs, crochet or knitting."},{"@type":"WebApplication","name":"Party Drink Calculator","url":"https://havenkept.github.io/freebies/tools/party-drink-calculator.html","applicationCategory":"UtilitiesApplication","operatingSystem":"Any","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},"description":"How much wine, beer, spirits, ice and food to buy for your guest count."},{"@type":"WebApplication","name":"Wedding Seating Chart Maker","url":"https://havenkept.github.io/freebies/tools/wedding-seating-chart-maker.html","applicationCategory":"UtilitiesApplication","operatingSystem":"Any","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},"description":"Add guests, make tables, drag people into seats and print the chart."},{"@type":"WebApplication","name":"Homeschool Hours Tracker","url":"https://havenkept.github.io/freebies/tools/homeschool-hours-tracker.html","applicationCategory":"UtilitiesApplication","operatingSystem":"Any","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},"description":"Log days and hours per child against your state requirement, then print the record."},{"@type":"WebApplication","name":"College Deadline Tracker","url":"https://havenkept.github.io/freebies/tools/college-deadline-tracker.html","applicationCategory":"UtilitiesApplication","operatingSystem":"Any","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},"description":"Every school, every deadline, days remaining and what is still outstanding."},{"@type":"WebApplication","name":"Crochet WIP Tracker","url":"https://havenkept.github.io/freebies/tools/crochet-wip-tracker.html","applicationCategory":"UtilitiesApplication","operatingSystem":"Any","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},"description":"Track your projects and count your rows, using the real StashKeeper tracker."}]}
+{"@context":"https://schema.org","@type":"CollectionPage","name":"Free Planning Tools by HavenKept","description":"Seven free planning tools that run in your browser. No signup, no app, nothing uploaded.","url":"https://havenkept.github.io/freebies/tools/","hasPart":[{"@type":"WebApplication","name":"Wedding Seating Chart","description":"Drag guests onto tables, set keep-apart rules, and see the floor plan come together.","applicationCategory":"UtilitiesApplication","operatingSystem":"Any","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},"url":"https://havenkept.github.io/freebies/wedding-seating-chart.html"},{"@type":"WebApplication","name":"Wedding Budget Calculator","description":"Split a total across every category, then track what you have actually spent.","applicationCategory":"UtilitiesApplication","operatingSystem":"Any","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},"url":"https://havenkept.github.io/freebies/tools/wedding-budget-calculator.html"},{"@type":"WebApplication","name":"Party Drink Calculator","description":"How much wine, beer and ice you need, based on your guest count and how long you are pouring.","applicationCategory":"UtilitiesApplication","operatingSystem":"Any","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},"url":"https://havenkept.github.io/freebies/tools/party-drink-calculator.html"},{"@type":"WebApplication","name":"Crochet WIP Tracker","description":"Row counters for the projects on your hook, with a live piece of StashKeeper built in.","applicationCategory":"UtilitiesApplication","operatingSystem":"Any","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},"url":"https://havenkept.github.io/freebies/tools/crochet-wip-tracker.html"},{"@type":"WebApplication","name":"Yarn Calculator","description":"How many yards and skeins your project needs, and what to buy when you substitute.","applicationCategory":"UtilitiesApplication","operatingSystem":"Any","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},"url":"https://havenkept.github.io/freebies/tools/yarn-calculator.html"},{"@type":"WebApplication","name":"Homeschool Hours Tracker","description":"Log days and hours per child, watch the totals climb, print a clean record.","applicationCategory":"UtilitiesApplication","operatingSystem":"Any","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},"url":"https://havenkept.github.io/freebies/tools/homeschool-hours-tracker.html"},{"@type":"WebApplication","name":"College Deadline Tracker","description":"Every application deadline in one place, with what is still outstanding for each school.","applicationCategory":"UtilitiesApplication","operatingSystem":"Any","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},"url":"https://havenkept.github.io/freebies/tools/college-deadline-tracker.html"}]}
 </script>
-</body></html>
+</body>
+</html>
