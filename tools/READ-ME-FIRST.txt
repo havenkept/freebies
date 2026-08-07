@@ -1,0 +1,67 @@
+HAVENKEPT FREE TOOLS, v5
+Replaces v4. Do not upload v4, three of its pages were broken.
+
+WHAT WAS WRONG WITH v4
+The wedding budget calculator, yarn calculator and party
+drink calculator all showed empty results. Their category
+tables and totals never drew. It threw no error, which is
+why my checks missed it. Fixed and verified in v5 by
+counting what actually renders on the page, not just by
+watching for errors.
+
+WHAT TO UPLOAD, in the havenkept.github.io repo. The folder
+layout in this zip mirrors your repo.
+
+1. freebies/wedding-seating-chart.html
+   Overwrite yours. Three changes:
+   - Emails now go to the WELCOME25 form, not the
+     back-to-school one. Before this, every bride who
+     claimed the code got your back-to-school sequence and
+     your wedding automation never ran once.
+   - New "Save My Chart" button. Downloads a file that
+     imports into the full Wedding Planner, carrying
+     guests, tables and seat assignments. Tested against
+     your real planner.
+   - Canonical, Open Graph and structured data added.
+
+2. freebies/og/wedding-seating-chart.png
+   New folder, the social preview image for that page.
+
+3. freebies/tools/
+   Overwrite the whole folder.
+
+4. robots.txt
+   Repo ROOT, beside your index.html. Not inside freebies,
+   not inside tools.
+
+5. Search Console, submit:
+   https://havenkept.github.io/freebies/tools/sitemap.xml
+
+WHAT CHANGED SINCE THE OLD DESIGN
+
+- All six tools use your palette, fonts, gold-ruled title,
+  logo header and fixed Etsy banner.
+- My wedding seating chart is gone. Yours won.
+- Every tool posts to ONE MailerLite form so everyone lands
+  on a single list, and also writes to Supabase tagged with
+  the tool name so you keep your own record.
+- The success message only shows if something actually
+  saved.
+- No em dashes. American spelling.
+
+KNOWN LIMITATION, YOUR CALL
+
+The wedding budget calculator lets people edit the
+percentages but not add or rename categories. There is no
+honeymoon, rehearsal dinner, favors or wedding party gifts
+line, so anyone with those costs has nowhere to put them
+and their total will not reconcile. Say the word and I will
+either add those four at 0 percent, or allow up to three
+custom categories with the same cap and upsell the WIP
+tracker uses.
+
+The logo loads from ../assets/havenkept-logo.png, your
+existing freebies/assets folder. Moving it breaks them.
+
+The WIP tracker embed keeps StashKeeper's darker colors on
+purpose, so it reads as a real slice of the paid planner.

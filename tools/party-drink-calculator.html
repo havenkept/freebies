@@ -563,6 +563,9 @@ try{
   const s = JSON.parse(localStorage.getItem('hk-party'));
   if (s) Object.entries(s).forEach(([k,v]) => { if ($(k)) $(k).value = v; });
 }catch(e){}
+
+
+render();
 </script>
 </body>
 </html>
