@@ -1,89 +1,208 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Free Crochet WIP Tracker &amp; Row Counter That Works in Your Browser | HavenKept</title>
 <meta name="description" content="Free crochet and knitting WIP tracker with a built-in row counter. Add your projects, count your rows, track progress. Nothing to install, nothing to sign up for.">
 <link rel="canonical" href="https://havenkept.github.io/freebies/tools/crochet-wip-tracker.html">
+<link rel="icon" type="image/png" href="../assets/havenkept-logo.png">
 <meta property="og:type" content="website">
 <meta property="og:title" content="Free Crochet WIP Tracker &amp; Row Counter">
 <meta property="og:description" content="Track your projects and count your rows, right in your browser. No signup.">
 <meta property="og:url" content="https://havenkept.github.io/freebies/tools/crochet-wip-tracker.html">
 <meta property="og:image" content="https://havenkept.github.io/freebies/tools/og/crochet-wip-tracker.png">
 <meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://havenkept.github.io/freebies/tools/og/crochet-wip-tracker.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Jost:wght@400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
 <style>
 :root{
-  --paper:#FEF7EB; --surface:#FFFCF8; --paper-2:#F9E9D1; --sage-light:#F7EBD8;
-  --ink:#3B2A1D; --ink-2:#5C463A; --muted:#97806F;
-  --hairline:#F1DDBE; --field:#3B2021; --on-field:#FEF7EB; --on-field-muted:#B79B93;
-  --a:#AD7173; --a-light:#FCE7E7; --a-mid:#D8989A; --a-dark:#723E41; --peach:#ECAF89;
-  --font-display:'Cormorant Garamond',Georgia,serif;
+  --blush:#F2D5C8;--blush-light:#FAF0EC;--blush-mid:#E8B9A8;
+  --sage:#7D9B76;--sage-light:#C5D5C2;--sage-dark:#4A6645;
+  --cream:#FBF7F2;--cream-dark:#F0E8DE;--warm-white:#FEFCFA;
+  --charcoal:#2C2C2C;--muted:#8A8480;--muted-light:#B8B4B0;
+  --border:#E8DDD5;--border-light:#F0E8E0;
+  --gold:#C4A882;--gold-light:#EAD9C0;
+  --font-serif:'Cormorant Garamond',Georgia,serif;
   --font-sans:'Jost',system-ui,sans-serif;
 }
-*{margin:0;padding:0;box-sizing:border-box}
-body{background:var(--paper);color:var(--ink);font:400 17px/1.62 var(--font-sans)}
-.serif{font-family:var(--font-display)}
-.wrap{max-width:820px;margin:0 auto;padding:0 20px}
-header{background:var(--field);color:var(--on-field);padding:48px 0 42px;text-align:center}
-header .k{font-size:12.5px;letter-spacing:.24em;text-transform:uppercase;color:var(--peach);font-weight:600}
-header h1{font-family:var(--font-display);font-size:clamp(32px,6.5vw,50px);line-height:1.1;margin:14px 0 12px;font-weight:600}
-header p{opacity:.86;max-width:31em;margin:0 auto}
-main{padding:30px 0 10px}
-.card{background:var(--surface);border:1px solid var(--hairline);border-radius:16px;padding:24px;margin-bottom:20px}
-h2{font-family:var(--font-display);font-size:27px;font-weight:600;margin-bottom:8px}
-.hint{color:var(--muted);font-size:15.5px;margin-bottom:16px}
-.toolwrap{border:1px solid var(--hairline);border-radius:18px;overflow:hidden;background:var(--paper);
-  box-shadow:0 10px 34px rgba(59,32,33,.07);margin-bottom:22px}
-iframe{width:100%;border:0;display:block;min-height:640px;transition:height .2s}
-.btn{display:inline-block;background:var(--a);color:#fff;border:none;border-radius:999px;
-  padding:14px 30px;font:inherit;font-weight:600;cursor:pointer;text-decoration:none;text-align:center}
-.btn:hover{background:var(--a-dark)}
-.btn.ghost{background:transparent;color:var(--on-field);border:1.5px solid rgba(254,247,235,.35)}
-.upsell{background:var(--field);color:var(--on-field);border-radius:16px;padding:28px}
-.upsell h2{color:var(--on-field)}
-.upsell ul{list-style:none;margin:16px 0 22px}
-.upsell li{padding:7px 0 7px 28px;position:relative}
-.upsell li:before{content:"✓";position:absolute;left:0;color:var(--peach);font-weight:600}
-.upsell .btn{background:var(--peach);color:var(--field)}
-details{border-bottom:1px solid var(--hairline);padding:15px 0}
-summary{cursor:pointer;font-weight:600;list-style:none}
-summary::-webkit-details-marker{display:none}
-summary:after{content:"+";float:right;color:var(--a);font-size:23px;line-height:1}
-details[open] summary:after{content:"–"}
-details p{margin-top:10px;color:var(--muted)}
-footer{text-align:center;padding:36px 20px 50px;color:var(--muted);font-size:14.5px}
-footer a{color:var(--a-dark)}
-.note{font-size:14.5px;color:var(--muted);margin-top:12px}
-label{display:block;font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);font-weight:600;margin-bottom:7px}
-input[type=email]{width:100%;padding:13px 14px;border:1.5px solid var(--hairline);border-radius:11px;font:inherit;background:var(--paper);color:var(--ink)}
-input:focus{outline:none;border-color:var(--a-mid);background:var(--surface)}
-/* upsell modal, fired by the iframe */
-.veil{position:fixed;inset:0;background:rgba(59,32,33,.55);display:none;align-items:center;
-  justify-content:center;padding:20px;z-index:99;backdrop-filter:blur(3px)}
-.veil.open{display:flex}
-.modal{background:var(--surface);border-radius:20px;max-width:470px;width:100%;padding:32px;text-align:center;
-  box-shadow:0 30px 80px rgba(59,32,33,.35)}
-.modal h3{font-family:var(--font-display);font-size:31px;font-weight:600;line-height:1.15;margin-bottom:12px}
-.modal p{color:var(--ink-2);font-size:16px}
-.modal ul{list-style:none;text-align:left;margin:18px 0 22px;font-size:15.5px}
-.modal li{padding:6px 0 6px 26px;position:relative}
-.modal li:before{content:"✓";position:absolute;left:0;color:var(--a);font-weight:600}
-.modal .btn{width:100%;margin-bottom:10px}
-.modal .later{background:none;border:none;color:var(--muted);font:inherit;font-size:14.5px;cursor:pointer;text-decoration:underline}
+*{box-sizing:border-box;}
+body{margin:0;background:var(--cream);color:var(--charcoal);
+  font-family:var(--font-sans);font-weight:300;font-size:16px;line-height:1.6;
+  -webkit-font-smoothing:antialiased;padding-bottom:78px;}
+.serif{font-family:var(--font-serif);}
+.wrap{max-width:1100px;margin:0 auto;padding:0 22px;}
+
+/* HEADER, matching the seating chart exactly */
+.hk-header{text-align:center;padding:14px 0 28px;border-bottom:1px solid var(--border);margin-bottom:26px;}
+.hk-logo{display:block;height:52px;width:auto;margin:0 auto 10px;}
+.hk-title{font-family:var(--font-serif);font-size:38px;font-weight:300;margin:6px 0 4px;
+  position:relative;display:inline-block;padding:0 20px;line-height:1.15;}
+.hk-title::before,.hk-title::after{content:'';position:absolute;top:50%;transform:translateY(-50%);
+  width:34px;height:1px;background:var(--gold);}
+.hk-title::before{left:-34px;}
+.hk-title::after{right:-34px;}
+.hk-sub{font-size:13px;color:var(--muted);letter-spacing:0.5px;max-width:600px;margin:0 auto;line-height:1.6;}
+.hk-sub a{color:var(--sage-dark);text-decoration:underline;}
+@media(max-width:560px){
+  .hk-title{font-size:29px;padding:0 6px;}
+  .hk-title::before,.hk-title::after{width:16px;}
+  .hk-title::before{left:-14px;}.hk-title::after{right:-14px;}
+}
+
+main{padding:0 0 10px;}
+
+/* CARDS */
+.card{background:var(--warm-white);border:1px solid var(--border);border-radius:12px;
+  padding:20px;margin-bottom:18px;}
+h2{font-family:var(--font-serif);font-size:26px;font-weight:300;margin:0 0 4px;line-height:1.2;}
+h3{font-size:10.5px;letter-spacing:2px;text-transform:uppercase;color:var(--muted);
+  font-weight:500;margin:20px 0 8px;}
+.hint{color:var(--muted);font-size:13px;margin:0 0 16px;}
+.note{font-size:12.5px;color:var(--muted);margin-top:12px;}
+.empty{color:var(--muted);font-style:italic;padding:16px 0;text-align:center;font-size:13px;}
+
+/* FIELDS */
+label{display:block;font-size:10.5px;letter-spacing:1.5px;text-transform:uppercase;
+  font-weight:500;color:var(--muted);margin:0 0 6px;}
+input,select,textarea{width:100%;padding:10px 12px;border:1px solid var(--border);
+  border-radius:8px;font-family:var(--font-sans);font-size:14px;font-weight:300;
+  background:var(--cream);color:var(--charcoal);outline:none;}
+input:focus,select:focus,textarea:focus{border-color:var(--sage);background:#fff;}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:12px;}
+.grid3{display:grid;grid-template-columns:2fr 1fr 1fr;gap:12px;margin-bottom:12px;}
+@media(max-width:600px){.grid2,.grid3{grid-template-columns:1fr;}}
+
+/* BUTTONS */
+.btn{display:inline-block;background:var(--sage);color:#fff;border:none;border-radius:8px;
+  padding:10px 18px;font-family:var(--font-sans);font-size:12px;font-weight:500;
+  letter-spacing:1px;text-transform:uppercase;cursor:pointer;text-decoration:none;
+  text-align:center;transition:0.2s;white-space:nowrap;}
+.btn:hover{background:var(--sage-dark);}
+.btn:disabled{background:var(--muted-light);cursor:not-allowed;}
+.btn.ghost{background:var(--warm-white);color:#8A6A3A;border:1px solid var(--gold-light);}
+.btn.ghost:hover{background:var(--gold-light);}
+.btn.sm{padding:7px 13px;font-size:11px;}
+.btnrow{display:flex;gap:10px;flex-wrap:wrap;margin-top:16px;}
+
+/* STATS, the five-across row from the seating chart */
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:12px;margin:16px 0;}
+.stat{text-align:center;background:var(--warm-white);border:1px solid var(--border);
+  border-left:3px solid var(--sage);border-radius:10px;padding:16px 8px;}
+.stat:nth-child(3){border-left-color:#C77B6B;}
+.stat:nth-child(4),.stat:nth-child(5){border-left-color:var(--gold);}
+.stat b{display:block;font-family:var(--font-serif);font-size:32px;font-weight:400;line-height:1.1;}
+.stat span{font-size:9.5px;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted);
+  margin-top:4px;display:block;}
+
+/* TABLES + ROWS */
+table{width:100%;border-collapse:collapse;font-size:13.5px;}
+th{text-align:left;font-size:10px;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted);
+  padding:9px 6px;border-bottom:1px solid var(--border);font-weight:500;}
+td{padding:10px 6px;border-bottom:1px solid var(--border-light);vertical-align:middle;}
+.row{display:flex;justify-content:space-between;align-items:center;padding:11px 0;
+  border-bottom:1px solid var(--border-light);gap:12px;font-size:14px;}
+.row:last-child{border-bottom:none;}
+.pill{display:inline-block;padding:4px 11px;border-radius:999px;font-size:11.5px;
+  font-weight:500;letter-spacing:0.5px;}
+.ok{background:var(--sage-light);color:var(--sage-dark);}
+.warn{background:#F5E0E0;color:#b05a5a;}
+.soon{background:var(--gold-light);color:#8A6A3A;}
+.x{background:none;border:none;color:var(--muted);font-size:18px;cursor:pointer;
+  padding:0 6px;line-height:1;}
+.x:hover{color:#b05a5a;}
+
+/* UPSELL, warm rather than the old dark slab */
+.upsell{background:var(--blush-light);border:1px solid var(--blush-mid);border-radius:12px;
+  padding:24px;margin:24px 0;}
+.upsell h2{color:var(--charcoal);}
+.upsell p{color:#5A5550;font-size:14px;margin-top:6px;}
+.upsell ul{list-style:none;margin:14px 0 20px;padding:0;}
+.upsell li{padding:5px 0 5px 24px;position:relative;font-size:14px;color:#5A5550;}
+.upsell li:before{content:"\2713";position:absolute;left:0;color:var(--sage);font-weight:500;}
+
+/* FAQ */
+details{border-bottom:1px solid var(--border-light);padding:14px 0;}
+summary{cursor:pointer;font-weight:400;list-style:none;font-size:15px;}
+summary::-webkit-details-marker{display:none;}
+summary:after{content:"+";float:right;color:var(--gold);font-size:20px;line-height:1;}
+details[open] summary:after{content:"\2013";}
+details p{margin:9px 0 0;color:var(--muted);font-size:13.5px;}
+
+/* FIXED ETSY BANNER */
+.hk-footer-banner{position:fixed;left:0;right:0;bottom:0;background:var(--warm-white);
+  border-top:1px solid var(--border);padding:12px 18px;display:flex;align-items:center;
+  justify-content:center;gap:14px;flex-wrap:wrap;text-align:center;z-index:200;
+  transition:background 0.4s,border-color 0.4s,box-shadow 0.4s;}
+.hk-footer-banner span{font-size:14px;font-weight:400;color:var(--charcoal);transition:color 0.4s;}
+.hk-footer-banner a.cta{background:var(--sage);color:#fff;text-decoration:none;padding:8px 16px;
+  border-radius:8px;font-size:12px;letter-spacing:0.5px;transition:transform 0.25s,box-shadow 0.25s;}
+.hk-footer-banner.nudge{background:var(--blush-light);border-top-color:var(--blush-mid);
+  box-shadow:0 -4px 18px rgba(0,0,0,0.08);}
+.hk-footer-banner.nudge span{color:#8a5a4a;}
+.hk-footer-banner.nudge a.cta{animation:nudgeBounce 1.4s ease 3;box-shadow:0 0 0 4px rgba(125,155,118,0.25);}
+@keyframes nudgeBounce{0%,100%{transform:translateY(0);}30%{transform:translateY(-4px);}
+  50%{transform:translateY(0);}65%{transform:translateY(-2px);}}
+
+/* PAGE FOOTER */
+.hk-foot{text-align:center;padding:30px 20px 40px;color:var(--muted);font-size:12.5px;}
+.hk-foot a{color:var(--sage-dark);}
+
+/* TOAST */
+#toast{position:fixed;bottom:86px;left:50%;transform:translateX(-50%) translateY(20px);
+  background:var(--charcoal);color:#fff;padding:10px 20px;border-radius:8px;font-size:13px;
+  opacity:0;pointer-events:none;transition:0.25s;z-index:1000;}
+#toast.show{opacity:1;transform:translateX(-50%) translateY(0);}
+
+/* EMAIL MODAL */
+#email-banner-overlay{display:none;position:fixed;inset:0;background:rgba(30,26,22,0.5);
+  z-index:900;align-items:center;justify-content:center;padding:20px;}
+.email-banner-box{background:#fff;border-radius:16px;padding:30px 26px;max-width:420px;
+  width:100%;text-align:center;position:relative;}
+.email-banner-box .close-x{position:absolute;top:12px;right:14px;background:none;border:none;
+  font-size:18px;color:var(--muted);cursor:pointer;}
+.eb-title{font-family:var(--font-serif);font-weight:300;font-size:24px;color:var(--charcoal);margin-bottom:8px;}
+.eb-body{font-size:13.5px;line-height:1.55;color:#5A5550;margin:0 0 16px;}
+.eb-code{background:var(--blush-light);color:#9A5A4A;font-weight:500;font-size:18px;
+  letter-spacing:2px;padding:12px;border-radius:8px;margin-bottom:12px;}
+.eb-plain{background:none;border:none;color:var(--muted);font-size:12px;
+  text-decoration:underline;cursor:pointer;padding:0;}
+
+/* EMBED FRAME + CAP MODAL, used by the WIP tracker */
+.toolwrap{border:1px solid var(--border);border-radius:12px;overflow:hidden;
+  background:var(--warm-white);margin-bottom:18px;}
+iframe{width:100%;border:0;display:block;min-height:640px;transition:height .2s;}
+.veil{position:fixed;inset:0;background:rgba(44,44,44,.5);display:none;
+  align-items:center;justify-content:center;padding:20px;z-index:900;}
+.veil.open{display:flex;}
+.modal{background:var(--warm-white);border:1px solid var(--border);border-radius:16px;
+  max-width:470px;width:100%;padding:30px 26px;text-align:center;max-height:85vh;overflow-y:auto;}
+.modal h3{font-family:var(--font-serif);font-size:26px;font-weight:300;line-height:1.2;margin:0 0 10px;}
+.modal p{color:#5A5550;font-size:14px;margin:0;}
+.modal ul{list-style:none;text-align:left;margin:18px 0 20px;padding:0;font-size:14px;}
+.modal li{padding:5px 0 5px 24px;position:relative;color:#5A5550;}
+.modal li:before{content:"\2713";position:absolute;left:0;color:var(--sage);font-weight:500;}
+.modal .btn{width:100%;margin-bottom:10px;}
+.modal .later{background:none;border:none;color:var(--muted);font-family:var(--font-sans);
+  font-size:12.5px;cursor:pointer;text-decoration:underline;padding:0;}
+
+@media print{
+  .hk-header,.upsell,.btnrow,.capture,details,.hk-footer-banner,.hk-foot,.noprint,#toast,.veil{display:none;}
+  body{padding-bottom:0;background:#fff;}
+}
 </style>
 </head>
 <body>
 
-<header><div class="wrap">
-  <div class="k">Free · No signup</div>
-  <h1>Crochet WIP tracker &amp; row counter</h1>
-  <p>Add your projects, count your rows, watch the progress bar move. It saves in your own browser, nothing is uploaded, and there is nothing to install.</p>
-</div></header>
-
+<div class="wrap">
+  <div class="hk-header">
+    <img class="hk-logo" src="../assets/havenkept-logo.png" alt="HavenKept" />
+    <div class="hk-title serif">Free Crochet WIP Tracker</div>
+    <div class="hk-sub">Please enjoy this free crochet tool by HavenKept.<br>You can try free, live demos of ALL our planners on our <a href="https://havenkept.com/#planners" target="_blank" rel="noopener">website</a>.</div>
+  </div>
+</div>
 <main class="wrap">
 
   <div class="toolwrap">
@@ -142,12 +261,6 @@ input:focus{outline:none;border-color:var(--a-mid);background:var(--surface)}
   </div>
 
 </main>
-
-<footer>
-  Built by <strong>HavenKept</strong> · interactive planners that work in your browser<br>
-  <a href="https://www.etsy.com/listing/4547194505/digital-crochet-knitting-planner-wip" target="_blank" rel="noopener">StashKeeper on Etsy</a>
-</footer>
-
 <div class="veil" id="veil">
   <div class="modal">
     <h3 class="serif" id="m-title">Three on the go</h3>
@@ -164,6 +277,39 @@ input:focus{outline:none;border-color:var(--a-mid);background:var(--surface)}
   </div>
 </div>
 
+<div class="hk-foot">
+  Built by <strong>HavenKept</strong>, interactive planners that work in your browser<br>
+  <a href="https://www.etsy.com/shop/HavenKept" target="_blank" rel="noopener">StashKeeper on Etsy</a> &middot;
+  <a href="index.html">All free tools</a>
+</div>
+
+<div id="toast"></div>
+
+<div class="hk-footer-banner" id="hk-footer-banner">
+  <span id="hk-footer-message">Part of StashKeeper. Unlimited projects, your yarn stash, hooks and gift plans.</span>
+  <a class="cta" href="https://www.etsy.com/shop/HavenKept" target="_blank" rel="noopener">See the Full Planner &rarr;</a>
+</div>
+
+<div id="email-banner-overlay">
+  <div class="email-banner-box">
+    <button class="close-x" onclick="dismissEmailBanner()">&times;</button>
+    <div id="email-banner-offer">
+      <div class="eb-title">Enjoying this?</div>
+      <p class="eb-body">Enter your email for 25% off the full planner. This offer is only shown once.</p>
+      <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:10px;">
+        <input type="email" id="email-banner-input" placeholder="you@email.com" style="flex:1;min-width:180px;"/>
+        <button class="btn" id="eb-btn" onclick="claimEmailOffer()">Claim my code</button>
+      </div>
+      <button class="eb-plain" onclick="dismissEmailBanner()">No thanks</button>
+    </div>
+    <div id="email-banner-success" style="display:none;">
+      <div class="eb-title">Here's your code</div>
+      <div class="eb-code">WELCOME25</div>
+      <p class="eb-body" id="eb-success-note">We also sent this to your email for safekeeping.</p>
+      <button class="btn" onclick="dismissEmailBanner()">Done</button>
+    </div>
+  </div>
+</div>
 <script type="application/ld+json">
 {"@context":"https://schema.org","@graph":[
 {"@type":"WebApplication","name":"Crochet WIP Tracker & Row Counter","applicationCategory":"UtilitiesApplication",
@@ -174,7 +320,117 @@ input:focus{outline:none;border-color:var(--a-mid);background:var(--surface)}
 {"@type":"Question","name":"Can I move my projects into the full planner?","acceptedAnswer":{"@type":"Answer","text":"Yes. Use Save my work to get a file, then use Import in StashKeeper."}},
 {"@type":"Question","name":"Does the row counter work on my phone?","acceptedAnswer":{"@type":"Answer","text":"Yes. It runs in the browser, so you can keep it open beside you while you work."}}]}]}
 </script>
+<script>
+var HK_TOOL='crochet-wip-tracker';
+var HK_MAGNET=null;
+var HK_FLAG='hk-email-'+HK_TOOL;
 
+function toast(msg){
+  var t=document.getElementById('toast');if(!t)return;
+  t.textContent=msg;t.classList.add('show');
+  clearTimeout(window._toastTimer);
+  window._toastTimer=setTimeout(function(){t.classList.remove('show');},2500);
+}
+
+function hkAlreadyCaptured(){
+  try{return localStorage.getItem(HK_FLAG)==='1';}catch(e){return false;}
+}
+function hkMarkCaptured(){
+  try{localStorage.setItem(HK_FLAG,'1');}catch(e){}
+}
+
+/* Returns true only if at least one destination accepted the address, so the
+   caller never promises an email that was never sent. */
+async function hkCapture(email){
+  var okAny=false;
+
+  try{
+    await fetch('https://assets.mailerlite.com/jsonp/2493956/forms/192289314515716069/subscribe',{
+      method:'POST',mode:'no-cors',
+      headers:{'Content-Type':'application/x-www-form-urlencoded'},
+      body:'fields[email]='+encodeURIComponent(email)
+    });
+    /* no-cors gives an opaque response, so this cannot be inspected. Treat a
+       completed request as sent, and lean on Supabase below for the real
+       success signal. */
+    okAny=true;
+  }catch(e){}
+
+  try{
+    var body={email:email,source:HK_TOOL};
+    if(HK_MAGNET)body.magnet=HK_MAGNET;
+    var r=await fetch('https://ktekniuqywcvmpdmufhr.supabase.co/rest/v1/tool_leads',{
+      method:'POST',
+      headers:{apikey:'sb_publishable_50Jzec1Izh9BfE275wVTPA_JlAeKKEy','Content-Type':'application/json',Prefer:'return=minimal'},
+      body:JSON.stringify(body)
+    });
+    if(r.ok)okAny=true;
+  }catch(e){}
+
+  if(okAny)hkMarkCaptured();
+  return okAny;
+}
+
+/* EMAIL MODAL */
+function scheduleEmailBanner(){
+  if(hkAlreadyCaptured())return;
+  setTimeout(function(){
+    if(hkAlreadyCaptured())return;
+    var el=document.getElementById('email-banner-overlay');
+    if(el)el.style.display='flex';
+  },60000);
+}
+function dismissEmailBanner(){
+  var el=document.getElementById('email-banner-overlay');
+  if(el)el.style.display='none';
+  hkMarkCaptured();
+}
+async function claimEmailOffer(){
+  var input=document.getElementById('email-banner-input');
+  var email=(input.value||'').trim();
+  if(!email||email.indexOf('@')===-1){toast('Please enter a valid email');return;}
+  var btn=document.getElementById('eb-btn');
+  btn.disabled=true;btn.textContent='Saving';
+  var ok=await hkCapture(email);
+  btn.disabled=false;btn.textContent='Claim my code';
+  if(!ok){toast('That did not save. Mind trying once more?');return;}
+  document.getElementById('email-banner-offer').style.display='none';
+  document.getElementById('email-banner-success').style.display='block';
+}
+
+/* INLINE CAPTURE CARD */
+function wireInlineCapture(){
+  var form=document.getElementById('capture');
+  if(!form)return;
+  form.addEventListener('submit',async function(e){
+    e.preventDefault();
+    var btn=document.getElementById('cap-btn');
+    var msg=document.getElementById('cap-msg');
+    var field=document.getElementById('email');
+    var email=(field.value||'').trim();
+    btn.disabled=true;msg.textContent='Saving';
+    var ok=await hkCapture(email);
+    btn.disabled=false;
+    if(ok){msg.textContent="You're on the list. Your 25% code is WELCOME25.";field.value='';}
+    else{msg.textContent="That did not save. Mind trying once more?";}
+  });
+}
+
+/* The banner nudge, same trick as the seating chart's third table */
+var hkNudged=false;
+function hkNudge(){
+  if(hkNudged)return;hkNudged=true;
+  var banner=document.getElementById('hk-footer-banner');
+  if(!banner)return;
+  banner.classList.add('nudge');
+  setTimeout(function(){banner.classList.remove('nudge');},6000);
+}
+
+document.addEventListener('DOMContentLoaded',function(){
+  wireInlineCapture();
+  scheduleEmailBanner();
+});
+</script>
 <script>
 const SB_URL='https://ktekniuqywcvmpdmufhr.supabase.co';
 const SB_KEY='sb_publishable_50Jzec1Izh9BfE275wVTPA_JlAeKKEy';
@@ -196,21 +452,6 @@ window.addEventListener('message', e => {
 });
 document.getElementById('veil').addEventListener('click', e => {
   if (e.target.id === 'veil') e.target.classList.remove('open');
-});
-
-document.getElementById('capture').addEventListener('submit', async e => {
-  e.preventDefault();
-  const btn=document.getElementById('cap-btn'), msg=document.getElementById('cap-msg');
-  const email=document.getElementById('email').value.trim();
-  btn.disabled=true; msg.textContent='Saving…';
-  try{
-    const r=await fetch(SB_URL+'/rest/v1/tool_leads',{method:'POST',
-      headers:{apikey:SB_KEY,'Content-Type':'application/json',Prefer:'return=minimal'},
-      body:JSON.stringify({email,source:'crochet-wip-tracker',magnet:'yarn-substitution-cheat-sheet.pdf'})});
-    msg.textContent = r.ok ? "You're on the list. Thank you." : "That didn't save. Mind trying once more?";
-    if(r.ok) document.getElementById('email').value='';
-  }catch(err){ msg.textContent="Couldn't reach the server. Try again in a moment."; }
-  btn.disabled=false;
 });
 </script>
 </body>
